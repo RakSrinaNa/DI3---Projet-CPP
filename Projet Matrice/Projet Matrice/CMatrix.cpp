@@ -8,18 +8,18 @@
 
 
 template <class T>
-void CMatrix::CMatrix() : CMatrix(1, 1)
+CMatrix::CMatrix() : CMatrix(1, 1)
 {
 }
 
 template <class T>
-void CMatrix::CMatrix(CMatrix const& oMTXmatrixParam)
+CMatrix::CMatrix(CMatrix const& oMTXmatrixParam)
 {
 }
 
 //TODO
 template <class T>
-void CMatrix::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
+CMatrix::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
 	ptBody = T[uiHeight][uiWidth];
 	for(unsigned int i = 0; i < uiHeight; i++)
@@ -28,7 +28,7 @@ void CMatrix::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : u
 }
 
 template <class T>
-void CMatrix::~CMatrix()
+CMatrix::~CMatrix()
 {
 }
 

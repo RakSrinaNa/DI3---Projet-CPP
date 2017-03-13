@@ -19,13 +19,13 @@ protected:
 
 
 public:
-	void CMatrix();
+	CMatrix();
 
-	void CMatrix(CMatrix const& oMTXmatrixParam);
+	CMatrix(CMatrix const& oMTXmatrixParam);
 
-	void CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
+	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 
-	void ~CMatrix();
+	~CMatrix();
 
 	unsigned int MTXgetHeight();
 

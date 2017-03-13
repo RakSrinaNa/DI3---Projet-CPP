@@ -81,6 +81,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CException.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CMatrixParser.h" />
     <ClInclude Include="CSquareMatrix.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CException.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CMatrixParser.cpp" />
     <ClCompile Include="CSquareMatrix.cpp" />
