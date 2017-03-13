@@ -7,6 +7,7 @@
 #include "CSquareMatrix.h"
 
 
+template <T>
 double CSquareMatrix::SMTXgetDeterminant()
 {
 	return 0;

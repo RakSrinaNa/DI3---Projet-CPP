@@ -1,0 +1,96 @@
+﻿La génération a démarré 13/03/2017 12:04:04.
+     1>Projet "E:\Polytech\ProjetTutore\DI3---Projet3\Projet Matrice\Projet Matrice\Projet Matrice.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CMatrix.cpp CMatrixParser.cpp CSquareMatrix.cpp
+         CSquareMatrix.cpp
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(22): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(52) : voir la référence à l'instanciation de la classe modèle 'CMatrix<T>' en cours de compilation
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2652: 'CMatrix<T>' : constructeur de copie non conforme : le premier paramètre ne doit pas être 'CMatrix<T>'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(26): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(28): error C2577: 'CMatrix<T>' : destructeur ne peut pas avoir de type de retour
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\csquarematrix.h(13): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+         CMatrixParser.cpp
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(22): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(52) : voir la référence à l'instanciation de la classe modèle 'CMatrix<T>' en cours de compilation
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2652: 'CMatrix<T>' : constructeur de copie non conforme : le premier paramètre ne doit pas être 'CMatrix<T>'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(26): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(28): error C2577: 'CMatrix<T>' : destructeur ne peut pas avoir de type de retour
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrixparser.cpp(11): error C2079: 'CMatrixParser::PMTXreadFile' utilise une class de 'CMatrix' non défini
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrixparser.cpp(12): error C2663: 'CMatrix<T>::CMatrix' : 3 surcharges n'ont pas de conversion autorisée pour le pointeur 'this'
+         CMatrix.cpp
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(22): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(52) : voir la référence à l'instanciation de la classe modèle 'CMatrix<T>' en cours de compilation
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(24): error C2652: 'CMatrix<T>' : constructeur de copie non conforme : le premier paramètre ne doit pas être 'CMatrix<T>'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(26): error C2533: 'CMatrix<T>' : type de retour non autorisé pour les constructeurs
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(28): error C2577: 'CMatrix<T>' : destructeur ne peut pas avoir de type de retour
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(10): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(11): error C2509: '{ctor}' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(14): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(15): error C2509: '{ctor}' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(18): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(19): error C2509: '{ctor}' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(22): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(23): error C2509: '{dtor}' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(26): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(27): error C2509: 'MTXgetHeight' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(31): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(32): error C2509: 'MTXgetWidth' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(42): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(42): error C2061: erreur de syntaxe : identificateur 'T'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(43): error C2509: 'MTXsetValue' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(46): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(47): error C2509: 'MTXdisplay' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(50): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(51): error C2509: 'MTXtranspose' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(55): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(56): error C2509: '+' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(60): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(61): error C2509: '-' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(65): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(66): error C2509: '*' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(70): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(71): error C2509: '*' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(75): error C2955: 'CMatrix' : l'utilisation d'une classe modèle requiert une liste d'arguments modèle
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+     1>e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.cpp(76): error C2509: '/' : fonction membre non déclarée dans 'CMatrix'
+                 e:\polytech\projettutore\di3---projet3\projet matrice\projet matrice\cmatrix.h(12) : voir la déclaration de 'CMatrix'
+         Génération de code en cours...
+     1>Génération du projet "E:\Polytech\ProjetTutore\DI3---Projet3\Projet Matrice\Projet Matrice\Projet Matrice.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+
+ÉCHEC de la build.
+
+Temps écoulé 00:00:04.99

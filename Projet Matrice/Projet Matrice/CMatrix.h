@@ -11,41 +11,41 @@ template <class T>
 class CMatrix
 {
 protected:
-	int uiHeight;
+	unsigned int uiHeight;
 
-	int uiWidth;
+	unsigned int uiWidth;
 
-	T[][] ptBody;
+	T ptBody[][];
 
 
 public:
 	void CMatrix();
 
-	void CMatrix(CMatrix oMTXmatrixParam);
+	void CMatrix(CMatrix const& oMTXmatrixParam);
 
-	void CMatrix(int uiHeightParam, int uiWidthParam);
+	void CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 
 	void ~CMatrix();
 
-	int MTXgetHeight();
+	unsigned int MTXgetHeight();
 
-	int MTXgetWidth();
+	unsigned int MTXgetWidth();
 
-	T MTXgetValue(int uiHeightParam, int uiWidthParam);
+	T MTXgetValue(unsigned int uiHeightParam, unsigned int uiWidthParam);
 
-	void MTXsetValue(int uiHeightParam, int uiWidthParam, T uiValueParam);
+	void MTXsetValue(unsigned int uiHeightParam, unsigned int uiWidthParam, T uiValueParam);
 
 	void MTXdisplay();
 
 	CMatrix& MTXtranspose();
 
-	CMatrix& operator+(CMatrix oMTXmatrixParam);
+	CMatrix& operator+(CMatrix const& oMTXmatrixParam);
 
-	CMatrix& operator-(CMatrix oMTXmatrixParam);
+	CMatrix& operator-(CMatrix const& oMTXmatrixParam);
 
 	CMatrix& operator*(int iCoeficient);
 
-	CMatrix& operator*(CMatrix oMTXmatrixParam);
+	CMatrix& operator*(CMatrix const& oMTXmatrixParam);
 
 	CMatrix& operator/(int iCoeficient);
 

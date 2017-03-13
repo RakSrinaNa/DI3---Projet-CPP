@@ -9,7 +9,8 @@
 
 #include "CMatrix.h"
 
-class CSquareMatrix : public CMatrix
+template <class T>
+class CSquareMatrix : public CMatrix<T>
 {
 public:
 	double SMTXgetDeterminant();

@@ -7,71 +7,107 @@
 #include "CMatrix.h"
 
 
-void CMatrix::CMatrix()
+template <class T>
+void CMatrix::CMatrix() : CMatrix(1, 1)
 {
 }
 
-void CMatrix::CMatrix(CMatrix oMTXmatrixParam)
+template <class T>
+void CMatrix::CMatrix(CMatrix const& oMTXmatrixParam)
 {
 }
 
-void CMatrix::CMatrix(int uiHeightParam, int uiWidthParam)
+//TODO
+template <class T>
+void CMatrix::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
+	ptBody = T[uiHeight][uiWidth];
+	for(unsigned int i = 0; i < uiHeight; i++)
+		for(unsigned int j = 0; j < uiWidth; j++)
+			ptBody[i][j] = 0;
 }
 
+template <class T>
 void CMatrix::~CMatrix()
 {
 }
 
-int CMatrix::MTXgetHeight()
+template <class T>
+inline unsigned int CMatrix::MTXgetHeight()
 {
-	return 0;
-}
-
-int CMatrix::MTXgetWidth()
-{
-	return 0;
+	return uiHeight;
 }
 
 template <class T>
- T CMatrix<T>::MTXgetValue(int uiHeightParam, int uiWidthParam)
+inline unsigned int CMatrix::MTXgetWidth()
 {
-	return 0;
+	return uiWidth;
 }
 
-void CMatrix::MTXsetValue(int uiHeightParam, int uiWidthParam, T uiValueParam)
+//TODO
+template <class T>
+inline T CMatrix<T>::MTXgetValue(unsigned int uiHeightParam, unsigned int uiWidthParam)
 {
+	if(uiHeightParam >= uiHeight || uiWidthParam >= uiWidth)
+	{
+	}
+
+	return ptBody[uiHeightParam][uiWidthParam];
 }
 
+//TODO
+template <T>
+void CMatrix::MTXsetValue(unsigned int uiHeightParam, unsigned int uiWidthParam, T uiValueParam)
+{
+	if(uiHeightParam >= uiHeight || uiWidthParam >= uiWidth)
+	{
+	}
+
+	ptBody[uiHeightParam][uiWidthParam] = uiValueParam;
+}
+
+template <class T>
 void CMatrix::MTXdisplay()
 {
+	for(unsigned int i = 0; i < uiHeight; i++)
+	{
+		for(unsigned int j = 0; j < uiWidth; j++)
+			std::cout << ptBody[i][j] << "\t";
+		std::cout << "\n";
+	}
 }
 
+template <class T>
 CMatrix& CMatrix::MTXtranspose()
 {
 	return *this;
 }
 
-CMatrix& CMatrix::operator+(CMatrix oMTXmatrixParam)
+template <class T>
+CMatrix& CMatrix::operator+(CMatrix const& oMTXmatrixParam)
 {
 	return *this;
 }
 
-CMatrix& CMatrix::operator-(CMatrix oMTXmatrixParam)
+template <class T>
+CMatrix& CMatrix::operator-(CMatrix const& oMTXmatrixParam)
 {
 	return *this;
 }
 
+template <class T>
 CMatrix& CMatrix::operator*(int iCoeficient)
 {
 	return *this;
 }
 
-CMatrix& CMatrix::operator*(CMatrix oMTXmatrixParam)
+template <class T>
+CMatrix& CMatrix::operator*(CMatrix const& oMTXmatrixParam)
 {
 	return *this;
 }
 
+template <class T>
 CMatrix& CMatrix::operator/(int iCoeficient)
 {
 	return *this;

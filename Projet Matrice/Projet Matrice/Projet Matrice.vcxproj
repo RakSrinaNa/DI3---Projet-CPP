@@ -81,11 +81,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CMatrice.h" />
+    <ClInclude Include="CMatrix.h" />
+    <ClInclude Include="CMatrixParser.h" />
+    <ClInclude Include="CSquareMatrix.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMatrix.cpp" />
+    <ClCompile Include="CMatrixParser.cpp" />
+    <ClCompile Include="CSquareMatrix.cpp" />
     <ClCompile Include="Projet Matrice.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>

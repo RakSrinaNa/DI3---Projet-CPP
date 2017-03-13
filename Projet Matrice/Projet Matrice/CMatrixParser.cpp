@@ -7,7 +7,8 @@
 #include "CMatrixParser.h"
 
 
-CMatrix CMatrixParser::PMTXreadFile(char* pcFileName)
+template <T>
+CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	return 0;
 }

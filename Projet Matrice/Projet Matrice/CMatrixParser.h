@@ -12,7 +12,8 @@
 class CMatrixParser
 {
 public:
-	CMatrix PMTXreadFile(char* pcFileName);
+	template <T>
+	CMatrix<T> PMTXreadFile(char* pcFileName);
 
 };
 #endif
