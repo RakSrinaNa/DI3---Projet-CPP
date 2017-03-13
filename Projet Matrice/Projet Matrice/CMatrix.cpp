@@ -83,7 +83,11 @@ void CMatrix<T>::MTXdisplay()
 template <class T>
 CMatrix<T>& CMatrix<T>::MTXtranspose()
 {
-	return *this;
+	CMatrix<T> * poMTXtrans = new CMatrix(this->MTXgetWidth, this->MTXgetHeight);
+	for(int iRow = 0; iRow < uiHeight; iRow++)
+		for(int iColumn = 0; iColumn < uiWidth; iColumn++)
+			*poMTXtrans[iColumn][iRow] = 0;
+	return *poMTXtrans;
 }
 
 template <class T>
