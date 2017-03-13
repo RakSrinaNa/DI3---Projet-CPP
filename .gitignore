@@ -1,1 +1,10 @@
 *.lock
+Projet Matrice/.idea
+Projet Matrice/cmake-build-debug
+*.tlog
+*.log
+*.idb
+*.pdb
+*.unsuccessfulbuild
+*.lastbuildstate
+*.obj
