@@ -1,14 +1,7 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "CMatrixParser.h"
 
-
-template <T>
+template <class T>
 CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 {
-	return 0;
+	return nullptr;
 }
