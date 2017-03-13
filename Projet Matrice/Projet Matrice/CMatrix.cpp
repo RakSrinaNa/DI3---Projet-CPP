@@ -120,3 +120,9 @@ CMatrix<T>& CMatrix<T>::operator/(int iCoeficient)
 	}
 	return *this;
 }
+
+template <class T>
+CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
+{
+	return *this;
+}
