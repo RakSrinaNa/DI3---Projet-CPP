@@ -19,11 +19,11 @@ template <class T>
 CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
-	for(int iRow = 0; iRow < uiHeight; iRow++)
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 	{
-		MMALLOC(ptValues[iRow], T, uiWidth, "CMatrix constructor");
-		for(int iColumn = 0; iColumn < uiWidth; iColumn++)
-			ptValues[iRow][iColumn] = 0;
+		MMALLOC(ptValues[uiRow], T, uiWidth, "CMatrix constructor");
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = 0;
 	}
 }
 
@@ -72,10 +72,10 @@ void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValu
 template <class T>
 void CMatrix<T>::MTXdisplay()
 {
-	for(unsigned int i = 0; i < uiHeight; i++)
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 	{
-		for(unsigned int j = 0; j < uiWidth; j++)
-			std::cout << ptValues[i][j] << "\t";
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			std::cout << ptValues[uiRow][uiColumn] << "\t";
 		std::cout << "\n";
 	}
 }
@@ -83,10 +83,10 @@ void CMatrix<T>::MTXdisplay()
 template <class T>
 CMatrix<T>& CMatrix<T>::MTXtranspose()
 {
-	CMatrix<T> * poMTXtrans = new CMatrix(this->MTXgetWidth, this->MTXgetHeight);
-	for(int iRow = 0; iRow < uiHeight; iRow++)
-		for(int iColumn = 0; iColumn < uiWidth; iColumn++)
-			*poMTXtrans[iColumn][iRow] = 0;
+	CMatrix<T> * poMTXtrans = new CMatrix(MTXgetWidth(), MTXgetHeight());
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			*poMTXtrans[uiColumn][uiRow] = 0;
 	return *poMTXtrans;
 }
 
