@@ -12,7 +12,7 @@ CException::CException()
 CException::CException(CException const&oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
-	pcEXMessage = strdup(oEXexception.pcEXMessage);
+	pcEXMessage = _strdup(oEXexception.pcEXMessage);
 }
 
 CException::CException(unsigned int uiEXIDParam)
@@ -36,12 +36,12 @@ void CException::operator=(CException &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	free(pcEXMessage);
-	pcEXMessage = strdup(oEXexception.pcEXMessage);
+	pcEXMessage = _strdup(oEXexception.pcEXMessage);
 }
 
 void CException::EXecrireExceptionMessage(char * pcEXMessageParam)
 {
 	if(pcEXMessage == nullptr)
 		free(pcEXMessage);
-	pcEXMessage = strdup(pcEXMessageParam);
+	pcEXMessage = _strdup(pcEXMessageParam);
 }

@@ -27,11 +27,12 @@ public:
 	void MTXdisplay();
 	CMatrix& MTXtranspose();
 	
-	CMatrix& operator=(CMatrix<T> const& oMTXmatrixParam);
 	CMatrix& operator+(CMatrix const& oMTXmatrixParam);
 	CMatrix& operator-(CMatrix const& oMTXmatrixParam);
 	CMatrix& operator*(CMatrix const& oMTXmatrixParam);
-	CMatrix& operator*(int iCoeficient);
-	CMatrix& operator/(int iCoeficient);
+	CMatrix& operator*(double iCoeficient);
+	CMatrix& operator/(double iCoeficient);
+	CMatrix& operator=(CMatrix const& oMTXmatrixParam);
+	bool operator==(CMatrix const& oMTXmatrixParam);
 };
 #endif

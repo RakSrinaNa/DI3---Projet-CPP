@@ -10,8 +10,13 @@ CMatrix<T>::CMatrix() : CMatrix(1, 1)
 }
 
 template <class T>
-CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam)
+CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix(oMTXmatrixParam.MTXgetHeight(), oMTXmatrixParam.MTXgetWidth())
 {
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = oMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+
+	return *this;
 }
 
 //TODO
@@ -87,25 +92,53 @@ CMatrix<T>& CMatrix<T>::MTXtranspose()
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			*poMTXtrans[uiColumn][uiRow] = 0;
+
 	return *poMTXtrans;
 }
 
 template <class T>
 CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 {
-	return *this;
+	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
+	{
+		CException * poCEXexception = new CException(InCOMPATIBLE_MATRIX_SUM_EXCEPTION, (char *) "The two matrix don't have the same size");
+		throw poCEXexception;
+	}
+
+	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth());
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			*poMTXsum[uiRow][uiColumn] = this->MTXgetValue(uiRow, uiHeight) + oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+
+	return *poMTXsum;
 }
 
 template <class T>
 CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 {
-	return *this;
+	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
+	{
+		CException * poCEXexception = new CException(InCOMPATIBLE_MATRIX_SUM_EXCEPTION, (char *) "The two matrix don't have the same size");
+		throw poCEXexception;
+	}
+
+	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth());
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			*poMTXsub[uiRow][uiColumn] = this->MTXgetValue(uiRow, uiHeight) - oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+
+	return *poMTXsub;
 }
 
 template <class T>
-CMatrix<T>& CMatrix<T>::operator*(int iCoeficient)
+CMatrix<T>& CMatrix<T>::operator*(double iCoeficient)
 {
-	return *this;
+	CMatrix<T> * poMTXtimes = new CMatrix(*this);
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			*poMTXtimes[uiRow][uiColumn] *= iCoeficient;
+
+	return *poMTXtimes;
 }
 
 template <class T>
@@ -115,18 +148,32 @@ CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 }
 
 template <class T>
-CMatrix<T>& CMatrix<T>::operator/(int iCoeficient)
+CMatrix<T>& CMatrix<T>::operator/(double iCoeficient)
 {
 	if(iCoeficient == 0)
 	{
 		CException * poCEXexception = new CException(DIVISION_BY_ZEO_EXCEPTION, "Division par zero");
 		throw poCEXexception;
 	}
-	return *this;
+	return (*this) * (1/iCoeficient);
 }
 
 template <class T>
 CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 {
 	return *this;
+}
+
+template <class T>
+bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
+{
+	if(uiHeight != oMTXmatrixParam.MTXgetHeight || uiWidth != oMTXmatrixParam.MTXgetWidth)
+		return false;
+	
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			if(ptValues[uiRow][uiColumn] != oMTXmatrixParam.MTXgetValue(uiRow, uiColumn))
+				return false;
+
+	return true;
 }
