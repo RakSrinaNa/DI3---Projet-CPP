@@ -11,8 +11,8 @@ CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned 
 			if(uiRow == uiRowParam || uiColumn == uiColumnParam)
 				continue;
 			ptValues[uiPosition / uiHeight][uiPosition % uiHeight] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+			uiPosition++;
 		}
-
 }
 
 template <class T>
@@ -34,7 +34,7 @@ double CSquareMatrix<T>::SMTXgetDeterminant()
 		for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, 0);
-			dDeterminant += oMTXmatrix.SMTXgetDeterminant();
+			dDeterminant += (uiRow%2 == 0 ? 1 : -1) * ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant();
 		}
 		return dDeterminant;
 	}

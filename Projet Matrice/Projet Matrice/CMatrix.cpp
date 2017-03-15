@@ -101,7 +101,7 @@ CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
 	{
-		CException * poCEXexception = new CException(InCOMPATIBLE_MATRIX_SUM_EXCEPTION, (char *) "The two matrix don't have the same size");
+		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 		throw poCEXexception;
 	}
 
@@ -118,7 +118,7 @@ CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
 	{
-		CException * poCEXexception = new CException(InCOMPATIBLE_MATRIX_SUM_EXCEPTION, (char *) "The two matrix don't have the same size");
+		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 		throw poCEXexception;
 	}
 
@@ -161,6 +161,16 @@ CMatrix<T>& CMatrix<T>::operator/(double iCoeficient)
 template <class T>
 CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 {
+	if (uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
+	{
+		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
+		throw poCEXexception;
+	}
+
+	for (unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for (unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = oMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+
 	return *this;
 }
 
