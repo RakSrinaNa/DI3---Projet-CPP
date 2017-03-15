@@ -22,6 +22,8 @@ class CMatrixParser
 public:
 	template <class T>
 	static CMatrix<T> PMTXreadFile(char* pcFileName);
+
+private:
 	static char * PMTXgetLineValue(char * pcLine);
 	static double * PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount);
 	static CMatrixType PMTXgetValueAsMType(char * pcLine);
