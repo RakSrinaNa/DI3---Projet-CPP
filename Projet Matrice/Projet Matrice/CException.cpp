@@ -6,42 +6,42 @@
 CException::CException()
 {
 	uiEXID = 0;
-	pcEXMessage = nullptr;
+	pcEXmessage = nullptr;
 }
 
 CException::CException(CException const&oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
-	pcEXMessage = _strdup(oEXexception.pcEXMessage);
+	pcEXmessage = _strdup(oEXexception.pcEXmessage);
 }
 
 CException::CException(unsigned int uiEXIDParam)
 {
 	uiEXID = uiEXIDParam;
-	pcEXMessage = nullptr;
+	pcEXmessage = nullptr;
 }
 
-CException::CException(unsigned int uiEXIDParam, char * pcEXMessageParam)
+CException::CException(unsigned int uiEXIDParam, char * pcEXmessageParam)
 {
 	uiEXID = uiEXIDParam;
-	EXecrireExceptionMessage(pcEXMessageParam);
+	EXsetExceptionMessage(pcEXmessageParam);
 }
 
 CException::~CException()
 {
-	free(pcEXMessage);
+	free(pcEXmessage);
 }
 
 void CException::operator=(CException &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
-	free(pcEXMessage);
-	pcEXMessage = _strdup(oEXexception.pcEXMessage);
+	free(pcEXmessage);
+	pcEXmessage = _strdup(oEXexception.pcEXmessage);
 }
 
-void CException::EXecrireExceptionMessage(char * pcEXMessageParam)
+void CException::EXsetExceptionMessage(char * pcEXmessageParam)
 {
-	if(pcEXMessage == nullptr)
-		free(pcEXMessage);
-	pcEXMessage = _strdup(pcEXMessageParam);
+	if(pcEXmessage == nullptr)
+		free(pcEXmessage);
+	pcEXmessage = _strdup(pcEXmessageParam);
 }

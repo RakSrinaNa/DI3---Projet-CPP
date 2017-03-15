@@ -8,7 +8,7 @@ class CException
 {
 	private:
 		unsigned int uiEXID;
-		char * pcEXMessage;
+		char * pcEXmessage;
 	
 	public:
 		/**************************************************************
@@ -53,12 +53,12 @@ class CException
 		 *
 		 * Entree:
 		 *      uiEXIDParam:        Le numero de l'erreur.
-		 *      pcEXMessageParam:   Un message decrivant l'erreur
+		 *      pcEXmessageParam:   Un message decrivant l'erreur
 		 * Sortie:
 		 * PreCond:
 		 * PostCond:
 		 */
-		CException(unsigned int uiEXIDParam, char * pcEXMessageParam);
+		CException(unsigned int uiEXIDParam, char * pcEXmessageParam);
 	
 		/**************************************************************
 		 * Destructeur.
@@ -81,7 +81,7 @@ class CException
 		 * PreCond:
 		 * PostCond:
 		 */
-		unsigned int EXlireExceptionID(){return uiEXID;};
+		unsigned int EXgetExceptionID(){return uiEXID;};
 	
 		/**************************************************************
 		* Permet d'obtenir le message d'erreur.
@@ -92,7 +92,7 @@ class CException
 		* PreCond:
 		* PostCond:
 		*/
-		char * EXlireExceptionMessage(){return pcEXMessage;};
+		char * EXgetExceptionMessage(){return pcEXmessage;};
 	
 		/**************************************************************
 		* Permet de definir le numero de l'erreur.
@@ -104,19 +104,19 @@ class CException
 		* PreCond:
 		* PostCond:
 		*/
-		void EXecrireExceptionID(unsigned int uiEXIDParam){uiEXID = uiEXIDParam;};
+		void EXsetExceptionID(unsigned int uiEXIDParam){uiEXID = uiEXIDParam;};
 	
 		/**************************************************************
 		 * Permet de definir le message d'erreur.
 		 **************************************************************
 		 *
 		 * Entree:
-		 *      pcEXMessageParam: Le message d'erreur. Une copie en sera faite.
+		 *      pcEXmessageParam: Le message d'erreur. Une copie en sera faite.
 		 * Sortie:
 		 * PreCond:
 		 * PostCond:
 		 */
-		void EXecrireExceptionMessage(char * pcEXMessageParam);
+		void EXsetExceptionMessage(char * pcEXmessageParam);
 	
 		/**************************************************************
 		 * Redefinition de l'operateur egal.
