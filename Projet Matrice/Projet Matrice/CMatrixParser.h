@@ -5,9 +5,12 @@
 #define MALFORMATTED_FILE_EXCEPTION 4891
 #define UNSUPPORTED_TYPE_EXCEPTION 4892
 
+#include <cstdio>
+#include <cstdlib>
 #include "CMatrix.h"
 
 enum CMatrixType{
+	ERROR,
 	BYTE,
 	SHORT,
 	INT,

@@ -40,19 +40,19 @@ CMatrix<T>::~CMatrix()
 }
 
 template <class T>
-inline unsigned int CMatrix<T>::MTXgetHeight()
+inline unsigned int CMatrix<T>::MTXgetHeight() const
 {
 	return uiHeight;
 }
 
 template <class T>
-inline unsigned int CMatrix<T>::MTXgetWidth()
+inline unsigned int CMatrix<T>::MTXgetWidth() const
 {
 	return uiWidth;
 }
 
 template <class T>
-inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn)
+inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn) const
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
 	{

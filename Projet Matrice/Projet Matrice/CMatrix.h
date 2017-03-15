@@ -19,9 +19,9 @@ public:
 	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 	~CMatrix();
 
-	const unsigned int MTXgetHeight();
-	const unsigned int MTXgetWidth();
-	const T MTXgetValue(unsigned int uiRow, unsigned int uiColumn);
+	unsigned int MTXgetHeight() const;
+	unsigned int MTXgetWidth() const;
+	T MTXgetValue(unsigned int uiRow, unsigned int uiColumn) const;
 	
 	void MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValueParam);
 
@@ -35,6 +35,6 @@ public:
 	CMatrix& operator/(double iCoeficient);
 	CMatrix& operator=(CMatrix const& oMTXmatrixParam);
 	bool operator==(CMatrix const& oMTXmatrixParam);
-	T* operator[](unsigned int uiRow, unsigned int uiColumn);
+	T* operator[](unsigned int uiRow);
 };
 #endif

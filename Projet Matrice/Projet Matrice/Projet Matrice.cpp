@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-	char * file = "M1.txt";
+	char * file = (char *) "M1.txt";
 	CMatrix<double> matrix = CMatrixParser::PMTXreadFile<double>(file);
 	matrix.MTXdisplay();
 	return 0;

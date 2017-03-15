@@ -6,7 +6,7 @@
 #include "utils.h"
 
 template <class T>
-static CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
+CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile = fopen(pcFileName, "r");
 	if(poFILEfile == nullptr)
@@ -20,7 +20,7 @@ static CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 	CMatrixType eMTTtype = PMTXgetValueAsMType(pcTypeValue);
 	free(pcCurrentLine);
 	
-	if(eMTTtype == nullptr || eMTTtype != DOUBLE)
+	if(eMTTtype == ERROR || eMTTtype != DOUBLE)
 	{
 		CException * poCEXexception = new CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
 		throw poCEXexception;
@@ -55,7 +55,7 @@ static CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 	return nullptr;
 }
 
-static double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount)
+double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount)
 {
 	double * pdValues;
 	MMALLOC(pdValues, double, uiValuesCount, "parser_lineToIntArray");
@@ -106,7 +106,7 @@ static double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigne
 	return pdValues;
 }
 
-static char * CMatrixParser::PMTXgetLineValue(char * pcLine)
+char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 {
 	while(*pcLine != '=' && *pcLine != '\0')
 		pcLine++;
@@ -118,7 +118,7 @@ static char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 	return pcLine;
 }
 
-static CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
+CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
 	if(strcmp("byte", pcLine) == 0)
 		return BYTE;
@@ -137,7 +137,7 @@ static CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 	return nullptr;
 }
 
-static char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
+char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 {
 	char * pcLineRead = NULL;
 	size_t uiSize = 0;
@@ -154,7 +154,7 @@ static char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 	return pcLineRead;
 }
 
-static int CMatrixParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
+int CMatrixParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
 {
 	char * pcBuffer = NULL; // Buffer string
 	unsigned int uiWritingHead = 0; // Pointer to the writing position in the buffer
