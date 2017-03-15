@@ -5,7 +5,7 @@
 #include "utils.h"
 
 template <class T>
-CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
+static CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile = fopen(pcFileName, "r");
 	if(poFILEfile == nullptr)
@@ -14,14 +14,14 @@ CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 		throw poCEXexception;
 	}
 	
-	char * pcCurrentLine = parser_readLine(poFILEfile);
+	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	
 	
 	fclose(poFILEfile);
 	return nullptr;
 }
 
-static char * CMatrixParser::parser_readLine(FILE * poFILEfile)
+static char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 {
 	char * pcLineRead = NULL;
 	size_t uiSize = 0;
@@ -32,13 +32,13 @@ static char * CMatrixParser::parser_readLine(FILE * poFILEfile)
 			free(pcLineRead);
 			pcLineRead = NULL;
 		}
-		if(getLine(&pcLineRead, &uiSize, poFILEfile) == -1) // Read a line, and return NULL if end of poFILEfile
+		if(PMTXgetLine(&pcLineRead, &uiSize, poFILEfile) == -1) // Read a line, and return NULL if end of poFILEfile
 			return NULL;
 	} while(*pcLineRead == '\n' || (*pcLineRead == '\r' && pcLineRead[1] == '\n')); // While we have a non empty line
 	return pcLineRead;
 }
 
-static int CMatrixParser::getLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
+static int CMatrixParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
 {
 	char * pcBuffer = NULL; // Buffer string
 	unsigned int uiWritingHead = 0; // Pointer to the writing position in the buffer

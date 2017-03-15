@@ -9,8 +9,8 @@ class CMatrixParser
 {
 public:
 	template <class T>
-	CMatrix<T> PMTXreadFile(char* pcFileName);
-	static int getLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
-	static char * parser_readLine(FILE * poFILEfile);
+	static CMatrix<T> PMTXreadFile(char* pcFileName);
+	static int PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
+	static char * PMTXreadLineFromFile(FILE * poFILEfile);
 };
 #endif
