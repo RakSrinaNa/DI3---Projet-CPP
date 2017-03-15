@@ -2,6 +2,16 @@
 
 
 template <class T>
+CSquareMatrix<T>::CSquareMatrix() : CMatrix()
+{
+}
+
+template <class T>
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
+{
+}
+
+template <class T>
 CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix(oMTXmatrixParam.MTXgetHeight() - 1, oMTXmatrixParam.MTXgetWidth() - 1)
 {
 	unsigned int uiPosition = 0;

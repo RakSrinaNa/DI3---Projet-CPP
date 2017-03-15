@@ -7,6 +7,8 @@ template <class T>
 class CSquareMatrix : public CMatrix<T>
 {
 public:
+	CSquareMatrix();
+	CSquareMatrix(unsigned int uiSize);
 	CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRow, unsigned int uiColumn);
 
 	unsigned int SMTXgetSize();

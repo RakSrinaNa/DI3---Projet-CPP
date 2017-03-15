@@ -19,9 +19,9 @@ public:
 	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 	~CMatrix();
 
-	unsigned int MTXgetHeight();
-	unsigned int MTXgetWidth();
-	T MTXgetValue(unsigned int uiRow, unsigned int uiColumn);
+	const unsigned int MTXgetHeight();
+	const unsigned int MTXgetWidth();
+	const T MTXgetValue(unsigned int uiRow, unsigned int uiColumn);
 	
 	void MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValueParam);
 
