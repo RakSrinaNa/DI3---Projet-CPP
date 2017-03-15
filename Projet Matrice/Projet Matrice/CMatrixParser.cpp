@@ -120,19 +120,19 @@ static char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 
 static CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
-	if(strcmp("byte", pcLine))
+	if(strcmp("byte", pcLine) == 0)
 		return BYTE;
-	if(strcmp("short", pcLine))
+	if(strcmp("short", pcLine) == 0)
 		return SHORT;
-	if(strcmp("int", pcLine))
+	if(strcmp("int", pcLine) == 0)
 		return INT;
-	if(strcmp("float", pcLine))
+	if(strcmp("float", pcLine) == 0)
 		return FLOAT;
-	if(strcmp("double", pcLine))
+	if(strcmp("double", pcLine) == 0)
 		return DOUBLE;
-	if(strcmp("boolean", pcLine))
+	if(strcmp("boolean", pcLine) == 0)
 		return BOOLEAN;
-	if(strcmp("char", pcLine))
+	if(strcmp("char", pcLine) == 0)
 		return CHAR;
 	return nullptr;
 }
