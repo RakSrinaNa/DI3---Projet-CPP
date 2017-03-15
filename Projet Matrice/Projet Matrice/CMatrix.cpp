@@ -19,7 +19,6 @@ CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix(oMTXmatrixParam
 	return *this;
 }
 
-//TODO
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
@@ -108,7 +107,7 @@ CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXsum[uiRow][uiColumn] = this->MTXgetValue(uiRow, uiHeight) + oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+			*poMTXsum[uiRow][uiColumn] = MTXgetValue(uiRow, uiHeight) + oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
 
 	return *poMTXsum;
 }
@@ -125,7 +124,7 @@ CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXsub[uiRow][uiColumn] = this->MTXgetValue(uiRow, uiHeight) - oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+			*poMTXsub[uiRow][uiColumn] = MTXgetValue(uiRow, uiHeight) - oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
 
 	return *poMTXsub;
 }
@@ -144,7 +143,24 @@ CMatrix<T>& CMatrix<T>::operator*(double iCoeficient)
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 {
-	return *this;
+	if(uiWidth != oMTXmatrixParam.MTXgeHeight())
+	{
+		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix are incompatible for multiplication");
+		throw poCEXexception;
+	}
+
+	CMatrix<T> * poMTXtimes = new CMatrix(uiHeight, oMTXmatrixParam.MTXgetWidth());
+
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+		{
+			T dSum = 0;
+			for(unsigned int uiTimes = 0; uiTimes < uiWidth; uiTimes++)
+				dSum += ptValues[uiRow][uiTimes] * oMTXmatrixParam.MTXgetValue(uiTimes, uiColumn);
+			poMTXtimes->MTXsetValue(uiRow, uiHeight, dSum);
+		}
+
+	return *poMTXtimes;
 }
 
 template <class T>
@@ -186,4 +202,11 @@ bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 				return false;
 
 	return true;
+}
+
+
+template <class T>
+T* CMatrix<T>::operator[](unsigned int uiRow)
+{
+	return ptValues[uiRow];
 }

@@ -35,5 +35,6 @@ public:
 	CMatrix& operator/(double iCoeficient);
 	CMatrix& operator=(CMatrix const& oMTXmatrixParam);
 	bool operator==(CMatrix const& oMTXmatrixParam);
+	T* operator[](unsigned int uiRow, unsigned int uiColumn);
 };
 #endif
