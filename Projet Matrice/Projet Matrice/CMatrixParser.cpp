@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include "CMatrixParser.h"
 #include "CException.h"
 #include "utils.h"
@@ -15,9 +16,124 @@ static CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 	}
 	
 	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
+	CMatrixType eMTTtype = PMTXgetValueAsMType(pcTypeValue);
+	free(pcCurrentLine);
 	
+	if(eMTTtype == nullptr || eMTTtype != DOUBLE)
+	{
+		CException * poCEXexception = new CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
+		throw poCEXexception;
+	}
+	
+	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+	char * pcRows = PMTXgetLineValue(pcCurrentLine);
+	unsigned int uiRows = (unsigned int)atoi(pcRows);
+	free(pcCurrentLine);
+	
+	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+	char * pcColumns = PMTXgetLineValue(pcCurrentLine);
+	unsigned int uiColumns = (unsigned int)atoi(pcColumns);
+	free(pcCurrentLine);
+	
+	CMatrix<double> * pcMTXmatrix = new CMatrix(uiRows, uiColumns);
+	free(PMTXreadLineFromFile(poFILEfile));
+	
+	for(unsigned int uiRowIndex = 0; uiRowIndex < uiRows; uiRowIndex++)
+	{
+		pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+		double * pdValues = PMTXgetValuesAsDoubleArray(pcCurrentLine, uiColumns);
+		
+		for(unsigned int uiColumnIndex = 0; uiColumnIndex < uiColumns; uiColumnIndex++)
+			pcMTXmatrix->MTXsetValue(uiRowIndex, uiColumnIndex, pdValues[uiColumnIndex]);
+			
+		free(pdValues);
+		free(pcCurrentLine);
+	}
 	
 	fclose(poFILEfile);
+	return nullptr;
+}
+
+static double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount)
+{
+	double * pdValues;
+	MMALLOC(pdValues, double, uiValuesCount, "parser_lineToIntArray");
+	
+	unsigned int uiValuesLength = 0; // Number of values actually put in the array
+	
+	unsigned int uiIndex = 0; // The reading index
+	bool bReading = false; // Boolean to know if we are currently reading a number
+	
+	char * pcStart = pcLine; // The beginning of our number we are reading
+	unsigned int uiLength = 0; // The length of the number we are reading
+	
+	do
+	{
+		if(pcLine[uiIndex] == '\t' || pcLine[uiIndex] == ' ' || pcLine[uiIndex] == '\0' || pcLine[uiIndex] == '\n') // If we don't read a number
+		{
+			if(bReading) // If we were reading, add the number to the array
+			{
+				bReading = false;
+				
+				uiValuesLength++;
+				
+				char buffer[10] = {0};
+				memcpy(buffer, pcStart, uiLength);
+				buffer[uiLength] = '\0';
+				pdValues[uiValuesLength - 1] = atof(buffer);
+				
+				uiLength = 0;
+				
+				if(uiValuesLength == uiValuesCount) // If we read enough, stop
+					break;
+			}
+		}
+		else // If we read a number
+		{
+			if(!bReading) // If we just started reading it, change start and reading pdValues
+			{
+				bReading = true;
+				pcStart = pcLine + uiIndex;
+			}
+			uiLength++;
+		}
+		uiIndex++;
+	} while(pcLine[uiIndex - 1] != '\0'); // Read while we didn't reached the end of the string
+	
+	for(int i = uiValuesLength; i < uiValuesCount; i++) // Set missing pdValues to 0
+		pdValues[i] = 0;
+	return pdValues;
+}
+
+static char * CMatrixParser::PMTXgetLineValue(char * pcLine)
+{
+	while(*pcLine != '=' && *pcLine != '\0')
+		pcLine++;
+	if(*pcLine == '\0')
+	{
+		CException * poCEXexception = new CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
+		throw poCEXexception;
+	}
+	return pcLine;
+}
+
+static CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
+{
+	if(strcmp("byte", pcLine))
+		return BYTE;
+	if(strcmp("short", pcLine))
+		return SHORT;
+	if(strcmp("int", pcLine))
+		return INT;
+	if(strcmp("float", pcLine))
+		return FLOAT;
+	if(strcmp("double", pcLine))
+		return DOUBLE;
+	if(strcmp("boolean", pcLine))
+		return BOOLEAN;
+	if(strcmp("char", pcLine))
+		return CHAR;
 	return nullptr;
 }
 
