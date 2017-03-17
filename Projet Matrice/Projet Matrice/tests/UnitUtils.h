@@ -5,7 +5,7 @@
 #include <csignal>
 #include <cstdlib>
 
-static void assertError(char * pcMessage)
+static void assertError(const char * pcMessage)
 {
 	perror(pcMessage);
 	raise(SIGINT);

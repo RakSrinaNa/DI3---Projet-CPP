@@ -5,8 +5,7 @@
 #include "CException.h"
 #include "utils.h"
 
-template <class T>
-CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
+CMatrix * CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile = fopen(pcFileName, "r");
 	if(poFILEfile == nullptr)
@@ -52,7 +51,7 @@ CMatrix<T> CMatrixParser::PMTXreadFile(char* pcFileName)
 	}
 	
 	fclose(poFILEfile);
-	return nullptr;
+	return pcMTXmatrix;
 }
 
 double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount)
