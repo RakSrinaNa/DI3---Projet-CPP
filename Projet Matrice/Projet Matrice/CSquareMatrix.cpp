@@ -1,5 +1,5 @@
+#include "CMatrix.h"
 #include "CSquareMatrix.h"
-
 
 template <class T>
 CSquareMatrix<T>::CSquareMatrix() : CMatrix()
@@ -12,7 +12,7 @@ CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix(oMTXmatrixParam.MTXgetHeight() - 1, oMTXmatrixParam.MTXgetWidth() - 1)
+CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix(oSMTXmatrixParam.MTXgetHeight() - 1, oSMTXmatrixParam.MTXgetWidth() - 1)
 {
 	unsigned int uiPosition = 0;
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)

@@ -15,4 +15,7 @@ public:
 
 	double SMTXgetDeterminant();
 };
+
+#include "CSquareMatrix.cpp"
+
 #endif

@@ -5,9 +5,12 @@
 #define MALFORMATTED_FILE_EXCEPTION 4891
 #define UNSUPPORTED_TYPE_EXCEPTION 4892
 
+#include <cstdio>
+#include <cstdlib>
 #include "CMatrix.h"
 
 enum CMatrixType{
+	ERROR,
 	BYTE,
 	SHORT,
 	INT,
@@ -20,8 +23,7 @@ enum CMatrixType{
 class CMatrixParser
 {
 public:
-	template <class T>
-	static CMatrix<T> PMTXreadFile(char* pcFileName);
+	static CMatrix<double> * PMTXreadFile(char* pcFileName);
 
 private:
 	static char * PMTXgetLineValue(char * pcLine);

@@ -81,7 +81,7 @@ class CException
 		 * PreCond:
 		 * PostCond:
 		 */
-		unsigned int EXgetExceptionID(){return uiEXID;};
+		unsigned int EXgetExceptionID(){return uiEXID;}
 	
 		/**************************************************************
 		* Permet d'obtenir le message d'erreur.
@@ -92,7 +92,7 @@ class CException
 		* PreCond:
 		* PostCond:
 		*/
-		char * EXgetExceptionMessage(){return pcEXmessage;};
+		char * EXgetExceptionMessage(){return pcEXmessage;}
 	
 		/**************************************************************
 		* Permet de definir le numero de l'erreur.
@@ -104,7 +104,7 @@ class CException
 		* PreCond:
 		* PostCond:
 		*/
-		void EXsetExceptionID(unsigned int uiEXIDParam){uiEXID = uiEXIDParam;};
+		void EXsetExceptionID(unsigned int uiEXIDParam){uiEXID = uiEXIDParam;}
 	
 		/**************************************************************
 		 * Permet de definir le message d'erreur.

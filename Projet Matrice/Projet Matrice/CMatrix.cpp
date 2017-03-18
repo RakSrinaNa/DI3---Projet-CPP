@@ -1,22 +1,23 @@
-#include <iostream>
-
-#include "CMatrix.h"
-#include "utils.h"
-#include "CException.h"
 
 template <class T>
-CMatrix<T>::CMatrix() : CMatrix(1, 1)
+CMatrix<T>::CMatrix() : CMatrix<T>(1, 1)
 {
 }
 
 template <class T>
-CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix(oMTXmatrixParam.MTXgetHeight(), oMTXmatrixParam.MTXgetWidth())
+CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixParam.MTXgetHeight()), uiWidth(oMTXmatrixParam.MTXgetWidth())
 {
+	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+	{
+		MMALLOC(ptValues[uiRow], T, uiWidth, "CMatrix constructor");
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = 0;
+	}
+
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			ptValues[uiRow][uiColumn] = oMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
-
-	return *this;
 }
 
 template <class T>
@@ -34,25 +35,25 @@ CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiH
 template <class T>
 CMatrix<T>::~CMatrix()
 {
-	for(int iRow = 0; iRow < uiHeight; iRow++)
-		free(ptValues[iRow]);
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		free(ptValues[uiRow]);
 	free(ptValues);
 }
 
 template <class T>
-inline unsigned int CMatrix<T>::MTXgetHeight()
+inline unsigned int CMatrix<T>::MTXgetHeight() const
 {
 	return uiHeight;
 }
 
 template <class T>
-inline unsigned int CMatrix<T>::MTXgetWidth()
+inline unsigned int CMatrix<T>::MTXgetWidth() const
 {
 	return uiWidth;
 }
 
 template <class T>
-inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn)
+inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn) const
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
 	{
@@ -76,8 +77,10 @@ void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValu
 template <class T>
 void CMatrix<T>::MTXdisplay()
 {
+	std::cout << " __" << std::endl;
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 	{
+		std::cout << "| ";
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			std::cout << ptValues[uiRow][uiColumn] << "\t";
 		std::cout << "\n";
@@ -90,7 +93,7 @@ CMatrix<T>& CMatrix<T>::MTXtranspose()
 	CMatrix<T> * poMTXtrans = new CMatrix(MTXgetWidth(), MTXgetHeight());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXtrans[uiColumn][uiRow] = 0;
+			poMTXtrans->MTXsetValue(uiColumn, uiRow, MTXgetValue(uiRow, uiColumn));
 
 	return *poMTXtrans;
 }
@@ -107,7 +110,7 @@ CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXsum[uiRow][uiColumn] = MTXgetValue(uiRow, uiHeight) + oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+			poMTXsum->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) + oMTXmatrixParam.MTXgetValue(uiRow, uiColumn));
 
 	return *poMTXsum;
 }
@@ -124,7 +127,7 @@ CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXsub[uiRow][uiColumn] = MTXgetValue(uiRow, uiHeight) - oMTXmatrixParam.MTXgetValue(uiRow, uiHeight);
+			poMTXsub->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) - oMTXmatrixParam.MTXgetValue(uiRow, uiColumn));
 
 	return *poMTXsub;
 }
@@ -135,7 +138,7 @@ CMatrix<T>& CMatrix<T>::operator*(double iCoeficient)
 	CMatrix<T> * poMTXtimes = new CMatrix(*this);
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			*poMTXtimes[uiRow][uiColumn] *= iCoeficient;
+			poMTXtimes->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) * iCoeficient);
 
 	return *poMTXtimes;
 }
@@ -143,10 +146,11 @@ CMatrix<T>& CMatrix<T>::operator*(double iCoeficient)
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 {
-	if(uiWidth != oMTXmatrixParam.MTXgeHeight())
+	if(uiWidth != oMTXmatrixParam.MTXgetHeight())
 	{
+		std::cout << uiWidth << "\t" << oMTXmatrixParam.MTXgetHeight() << std::endl;
 		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix are incompatible for multiplication");
-		throw poCEXexception;
+		throw * poCEXexception;
 	}
 
 	CMatrix<T> * poMTXtimes = new CMatrix(uiHeight, oMTXmatrixParam.MTXgetWidth());
@@ -157,7 +161,7 @@ CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 			T dSum = 0;
 			for(unsigned int uiTimes = 0; uiTimes < uiWidth; uiTimes++)
 				dSum += ptValues[uiRow][uiTimes] * oMTXmatrixParam.MTXgetValue(uiTimes, uiColumn);
-			poMTXtimes->MTXsetValue(uiRow, uiHeight, dSum);
+			poMTXtimes->MTXsetValue(uiRow, uiColumn, dSum);
 		}
 
 	return *poMTXtimes;
