@@ -1,8 +1,6 @@
 #ifndef UTILS
 #define UTILS
 
-#define MMIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
 #define UNUSED(x) (void)(x)
 
 #define MALLOC(t, n) (t *) malloc((n) * sizeof(t))
