@@ -4,45 +4,27 @@
 
 int main(int argc, char* argv[])
 {
-	char * file = (char *) "M1.txt";
-	CMatrix<double> matrix = CMatrix<double>(2, 2);
-
-	matrix.MTXsetValue(0, 0, 1);
-	matrix.MTXsetValue(0, 1, 2);
-	matrix.MTXsetValue(1, 0, 3);
-	matrix.MTXsetValue(1, 1, 4);
-	
-	matrix.MTXdisplay();
-
-	std::cout << std::endl;
-
-	CMatrix<double> matrix2 = matrix.MTXtranspose();
-	matrix2.MTXdisplay();
-	
-	std::cout << std::endl;
-	(matrix + matrix2).MTXdisplay();
-	
-	std::cout << std::endl;
-	(matrix - matrix2).MTXdisplay();
-	
-	std::cout << std::endl;
-	(matrix * 2).MTXdisplay();
-	
-	std::cout << std::endl;
-	(matrix / 2).MTXdisplay();
-	
-	std::cout << std::endl;
-	(matrix * matrix2).MTXdisplay();
 
 	CSquareMatrix<double> square = CSquareMatrix<double>(3);
 	
 	std::cout << std::endl;
 	square.MTXsetValue(0, 0, 1);
-	square.MTXsetValue(1, 1, 2);
-	square.MTXsetValue(2, 2, 6);
+	square.MTXsetValue(0, 1, 2);
+	square.MTXsetValue(0, 2, 3);
+	square.MTXsetValue(1, 0, 4);
+	square.MTXsetValue(1, 1, 5);
+	square.MTXsetValue(1, 2, 6);
+	square.MTXsetValue(2, 0, 7);
+	square.MTXsetValue(2, 1, 8);
+	square.MTXsetValue(2, 2, 10);
 	square.MTXdisplay();
 	
-	std::cout << std::endl << "Det : " << square.SMTXgetDeterminant() << std::endl;;
+	
+	CSquareMatrix<double> square2 = CSquareMatrix<double>(square, 0, 1);
+	square2.MTXdisplay();
+
+	std::cout << std::endl << "Det : " << square.SMTXgetDeterminant() << std::endl;
+	std::cout << std::endl << "Det2 : " << square2.SMTXgetDeterminant() << std::endl;
 
 
 	getchar();

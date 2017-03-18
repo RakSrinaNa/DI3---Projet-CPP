@@ -1,12 +1,12 @@
 //#include "CMatrix.h"
 
 template <class T>
-CMatrix<T>::CMatrix<T>() : CMatrix<T>(1, 1)
+CMatrix<T>::CMatrix() : CMatrix<T>(1, 1)
 {
 }
 
 template <class T>
-CMatrix<T>::CMatrix<T>(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixParam.MTXgetHeight()), uiWidth(oMTXmatrixParam.MTXgetWidth())
+CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixParam.MTXgetHeight()), uiWidth(oMTXmatrixParam.MTXgetWidth())
 {
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -22,7 +22,7 @@ CMatrix<T>::CMatrix<T>(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixP
 }
 
 template <class T>
-CMatrix<T>::CMatrix<T>(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
+CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -34,7 +34,7 @@ CMatrix<T>::CMatrix<T>(unsigned int uiHeightParam, unsigned int uiWidthParam) : 
 }
 
 template <class T>
-CMatrix<T>::~CMatrix<T>()
+CMatrix<T>::~CMatrix()
 {
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		free(ptValues[uiRow]);

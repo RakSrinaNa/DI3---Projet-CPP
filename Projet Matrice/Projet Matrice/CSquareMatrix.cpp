@@ -15,8 +15,8 @@ template <class T>
 CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix(oSMTXmatrixParam.MTXgetHeight() - 1, oSMTXmatrixParam.MTXgetWidth() - 1)
 {
 	unsigned int uiPosition = 0;
-	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
-		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+	for(unsigned int uiRow = 0; uiRow < oSMTXmatrixParam.MTXgetHeight(); uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < oSMTXmatrixParam.MTXgetWidth(); uiColumn++)
 		{
 			if(uiRow == uiRowParam || uiColumn == uiColumnParam)
 				continue;
@@ -44,7 +44,7 @@ double CSquareMatrix<T>::SMTXgetDeterminant()
 		for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, 0);
-			dDeterminant += (uiRow%2 == 0 ? 1 : -1) * ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant();
+			dDeterminant += ((uiRow%2 == 0 ? 1 : -1) * ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant());
 		}
 		return dDeterminant;
 	}

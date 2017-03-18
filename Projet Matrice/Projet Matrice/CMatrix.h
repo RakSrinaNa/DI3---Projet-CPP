@@ -19,10 +19,10 @@ protected:
 	T** ptValues;
 
 public:
-	CMatrix<T>();
-	CMatrix<T>(CMatrix<T> const& oMTXmatrixParam);
-	CMatrix<T>(unsigned int uiHeightParam, unsigned int uiWidthParam);
-	~CMatrix<T>();
+	CMatrix();
+	CMatrix(CMatrix<T> const& oMTXmatrixParam);
+	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
+	~CMatrix();
 
 	unsigned int MTXgetHeight() const;
 	unsigned int MTXgetWidth() const;
