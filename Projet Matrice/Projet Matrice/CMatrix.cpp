@@ -1,11 +1,12 @@
+//#include "CMatrix.h"
 
 template <class T>
-CMatrix<T>::CMatrix() : CMatrix<T>(1, 1)
+CMatrix<T>::CMatrix<T>() : CMatrix<T>(1, 1)
 {
 }
 
 template <class T>
-CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixParam.MTXgetHeight()), uiWidth(oMTXmatrixParam.MTXgetWidth())
+CMatrix<T>::CMatrix<T>(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixParam.MTXgetHeight()), uiWidth(oMTXmatrixParam.MTXgetWidth())
 {
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -21,7 +22,7 @@ CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixPara
 }
 
 template <class T>
-CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
+CMatrix<T>::CMatrix<T>(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -33,7 +34,7 @@ CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiH
 }
 
 template <class T>
-CMatrix<T>::~CMatrix()
+CMatrix<T>::~CMatrix<T>()
 {
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		free(ptValues[uiRow]);
@@ -172,7 +173,7 @@ CMatrix<T>& CMatrix<T>::operator/(double iCoeficient)
 {
 	if(iCoeficient == 0)
 	{
-		CException * poCEXexception = new CException(DIVISION_BY_ZEO_EXCEPTION, "Division par zero");
+		CException * poCEXexception = new CException(DIVISION_BY_ZEO_EXCEPTION, (char *) "Division par zero");
 		throw poCEXexception;
 	}
 	return (*this) * (1/iCoeficient);
@@ -197,7 +198,7 @@ CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 template <class T>
 bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 {
-	if(uiHeight != oMTXmatrixParam.MTXgetHeight || uiWidth != oMTXmatrixParam.MTXgetWidth)
+	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
 		return false;
 	
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)

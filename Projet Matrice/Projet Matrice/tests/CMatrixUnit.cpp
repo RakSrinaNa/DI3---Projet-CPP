@@ -46,11 +46,11 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix1Trans.MTXgetValue(0, 0) != 1 || oMTXmatrix1Trans.MTXgetValue(0, 1) != 3 || oMTXmatrix1Trans.MTXgetValue(1, 0) != 2 || oMTXmatrix1Trans.MTXgetValue(1, 1) != 4)
 		CUnit::UNITassertError("CMatrix C1");
 	
-	CMatrix oMTXmatrix2 = oMTXmatrix1 * 2;
+	CMatrix<double> oMTXmatrix2 = oMTXmatrix1 * 2;
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 2 || oMTXmatrix2.MTXgetValue(0, 1) != 4 || oMTXmatrix2.MTXgetValue(1, 0) != 6 || oMTXmatrix2.MTXgetValue(1, 1) != 8)
 		CUnit::UNITassertError("CMatrix C2");
 	
-	CMatrix oMTXmatrix3 = oMTXmatrix2 / 2;
+	CMatrix<double> oMTXmatrix3 = oMTXmatrix2 / 2;
 	if(oMTXmatrix3.MTXgetValue(0, 0) != 1 || oMTXmatrix3.MTXgetValue(0, 1) != 3 || oMTXmatrix3.MTXgetValue(1, 0) != 2 || oMTXmatrix3.MTXgetValue(1, 1) != 4)
 		CUnit::UNITassertError("CMatrix C3");
 	

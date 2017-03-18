@@ -8,12 +8,7 @@
 CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile;
-	fopen_s(&poFILEfile, pcFileName, "r");
-	if(fopen_s(&poFILEfile, pcFileName, "r") != 0)
-	{
-		CException * poCEXexception = new CException(IO_FILE_EXCEPTION, (char *) "Error opening matrix file");
-		throw poCEXexception;
-	}
+	FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
 	
 	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);

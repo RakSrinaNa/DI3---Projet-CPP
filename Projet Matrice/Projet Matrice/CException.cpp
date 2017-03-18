@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "CException.h"
+#include "utils.h"
 
 CException::CException()
 {
@@ -12,7 +13,7 @@ CException::CException()
 CException::CException(CException const&oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
-	pcEXmessage = _strdup(oEXexception.pcEXmessage);
+	pcEXmessage = STRDUP(oEXexception.pcEXmessage);
 }
 
 CException::CException(unsigned int uiEXIDParam)
@@ -36,12 +37,12 @@ void CException::operator=(CException &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	free(pcEXmessage);
-	pcEXmessage = _strdup(oEXexception.pcEXmessage);
+	pcEXmessage = STRDUP(oEXexception.pcEXmessage);
 }
 
 void CException::EXsetExceptionMessage(char * pcEXmessageParam)
 {
 	if(pcEXmessage == nullptr)
 		free(pcEXmessage);
-	pcEXmessage = _strdup(pcEXmessageParam);
+	pcEXmessage = STRDUP(pcEXmessageParam);
 }
