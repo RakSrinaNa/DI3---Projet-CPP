@@ -9,3 +9,4 @@ Projet Matrice/cmake-build-debug
 *.lastbuildstate
 *.obj
 Projet Matrice/Rapport/.texpadtmp
+*.orig

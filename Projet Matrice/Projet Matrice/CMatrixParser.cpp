@@ -5,10 +5,11 @@
 #include "CException.h"
 #include "utils.h"
 
-CMatrix * CMatrixParser::PMTXreadFile(char* pcFileName)
+CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 {
-	FILE* poFILEfile = fopen(pcFileName, "r");
-	if(poFILEfile == nullptr)
+	FILE* poFILEfile;
+	fopen_s(&poFILEfile, pcFileName, "r");
+	if(fopen_s(&poFILEfile, pcFileName, "r") != 0)
 	{
 		CException * poCEXexception = new CException(IO_FILE_EXCEPTION, (char *) "Error opening matrix file");
 		throw poCEXexception;
@@ -35,7 +36,7 @@ CMatrix * CMatrixParser::PMTXreadFile(char* pcFileName)
 	unsigned int uiColumns = (unsigned int)atoi(pcColumns);
 	free(pcCurrentLine);
 	
-	CMatrix<double> * pcMTXmatrix = new CMatrix(uiRows, uiColumns);
+	CMatrix<double> * pcMTXmatrix = new CMatrix<double>(uiRows, uiColumns);
 	free(PMTXreadLineFromFile(poFILEfile));
 	
 	for(unsigned int uiRowIndex = 0; uiRowIndex < uiRows; uiRowIndex++)
@@ -100,8 +101,8 @@ double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int u
 		uiIndex++;
 	} while(pcLine[uiIndex - 1] != '\0'); // Read while we didn't reached the end of the string
 	
-	for(int i = uiValuesLength; i < uiValuesCount; i++) // Set missing pdValues to 0
-		pdValues[i] = 0;
+	for(unsigned int uiValueIndex = uiValuesLength; uiValueIndex < uiValuesCount; uiValueIndex++) // Set missing pdValues to 0
+		pdValues[uiValueIndex] = 0;
 	return pdValues;
 }
 
@@ -133,7 +134,7 @@ CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 		return BOOLEAN;
 	if(strcmp("char", pcLine) == 0)
 		return CHAR;
-	return nullptr;
+	return ERROR;
 }
 
 char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)

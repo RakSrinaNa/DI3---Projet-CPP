@@ -1,6 +1,11 @@
 #ifndef C_MATRIX_H
 #define C_MATRIX_H
 
+#include <iostream>
+
+#include "utils.h"
+#include "CException.h"
+
 #define OUT_OF_RANGE_EXCEPTION 89714
 #define DIVISION_BY_ZEO_EXCEPTION 89715
 #define INCOMPATIBLE_MATRIX_EXCEPTION 89716
@@ -15,7 +20,7 @@ protected:
 
 public:
 	CMatrix();
-	CMatrix(CMatrix const& oMTXmatrixParam);
+	CMatrix(CMatrix<T> const& oMTXmatrixParam);
 	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 	~CMatrix();
 
@@ -26,15 +31,18 @@ public:
 	void MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValueParam);
 
 	void MTXdisplay();
-	CMatrix& MTXtranspose();
+	CMatrix<T>& MTXtranspose();
 	
-	CMatrix& operator+(CMatrix const& oMTXmatrixParam);
-	CMatrix& operator-(CMatrix const& oMTXmatrixParam);
-	CMatrix& operator*(CMatrix const& oMTXmatrixParam);
-	CMatrix& operator*(double iCoeficient);
-	CMatrix& operator/(double iCoeficient);
-	CMatrix& operator=(CMatrix const& oMTXmatrixParam);
-	bool operator==(CMatrix const& oMTXmatrixParam);
+	CMatrix<T>& operator+(CMatrix<T> const& oMTXmatrixParam);
+	CMatrix<T>& operator-(CMatrix<T> const& oMTXmatrixParam);
+	CMatrix<T>& operator*(CMatrix<T> const& oMTXmatrixParam);
+	CMatrix<T>& operator*(double iCoeficient);
+	CMatrix<T>& operator/(double iCoeficient);
+	CMatrix<T>& operator=(CMatrix<T> const& oMTXmatrixParam);
+	bool operator==(CMatrix<T> const& oMTXmatrixParam);
 	T* operator[](unsigned int uiRow);
 };
+
+#include "CMatrix.cpp"
+
 #endif

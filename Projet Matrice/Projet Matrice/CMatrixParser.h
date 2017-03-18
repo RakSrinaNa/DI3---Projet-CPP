@@ -23,7 +23,7 @@ enum CMatrixType{
 class CMatrixParser
 {
 public:
-	static CMatrix * PMTXreadFile(char* pcFileName);
+	static CMatrix<double> * PMTXreadFile(char* pcFileName);
 
 private:
 	static char * PMTXgetLineValue(char * pcLine);
