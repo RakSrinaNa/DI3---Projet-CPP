@@ -10,3 +10,6 @@ Projet Matrice/cmake-build-debug
 *.obj
 Projet Matrice/Rapport/.texpadtmp
 *.orig
+*.opensdf
+*.suo
+*.sdf
