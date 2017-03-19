@@ -14,10 +14,12 @@
 
 #ifdef _MSC_VER
 	#define STRDUP(t) _strdup(t)
+	#define STRCMPI(b, t) _strcmpi(b, t)
 	#define FOPEN(v, n, m, e, f) if(fopen_s(&v, n, m) != 0){CException * poCEXexception = new CException(e, (char *) f);throw poCEXexception;}
 #else
-	#define STRDUP(t) = strdup(t)
-	#define FOPEN(v, n, m, e, f) = v = fopen(n, m); if(v == nullptr){CException * poCEXexception = new CException(e, (char *) f);throw poCEXexception;}
+	#define STRDUP(t) strdup(t)
+	#define STRCMPI(b, t) strcmpi(b, t)
+	#define FOPEN(v, n, m, e, f) v = fopen(n, m); if(v == nullptr){CException * poCEXexception = new CException(e, (char *) f);throw poCEXexception;}
 #endif
 
 #endif

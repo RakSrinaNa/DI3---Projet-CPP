@@ -12,7 +12,18 @@ void CUnit::UNITassertError(const char * pcMessage)
 
 void CUnit::UNITlaunchTests()
 {
+	printf("Executing CException tests... ");
 	CExceptionUnit::EXUnitTests();
+	printf("OK\n");
+	
+	printf("Executing CMatrix tests... ");
 	CMatrixUnit::MTXUnitTests();
+	printf("OK\n");
+	
+	printf("Executing CMatrixParser tests... ");
 	CMatrixParserUnit::MTXPUnitTests();
+	printf("OK\n");
+	
+	
+	fflush(stdout);
 }
