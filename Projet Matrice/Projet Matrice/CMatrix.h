@@ -41,6 +41,8 @@ public:
 	CMatrix<T>& operator=(CMatrix<T> const& oMTXmatrixParam);
 	bool operator==(CMatrix<T> const& oMTXmatrixParam);
 	T* operator[](unsigned int uiRow);
+	CMatrix<T>& operator*=(double iCoeficient);
+	CMatrix<T>& operator/=(double iCoeficient);
 };
 
 #include "CMatrix.cpp"

@@ -7,8 +7,9 @@ CSquareMatrix<T>::CSquareMatrix() : CMatrix()
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
+CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam) : CMatrix(oSMTXmatrixParam)
 {
+
 }
 
 template <class T>
@@ -23,6 +24,24 @@ CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned 
 			ptValues[uiPosition / uiHeight][uiPosition % uiHeight] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
 			uiPosition++;
 		}
+}
+
+template <class T>
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
+{
+}
+
+template <class T>
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix(uiSize, uiSize)
+{
+	if(_strcmpi(eye, "eye") == 0 || _strcmpi(eye, "eyes") == 0)
+		for(unsigned int uiRow = 0; uiRow < uiSize; uiRow++)
+			MTXsetValue(uiRow, uiRow, 1);
+}
+
+template <class T>
+CSquareMatrix<T>::~CSquareMatrix()
+{
 }
 
 template <class T>
@@ -49,3 +68,40 @@ double CSquareMatrix<T>::SMTXgetDeterminant()
 		return dDeterminant;
 	}
 }
+
+//TODO a changer pour eviter fuites memoire
+template <class T>
+CMatrix<T>& CSquareMatrix<T>::SMTXpow(unsigned int power)
+{
+	if(power == 0)
+	{
+		CSquareMatrix<T> * poMTXmatrix = new CSquareMatrix<T>(SMTXgetSize(), "eye");
+		return *poMTXmatrix;
+	}
+	return ((*this) * this->SMTXpow(power - 1));
+
+}
+
+template <class T>
+CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
+{
+	CMatrix<T> * poMTXcomatrix = new CSquareMatrix<T>(SMTXgetSize());
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+		{
+			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, uiColumn);
+			MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn)%2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
+		}
+	return *poMTXcomatrix;
+}
+
+template <class T>
+CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
+{
+	CMatrix<T> * poMTXinverse;
+	CMatrix<T> oMTXcomatrix = SMTXcomatrix();
+	poMTXinverse = &oMTXcomatrix.MTXtranspose();
+	oMTXcomatrix.~CMatrix();
+	return (*poMTXinverse) /= SMTXgetDeterminant();
+}
+

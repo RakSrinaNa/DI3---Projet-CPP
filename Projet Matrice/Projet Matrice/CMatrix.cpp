@@ -209,9 +209,29 @@ bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 	return true;
 }
 
-
 template <class T>
 T* CMatrix<T>::operator[](unsigned int uiRow)
 {
+	if(uiRow >= uiHeight)
+	{
+		CException * poCEXexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
+		throw poCEXexception;
+	}
+
 	return ptValues[uiRow];
+}
+
+template <class T>
+CMatrix<T>& CMatrix<T>::operator*=(double iCoeficient)
+{
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * iCoeficient);
+	return *this;
+}
+
+template <class T>
+CMatrix<T>& CMatrix<T>::operator/=(double iCoeficient)
+{
+	return (*this) *= (1/iCoeficient);
 }
