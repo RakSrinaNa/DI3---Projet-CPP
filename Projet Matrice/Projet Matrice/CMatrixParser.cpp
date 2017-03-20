@@ -4,6 +4,7 @@
 #include "CMatrixParser.h"
 #include "CException.h"
 #include "utils.h"
+#include "CSquareMatrix.h"
 
 CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 {
@@ -39,7 +40,11 @@ CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 	unsigned int uiColumns = (unsigned int)atoi(pcColumns);
 	free(pcCurrentLine);
 	
-	CMatrix<double> * pcMTXmatrix = new CMatrix<double>(uiRows, uiColumns);
+	CMatrix<double> * pcMTXmatrix;
+	if(uiColumns == uiRows)
+		pcMTXmatrix = new CSquareMatrix<double>(uiRows);
+	else
+		pcMTXmatrix = new CMatrix<double>(uiRows, uiColumns);
 	free(PMTXreadLineFromFile(poFILEfile));
 	
 	for(unsigned int uiRowIndex = 0; uiRowIndex < uiRows; uiRowIndex++)
