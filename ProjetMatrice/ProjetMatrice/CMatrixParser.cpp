@@ -2,8 +2,6 @@
 #include <cstdlib>
 #include <cstring>
 #include "CMatrixParser.h"
-#include "CException.h"
-#include "utils.h"
 #include "CSquareMatrix.h"
 
 CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)

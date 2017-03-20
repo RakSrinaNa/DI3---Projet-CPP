@@ -1,3 +1,4 @@
+//#include "CSquareMatrix.h"
 
 template <class T>
 CSquareMatrix<T>::CSquareMatrix() : CMatrix<T>()
