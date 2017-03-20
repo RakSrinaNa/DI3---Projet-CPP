@@ -40,7 +40,7 @@ public:
 	CMatrix<T>& operator/(double dCoefficient);
 	CMatrix<T>& operator=(CMatrix<T> const& oMTXmatrixParam);
 	bool operator==(CMatrix<T> const& oMTXmatrixParam);
-	T* operator[](unsigned int uiRow);
+	const T* const operator[](unsigned int uiRow);
 
 	CMatrix<T>& operator*=(CMatrix<T> const& oMTXmatrixParam);
 	CMatrix<T>& operator*=(double dCoefficient);

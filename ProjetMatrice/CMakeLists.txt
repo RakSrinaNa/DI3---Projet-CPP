@@ -11,7 +11,7 @@ set(SOURCE_FILES "ProjetMatrice/ProjetMatrice.cpp"
         "ProjetMatrice/CMatrix.h"
         "ProjetMatrice/tests/CMatrixUnit.cpp" "ProjetMatrice/tests/CMatrixUnit.h"
 
-        #"ProjetMatrice/CSquareMatrix.h"
+        "ProjetMatrice/CSquareMatrix.h"
 
         "ProjetMatrice/CMatrixParser.cpp" "ProjetMatrice/CMatrixParser.h"
         "ProjetMatrice/tests/CMatrixParserUnit.cpp" "ProjetMatrice/tests/CMatrixParserUnit.h"

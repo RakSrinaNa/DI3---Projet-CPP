@@ -1,17 +1,17 @@
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix() : CMatrix()
+CSquareMatrix<T>::CSquareMatrix() : CMatrix<T>()
 {
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam) : CMatrix(oSMTXmatrixParam)
+CSquareMatrix<T>::CSquareMatrix(CSquareMatrix<T> const& oSMTXmatrixParam) : CMatrix<T>(oSMTXmatrixParam)
 {
 
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix(oSMTXmatrixParam.MTXgetHeight() - 1, oSMTXmatrixParam.MTXgetWidth() - 1)
+CSquareMatrix<T>::CSquareMatrix(CSquareMatrix<T> const& oSMTXmatrixParam, unsigned int uiRowParam, unsigned int uiColumnParam) : CMatrix<T>(oSMTXmatrixParam.MTXgetHeight() - 1, oSMTXmatrixParam.MTXgetWidth() - 1)
 {
 	unsigned int uiPosition = 0;
 	for(unsigned int uiRow = 0; uiRow < oSMTXmatrixParam.MTXgetHeight(); uiRow++)
@@ -26,7 +26,7 @@ CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned 
 
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(CMatrix const& oMTXmatrixParam) : CMatrix(oMTXmatrixParam)
+CSquareMatrix<T>::CSquareMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix<T>(oMTXmatrixParam)
 {
 }
 
@@ -109,7 +109,7 @@ CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
 }
 
 template <class T>
-CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix const& oSMTXmatrixParam)
+CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix<T> const& oSMTXmatrixParam)
 {
 	if (uiHeight != oSMTXmatrixParam.MTXgetHeight() || uiWidth != oSMTXmatrixParam.MTXgetWidth())
 	{
@@ -125,7 +125,7 @@ CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix const& oSMTXmatrixP
 }
 
 template <class T>
-CSquareMatrix<T>& CSquareMatrix<T>::operator*= (CSquareMatrix const& oSMTXmatrixParam)
+CSquareMatrix<T>& CSquareMatrix<T>::operator*= (CSquareMatrix<T> const& oSMTXmatrixParam)
 {
 	CSquareMatrix<T> oSMTXmatrix = CSquareMatrix<T>((*this) * oSMTXmatrixParam);
 	(*this) = oSMTXmatrix;

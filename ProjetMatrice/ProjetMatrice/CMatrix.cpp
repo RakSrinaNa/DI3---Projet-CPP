@@ -210,7 +210,7 @@ bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 }
 
 template <class T>
-T* CMatrix<T>::operator[](unsigned int uiRow)
+const T* const CMatrix<T>::operator[](unsigned int uiRow)
 {
 	if(uiRow >= uiHeight)
 	{
