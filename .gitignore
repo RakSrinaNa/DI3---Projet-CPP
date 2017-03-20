@@ -10,3 +10,4 @@ Projet Matrice/cmake-build-debug
 *.obj
 Projet Matrice/Rapport/.texpadtmp
 *.orig
+targetver.h
