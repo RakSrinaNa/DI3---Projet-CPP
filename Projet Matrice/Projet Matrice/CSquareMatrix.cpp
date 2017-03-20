@@ -26,6 +26,12 @@ CSquareMatrix<T>::CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned 
 		}
 }
 
+
+template <class T>
+CSquareMatrix<T>::CSquareMatrix(CMatrix const& oMTXmatrixParam) : CMatrix(oMTXmatrixParam)
+{
+}
+
 template <class T>
 CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
 {
@@ -69,16 +75,15 @@ double CSquareMatrix<T>::SMTXgetDeterminant()
 	}
 }
 
-//TODO a changer pour eviter fuites memoire
 template <class T>
-CMatrix<T>& CSquareMatrix<T>::SMTXpow(unsigned int power)
+CSquareMatrix<T>& CSquareMatrix<T>::SMTXpow(unsigned int power)
 {
 	if(power == 0)
 	{
 		CSquareMatrix<T> * poMTXmatrix = new CSquareMatrix<T>(SMTXgetSize(), "eye");
 		return *poMTXmatrix;
 	}
-	return ((*this) * this->SMTXpow(power - 1));
+	return (this->SMTXpow(power - 1) *= (*this));
 
 }
 
@@ -105,3 +110,41 @@ CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
 	return (*poMTXinverse) /= SMTXgetDeterminant();
 }
 
+template <class T>
+CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix const& oSMTXmatrixParam)
+{
+	if (uiHeight != oSMTXmatrixParam.MTXgetHeight() || uiWidth != oSMTXmatrixParam.MTXgetWidth())
+	{
+		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
+		throw poCEXexception;
+	}
+
+	for (unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for (unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+
+	return *this;
+}
+
+template <class T>
+CSquareMatrix<T>& CSquareMatrix<T>::operator*= (CSquareMatrix const& oSMTXmatrixParam)
+{
+	CSquareMatrix<T> oSMTXmatrix = CSquareMatrix<T>((*this) * oSMTXmatrixParam);
+	(*this) = oSMTXmatrix;
+	return *this;
+}
+
+template <class T>
+CSquareMatrix<T>& CSquareMatrix<T>::operator*= (double dCoefficient)
+{
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * dCoefficient);
+	return *this;
+}
+
+template <class T>
+CSquareMatrix<T>& CSquareMatrix<T>::operator/= (double dCoefficient)
+{
+	return (*this) *= (1/dCoefficient);
+}

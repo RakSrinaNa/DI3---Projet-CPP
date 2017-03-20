@@ -36,13 +36,15 @@ public:
 	CMatrix<T>& operator+(CMatrix<T> const& oMTXmatrixParam);
 	CMatrix<T>& operator-(CMatrix<T> const& oMTXmatrixParam);
 	CMatrix<T>& operator*(CMatrix<T> const& oMTXmatrixParam);
-	CMatrix<T>& operator*(double iCoeficient);
-	CMatrix<T>& operator/(double iCoeficient);
+	CMatrix<T>& operator*(double dCoefficient);
+	CMatrix<T>& operator/(double dCoefficient);
 	CMatrix<T>& operator=(CMatrix<T> const& oMTXmatrixParam);
 	bool operator==(CMatrix<T> const& oMTXmatrixParam);
 	T* operator[](unsigned int uiRow);
-	CMatrix<T>& operator*=(double iCoeficient);
-	CMatrix<T>& operator/=(double iCoeficient);
+
+	CMatrix<T>& operator*=(CMatrix<T> const& oMTXmatrixParam);
+	CMatrix<T>& operator*=(double dCoefficient);
+	CMatrix<T>& operator/=(double dCoefficient);
 };
 
 #include "CMatrix.cpp"

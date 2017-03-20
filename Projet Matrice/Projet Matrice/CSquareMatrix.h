@@ -10,6 +10,7 @@ public:
 	CSquareMatrix();
 	CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam);
 	CSquareMatrix(CSquareMatrix const& oSMTXmatrixParam, unsigned int uiRow, unsigned int uiColumn);
+	CSquareMatrix(CMatrix const& oMTXmatrixParam);
 	CSquareMatrix(unsigned int uiSize);
 	CSquareMatrix(unsigned int uiSize, char * eye);
 	~CSquareMatrix();
@@ -17,9 +18,15 @@ public:
 	unsigned int SMTXgetSize();
 
 	double SMTXgetDeterminant();
-	CMatrix<T>& SMTXpow(unsigned int power);
+	CSquareMatrix<T>& SMTXpow(unsigned int power);
 	CMatrix<T>& SMTXcomatrix();
 	CMatrix<T>& SMTXinverse();
+	
+	CSquareMatrix<T>& operator= (CSquareMatrix const& oSMTXmatrixParam);
+	CSquareMatrix<T>& operator*= (CSquareMatrix const& oSMTXmatrixParam);
+	CSquareMatrix<T>& operator*= (double dCoefficient);
+	CSquareMatrix<T>& operator/= (double dCoefficient);
+
 };
 
 #include "CSquareMatrix.cpp"
