@@ -8,7 +8,15 @@
 CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile;
-	FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
+	try
+	{
+		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
+	}
+	catch(CException * poEXexception)
+	{
+		perror(poEXexception->EXgetExceptionMessage());
+		return nullptr;
+	}
 	
 	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
@@ -110,7 +118,7 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 		CException * poCEXexception = new CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
 		throw poCEXexception;
 	}
-	return pcLine;
+	return pcLine + 1;
 }
 
 CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
@@ -136,6 +144,7 @@ char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 {
 	char * pcLineRead = NULL;
 	size_t uiSize = 0;
+	int iEndString = -1;
 	do
 	{
 		if(pcLineRead != NULL) // If an empty line was read before, free it
@@ -143,9 +152,16 @@ char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 			free(pcLineRead);
 			pcLineRead = NULL;
 		}
-		if(PMTXgetLine(&pcLineRead, &uiSize, poFILEfile) == -1) // Read a line, and return NULL if end of poFILEfile
+		if((iEndString = PMTXgetLine(&pcLineRead, &uiSize, poFILEfile)) == -1) // Read a line, and return NULL if end of poFILEfile
 			return NULL;
 	} while(*pcLineRead == '\n' || (*pcLineRead == '\r' && pcLineRead[1] == '\n')); // While we have a non empty line
+	
+	/* Clean ending \n \r \r */
+	while(iEndString > 0 && (pcLineRead[iEndString] == '\0' || pcLineRead[iEndString] == '\n' || pcLineRead[iEndString] == '\r' || pcLineRead[iEndString] == '\t'))
+		iEndString--;
+	iEndString++;
+	pcLineRead[iEndString] = '\0';
+	RREALLOC(pcLineRead, char, iEndString, "Error realloc PMTXreadLineFromFile");
 	return pcLineRead;
 }
 

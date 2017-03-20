@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -78,6 +78,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="..\Matrices\M1.txt" />
+    <Text Include="..\Matrices\M2.txt" />
+    <Text Include="..\Matrices\M3.txt" />
+    <Text Include="..\Matrices\M4.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -85,14 +89,26 @@
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CMatrixParser.h" />
     <ClInclude Include="CSquareMatrix.h" />
+    <ClInclude Include="tests\CExceptionUnit.h" />
+    <ClInclude Include="tests\CMatrixParserUnit.h" />
+    <ClInclude Include="tests\CMatrixUnit.h" />
+    <ClInclude Include="tests\CUnit.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CException.cpp" />
-    <ClCompile Include="CMatrix.cpp" />
+    <ClCompile Include="CMatrix.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CMatrixParser.cpp" />
-    <ClCompile Include="CSquareMatrix.cpp" />
+    <ClCompile Include="CSquareMatrix.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Projet Matrice.cpp" />
+    <ClCompile Include="tests\CExceptionUnit.cpp" />
+    <ClCompile Include="tests\CMatrixParserUnit.cpp" />
+    <ClCompile Include="tests\CMatrixUnit.cpp" />
+    <ClCompile Include="tests\CUnit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

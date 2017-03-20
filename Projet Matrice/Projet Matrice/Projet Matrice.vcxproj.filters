@@ -16,6 +16,18 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="..\Matrices\M1.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="..\Matrices\M2.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="..\Matrices\M3.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="..\Matrices\M4.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMatrix.h">
@@ -33,6 +45,18 @@
     <ClInclude Include="utils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="tests\CExceptionUnit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\CMatrixParserUnit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\CMatrixUnit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\CUnit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Projet Matrice.cpp">
@@ -48,6 +72,18 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CException.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\CExceptionUnit.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\CMatrixParserUnit.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\CMatrixUnit.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\CUnit.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

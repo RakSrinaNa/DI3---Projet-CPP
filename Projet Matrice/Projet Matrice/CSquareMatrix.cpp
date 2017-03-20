@@ -1,5 +1,3 @@
-#include "CMatrix.h"
-#include "CSquareMatrix.h"
 
 template <class T>
 CSquareMatrix<T>::CSquareMatrix() : CMatrix()
@@ -40,7 +38,7 @@ CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
 template <class T>
 CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix(uiSize, uiSize)
 {
-	if(_strcmpi(eye, "eye") == 0 || _strcmpi(eye, "eyes") == 0)
+	if(STRCMPI(eye, "eye") == 0 || STRCMPI(eye, "eyes") == 0)
 		for(unsigned int uiRow = 0; uiRow < uiSize; uiRow++)
 			MTXsetValue(uiRow, uiRow, 1);
 }
