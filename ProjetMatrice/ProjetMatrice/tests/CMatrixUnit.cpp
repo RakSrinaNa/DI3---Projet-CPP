@@ -64,4 +64,28 @@ void CMatrixUnit::MTXUnitTestOperations()
 	
 	if(oMTXmatrix1[0][0] != 2 || oMTXmatrix1[0][1] != 4 || oMTXmatrix1[1][0] != 6 || oMTXmatrix1[1][1] != 8)
 		CUnit::UNITassertError("CMatrix C6");
+		
+	CMatrix<double> oMTXmatrix4 = oMTXmatrix1 + oMTXmatrix3;
+	if(oMTXmatrix4.MTXgetValue(0, 0) != 3 || oMTXmatrix4.MTXgetValue(0, 1) != 6 || oMTXmatrix4.MTXgetValue(1, 0) != 9 || oMTXmatrix4.MTXgetValue(1, 1) != 12)
+		CUnit::UNITassertError("CMatrix C7");
+	
+	oMTXmatrix4 = oMTXmatrix1 - oMTXmatrix3;
+	if(oMTXmatrix4.MTXgetValue(0, 0) != 1 || oMTXmatrix4.MTXgetValue(0, 1) != 2 || oMTXmatrix4.MTXgetValue(1, 0) != 3 || oMTXmatrix4.MTXgetValue(1, 1) != 4)
+		CUnit::UNITassertError("CMatrix C8");
+	
+	oMTXmatrix2 = oMTXmatrix4 * oMTXmatrix1;
+	if(oMTXmatrix2.MTXgetValue(0, 0) != 14 || oMTXmatrix2.MTXgetValue(0, 1) != 20 || oMTXmatrix2.MTXgetValue(1, 0) != 30 || oMTXmatrix2.MTXgetValue(1, 1) != 44)
+		CUnit::UNITassertError("CMatrix C9");
+	
+	oMTXmatrix2 *= 2;
+	if(oMTXmatrix2.MTXgetValue(0, 0) != 28 || oMTXmatrix2.MTXgetValue(0, 1) != 40 || oMTXmatrix2.MTXgetValue(1, 0) != 60 || oMTXmatrix2.MTXgetValue(1, 1) != 88)
+		CUnit::UNITassertError("CMatrix C10");
+	
+	oMTXmatrix2 *= oMTXmatrix4;
+	if(oMTXmatrix2.MTXgetValue(0, 0) != 148 || oMTXmatrix2.MTXgetValue(0, 1) != 216 || oMTXmatrix2.MTXgetValue(1, 0) != 324 || oMTXmatrix2.MTXgetValue(1, 1) != 472)
+		CUnit::UNITassertError("CMatrix C11");
+	
+	oMTXmatrix2 /= 4;
+	if(oMTXmatrix2.MTXgetValue(0, 0) != 37 || oMTXmatrix2.MTXgetValue(0, 1) != 54 || oMTXmatrix2.MTXgetValue(1, 0) != 81 || oMTXmatrix2.MTXgetValue(1, 1) != 118)
+		CUnit::UNITassertError("CMatrix C12");
 }

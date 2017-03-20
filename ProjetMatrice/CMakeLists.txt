@@ -1,21 +1,22 @@
 cmake_minimum_required(VERSION 3.7)
-project(Preojet3Matrice)
+project(PreojetMatrice)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES "Projet Matrice/Projet Matrice.cpp"
-        "Projet Matrice/CException.cpp" "Projet Matrice/CException.h"
-        "Projet Matrice/tests/CExceptionUnit.cpp" "Projet Matrice/tests/CExceptionUnit.h"
+set(SOURCE_FILES "ProjetMatrice/ProjetMatrice.cpp"
 
-        "Projet Matrice/CMatrix.h"
-        "Projet Matrice/tests/CMatrixUnit.cpp" "Projet Matrice/tests/CMatrixUnit.h"
+        "ProjetMatrice/CException.cpp" "ProjetMatrice/CException.h"
+        "ProjetMatrice/tests/CExceptionUnit.cpp" "ProjetMatrice/tests/CExceptionUnit.h"
 
-        "Projet Matrice/CSquareMatrix.h"
+        "ProjetMatrice/CMatrix.h"
+        "ProjetMatrice/tests/CMatrixUnit.cpp" "ProjetMatrice/tests/CMatrixUnit.h"
 
-        "Projet Matrice/CMatrixParser.cpp" "Projet Matrice/CMatrixParser.h"
-        "Projet Matrice/tests/CMatrixParserUnit.cpp" "Projet Matrice/tests/CMatrixParserUnit.h"
+        #"ProjetMatrice/CSquareMatrix.h"
 
-        "Projet Matrice/utils.h"
-        "Projet Matrice/tests/CUnit.cpp" "Projet Matrice/tests/CUnit.h"
+        "ProjetMatrice/CMatrixParser.cpp" "ProjetMatrice/CMatrixParser.h"
+        "ProjetMatrice/tests/CMatrixParserUnit.cpp" "ProjetMatrice/tests/CMatrixParserUnit.h"
+
+        "ProjetMatrice/utils.h"
+        "ProjetMatrice/tests/CUnit.cpp" "ProjetMatrice/tests/CUnit.h"
         )
 add_executable(TP1 ${SOURCE_FILES})
