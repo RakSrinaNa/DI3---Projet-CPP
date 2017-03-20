@@ -1,6 +1,6 @@
 *.lock
-Projet Matrice/.idea
-Projet Matrice/cmake-build-debug
+.idea
+cmake-build-debug
 *.tlog
 *.log
 *.idb
@@ -8,7 +8,7 @@ Projet Matrice/cmake-build-debug
 *.unsuccessfulbuild
 *.lastbuildstate
 *.obj
-Projet Matrice/Rapport/.texpadtmp
+.texpadtmp
 *.orig
 *.opensdf
 *.suo
