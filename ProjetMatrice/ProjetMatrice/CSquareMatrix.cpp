@@ -31,12 +31,12 @@ CSquareMatrix<T>::CSquareMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix<T>(
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix(uiSize, uiSize)
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix<T>(uiSize, uiSize)
 {
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix(uiSize, uiSize)
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix<T>(uiSize, uiSize)
 {
 	if(STRCMPI(eye, "eye") == 0 || STRCMPI(eye, "eyes") == 0)
 		for(unsigned int uiRow = 0; uiRow < uiSize; uiRow++)
