@@ -9,6 +9,7 @@ public:
 private:
 	static void SMXUnitTestGetSet();
 	static void SMXUnitTestConstructors();
+	static void SMXUnitTestOperations();
 };
 
 #endif

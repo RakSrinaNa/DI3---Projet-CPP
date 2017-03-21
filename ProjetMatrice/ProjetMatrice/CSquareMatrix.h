@@ -3,8 +3,6 @@
 
 #include "CMatrix.h"
 
-#define INCOMPATIBLE_MATRIX_EXCEPTION 3924
-
 template <class T>
 class CSquareMatrix : public CMatrix<T>
 {

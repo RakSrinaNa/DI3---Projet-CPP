@@ -68,7 +68,7 @@ double CSquareMatrix<T>::SMTXgetDeterminant()
 		for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, 0);
-			dDeterminant += ((this->uiRow % 2 == 0 ? 1 : -1) * this->ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant());
+			dDeterminant += ((uiRow % 2 == 0 ? 1 : -1) * this->ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant());
 		}
 		return dDeterminant;
 	}
@@ -94,7 +94,7 @@ CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
 		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, uiColumn);
-			MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn)%2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
+			this->MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn)%2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
 		}
 	return *poMTXcomatrix;
 }

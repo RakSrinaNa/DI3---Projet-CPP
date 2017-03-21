@@ -6,6 +6,7 @@ void CSquareMatrixUnit::SMXUnitTests()
 {
 	SMXUnitTestGetSet();
 	SMXUnitTestConstructors();
+	SMXUnitTestOperations();
 }
 
 void CSquareMatrixUnit::SMXUnitTestGetSet()
@@ -75,4 +76,32 @@ void CSquareMatrixUnit::SMXUnitTestConstructors()
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
 		if(oSMXmatrix9.MTXgetValue(uiIndex / 3, uiIndex % 3) != (uiIndex / 3 == uiIndex % 3 ? 1 : 0))
 			CUnit::UNITassertError("CSquareMatrix B10");
+}
+
+void CSquareMatrixUnit::SMXUnitTestOperations()
+{
+	CSquareMatrix<double> oSMXmatrix1 = CSquareMatrix<double>(3);
+	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
+		oSMXmatrix1.MTXsetValue(uiIndex / 3, uiIndex % 3, uiIndex + 1);
+	if(oSMXmatrix1.SMTXgetDeterminant() != 0)
+		CUnit::UNITassertError("CSquareMatrix C1");
+	
+	double piValues[] = {2, 8, 9, 26, 98, 54, 62, 30, 9};
+	CSquareMatrix<double> oSMXmatrix2 = CSquareMatrix<double>(3);
+	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
+		oSMXmatrix2.MTXsetValue(uiIndex / 3, uiIndex % 3, piValues[uiIndex]);
+	if(oSMXmatrix2.SMTXgetDeterminant() != -24228)
+		CUnit::UNITassertError("CSquareMatrix C2");
+	
+	double piValues2[] = {369/12114, -99/12114, 225/12114, -1557/12114, 270/12114, -63/12114, 2648/12114, -218/12114, 6/12114};
+	CSquareMatrix<double> oSMXmatrix3 = oSMXmatrix2.SMTXinverse();
+	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
+		if(oSMXmatrix3.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues2[uiIndex])
+			CUnit::UNITassertError("CSquareMatrix C3");
+	
+	double piValues3[] = {62282, 126950, 69489, 681812, 1348280, 724968, 239338, 442654, 233613};
+	oSMXmatrix3 = oSMXmatrix2.SMTXpow(3);
+	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
+		if(oSMXmatrix3.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues3[uiIndex])
+			CUnit::UNITassertError("CSquareMatrix C4");
 }
