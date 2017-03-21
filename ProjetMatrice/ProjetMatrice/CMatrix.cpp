@@ -1,8 +1,15 @@
 //#include "CMatrix.h"
 
 template <class T>
-CMatrix<T>::CMatrix() : CMatrix<T>(1, 1)
+CMatrix<T>::CMatrix() : uiHeight(1), uiWidth(1)
 {
+	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
+	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+	{
+		MMALLOC(ptValues[uiRow], T, uiWidth, "CMatrix constructor");
+		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+			ptValues[uiRow][uiColumn] = 0;
+	}
 }
 
 template <class T>
