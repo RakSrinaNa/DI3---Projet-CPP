@@ -20,7 +20,7 @@ CSquareMatrix<T>::CSquareMatrix(CSquareMatrix<T> const& oSMTXmatrixParam, unsign
 		{
 			if(uiRow == uiRowParam || uiColumn == uiColumnParam)
 				continue;
-			ptValues[uiPosition / uiHeight][uiPosition % uiHeight] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+			this->ptValues[uiPosition / this->uiHeight][uiPosition % this->uiHeight] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
 			uiPosition++;
 		}
 }
@@ -41,7 +41,7 @@ CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix<T>(ui
 {
 	if(STRCMPI(eye, "eye") == 0 || STRCMPI(eye, "eyes") == 0)
 		for(unsigned int uiRow = 0; uiRow < uiSize; uiRow++)
-			MTXsetValue(uiRow, uiRow, 1);
+			this->MTXsetValue(uiRow, uiRow, 1);
 }
 
 template <class T>
@@ -52,23 +52,23 @@ CSquareMatrix<T>::~CSquareMatrix()
 template <class T>
 unsigned int CSquareMatrix<T>::SMTXgetSize()
 {
-	return uiHeight;
+	return this->uiHeight;
 }
 
 template <class T>
 double CSquareMatrix<T>::SMTXgetDeterminant()
 {
-	if(uiHeight == 1)
-		return ptValues[0][0];
-	else if(uiHeight == 2)
-		return ptValues[0][0] * ptValues[1][1] - ptValues[1][0] * ptValues[0][1];
+	if(this->uiHeight == 1)
+		return this->ptValues[0][0];
+	else if(this->uiHeight == 2)
+		return this->ptValues[0][0] * this->ptValues[1][1] - this->ptValues[1][0] * this->ptValues[0][1];
 	else
 	{
 		double dDeterminant = 0;
-		for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
+		for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, 0);
-			dDeterminant += ((uiRow%2 == 0 ? 1 : -1) * ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant());
+			dDeterminant += ((this->uiRow % 2 == 0 ? 1 : -1) * this->ptValues[uiRow][0] * oMTXmatrix.SMTXgetDeterminant());
 		}
 		return dDeterminant;
 	}
@@ -90,8 +90,8 @@ template <class T>
 CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
 {
 	CMatrix<T> * poMTXcomatrix = new CSquareMatrix<T>(SMTXgetSize());
-	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
-		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
+	for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, uiColumn);
 			MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn)%2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
@@ -112,15 +112,15 @@ CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
 template <class T>
 CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix<T> const& oSMTXmatrixParam)
 {
-	if (uiHeight != oSMTXmatrixParam.MTXgetHeight() || uiWidth != oSMTXmatrixParam.MTXgetWidth())
+	if (this->uiHeight != oSMTXmatrixParam.MTXgetHeight() || this->uiWidth != oSMTXmatrixParam.MTXgetWidth())
 	{
 		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 		throw poCEXexception;
 	}
 
-	for (unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
-		for (unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			ptValues[uiRow][uiColumn] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
+	for (unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
+		for (unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
+			this->ptValues[uiRow][uiColumn] = oSMTXmatrixParam.MTXgetValue(uiRow, uiColumn);
 
 	return *this;
 }
@@ -136,9 +136,9 @@ CSquareMatrix<T>& CSquareMatrix<T>::operator*= (CSquareMatrix<T> const& oSMTXmat
 template <class T>
 CSquareMatrix<T>& CSquareMatrix<T>::operator*= (double dCoefficient)
 {
-	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
-		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * dCoefficient);
+	for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
+			MTXsetValue(uiRow, uiColumn, this->ptValues[uiRow][uiColumn] * dCoefficient);
 	return *this;
 }
 

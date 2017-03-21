@@ -2,6 +2,7 @@
 #include "CExceptionUnit.h"
 #include "CMatrixUnit.h"
 #include "CMatrixParserUnit.h"
+#include "CSquareMatrixUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
@@ -20,10 +21,13 @@ void CUnit::UNITlaunchTests()
 	CMatrixUnit::MTXUnitTests();
 	printf("OK\n");
 	
+	printf("Executing CSquareMatrixUnit tests... ");
+	CSquareMatrixUnit::SMXUnitTests();
+	printf("OK\n");
+	
 	printf("Executing CMatrixParser tests... ");
 	CMatrixParserUnit::MTXPUnitTests();
 	printf("OK\n");
-	
 	
 	fflush(stdout);
 }

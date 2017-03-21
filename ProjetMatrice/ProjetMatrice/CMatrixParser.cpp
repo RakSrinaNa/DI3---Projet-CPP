@@ -6,6 +6,7 @@
 
 SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 {
+	
 	FILE* poFILEfile;
 	try
 	{
@@ -14,7 +15,7 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 	catch(CException * poEXexception)
 	{
 		perror(poEXexception->EXgetExceptionMessage());
-		return nullptr;
+		throw poEXexception;
 	}
 	
 	SMatrixInfos sMIFinfos;
