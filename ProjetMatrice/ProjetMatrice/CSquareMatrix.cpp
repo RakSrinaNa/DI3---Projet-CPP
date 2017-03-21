@@ -37,9 +37,9 @@ CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize) : CMatrix<T>(uiSize, uiSize
 }
 
 template <class T>
-CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * eye) : CMatrix<T>(uiSize, uiSize)
+CSquareMatrix<T>::CSquareMatrix(unsigned int uiSize, char * pcMethod) : CMatrix<T>(uiSize, uiSize)
 {
-	if(STRCMPI(eye, "eye") == 0 || STRCMPI(eye, "eyes") == 0)
+	if(STRCMPI(pcMethod, "eye") == 0 || STRCMPI(pcMethod, "eyes") == 0)
 		for(unsigned int uiRow = 0; uiRow < uiSize; uiRow++)
 			this->MTXsetValue(uiRow, uiRow, 1);
 }

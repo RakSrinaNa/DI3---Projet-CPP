@@ -3,6 +3,8 @@
 
 #include "CMatrix.h"
 
+#define INCOMPATIBLE_MATRIX_EXCEPTION 3924
+
 template <class T>
 class CSquareMatrix : public CMatrix<T>
 {
@@ -12,7 +14,7 @@ public:
 	CSquareMatrix(CSquareMatrix<T> const& oSMTXmatrixParam, unsigned int uiRow, unsigned int uiColumn);
 	CSquareMatrix(CMatrix<T> const& oMTXmatrixParam);
 	CSquareMatrix(unsigned int uiSize);
-	CSquareMatrix(unsigned int uiSize, char * eye);
+	CSquareMatrix(unsigned int uiSize, char * pcMethod);
 	~CSquareMatrix();
 
 	unsigned int SMTXgetSize();

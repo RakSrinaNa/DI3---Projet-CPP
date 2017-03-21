@@ -32,6 +32,10 @@ void CMatrixUnit::MTXUnitTestConstructors()
 	CMatrix<double> oMTXmatrix2 = CMatrix<double>(oMTXmatrix1);
 	if(oMTXmatrix2.MTXgetHeight() != 1 || oMTXmatrix2.MTXgetWidth() != 1 || oMTXmatrix2.MTXgetValue(0, 0) != 10)
 		CUnit::UNITassertError("CMatrix B2");
+	
+	CMatrix<double> oMTXmatrix3 = CMatrix<double>(4, 3);
+	if(oMTXmatrix3.MTXgetHeight() != 4 || oMTXmatrix3.MTXgetWidth() != 3)
+		CUnit::UNITassertError("CMatrix B3");
 }
 
 void CMatrixUnit::MTXUnitTestOperations()
