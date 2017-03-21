@@ -4,7 +4,7 @@
 #include "CMatrixParser.h"
 #include "CSquareMatrix.h"
 
-CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
+SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 {
 	FILE* poFILEfile;
 	try
@@ -17,12 +17,14 @@ CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 		return nullptr;
 	}
 	
+	SMatrixInfos sMIFinfos;
+	
 	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
-	CMatrixType eMTTtype = PMTXgetValueAsMType(pcTypeValue);
+	sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcTypeValue);
 	free(pcCurrentLine);
 	
-	if(eMTTtype == ERROR || eMTTtype != DOUBLE)
+	if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
 	{
 		CException * poCEXexception = new CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
 		throw poCEXexception;
@@ -30,35 +32,28 @@ CMatrix<double> * CMatrixParser::PMTXreadFile(char* pcFileName)
 	
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcRows = PMTXgetLineValue(pcCurrentLine);
-	unsigned int uiRows = (unsigned int)atoi(pcRows);
+	sMIFinfos.uiHeight = (unsigned int)atoi(pcRows);
 	free(pcCurrentLine);
 	
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcColumns = PMTXgetLineValue(pcCurrentLine);
-	unsigned int uiColumns = (unsigned int)atoi(pcColumns);
+	sMIFinfos.uiWidth = (unsigned int)atoi(pcColumns);
 	free(pcCurrentLine);
 	
-	CMatrix<double> * pcMTXmatrix;
-	if(uiColumns == uiRows)
-		pcMTXmatrix = new CSquareMatrix<double>(uiRows);
-	else
-		pcMTXmatrix = new CMatrix<double>(uiRows, uiColumns);
 	free(PMTXreadLineFromFile(poFILEfile));
 	
-	for(unsigned int uiRowIndex = 0; uiRowIndex < uiRows; uiRowIndex++)
+	MMALLOC(sMIFinfos.pdValues, double *, sMIFinfos.uiHeight, "REALLOC ERROR CMATRIXPARSER");
+	
+	for(unsigned int uiRowIndex = 0; uiRowIndex < sMIFinfos.uiHeight; uiRowIndex++)
 	{
 		pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-		double * pdValues = PMTXgetValuesAsDoubleArray(pcCurrentLine, uiColumns);
-		
-		for(unsigned int uiColumnIndex = 0; uiColumnIndex < uiColumns; uiColumnIndex++)
-			pcMTXmatrix->MTXsetValue(uiRowIndex, uiColumnIndex, pdValues[uiColumnIndex]);
-			
-		free(pdValues);
+		double * pdValues = PMTXgetValuesAsDoubleArray(pcCurrentLine, sMIFinfos.uiWidth);
+		sMIFinfos.pdValues[uiRowIndex] = pdValues;
 		free(pcCurrentLine);
 	}
 	
 	fclose(poFILEfile);
-	return pcMTXmatrix;
+	return sMIFinfos;
 }
 
 double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount)
@@ -206,4 +201,39 @@ int CMatrixParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * po
 	*pcLineSize = uiSize; // Set uiSize being pointer by pcLineSize
 	
 	return uiWritingHead - 1; // Return the length of the read string, not counting the terminating byte
+}
+
+CMatrix<double> * CMatrixParser::PMTXreadMatrix(char * pcFileName)
+{
+	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName);
+	CMatrix<double> * poMTXmatrix = new CMatrix<double>(sMTXinfos.uiHeight, sMTXinfos.uiWidth);
+	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++)
+	{
+		for(unsigned int uiCol = 0; uiCol < sMTXinfos.uiWidth; uiCol++)
+			poMTXmatrix->MTXsetValue(uiRow, uiCol, sMTXinfos.pdValues[uiRow][uiCol]);
+		free(sMTXinfos.pdValues[uiRow]);
+	}
+	free(sMTXinfos.pdValues);
+	return poMTXmatrix;
+}
+
+CSquareMatrix<double> * CMatrixParser::PMTXreadSquareMatrix(char * pcFileName)
+{
+	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName);
+	
+	if(sMTXinfos.uiWidth != sMTXinfos.uiHeight)
+	{
+		CException * poEXexception = new CException(NOT_SQUARE_MATRIX);
+		throw poEXexception;
+	}
+	
+	CSquareMatrix<double> * poMTXmatrix = new CSquareMatrix<double>(sMTXinfos.uiHeight);
+	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++)
+	{
+		for(unsigned int uiCol = 0; uiCol < sMTXinfos.uiWidth; uiCol++)
+			poMTXmatrix->MTXsetValue(uiRow, uiCol, sMTXinfos.pdValues[uiRow][uiCol]);
+		free(sMTXinfos.pdValues[uiRow]);
+	}
+	free(sMTXinfos.pdValues);
+	return poMTXmatrix;
 }
