@@ -33,7 +33,7 @@ CException::~CException()
 	free(pcEXmessage);
 }
 
-void CException::operator=(CException &oEXexception)
+void CException::operator=(CException const&oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	free(pcEXmessage);

@@ -12,9 +12,9 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 	{
 		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
 	}
-	catch(CException * poEXexception)
+	catch(CException const& poEXexception)
 	{
-		perror(poEXexception->EXgetExceptionMessage());
+		perror(poEXexception.EXgetExceptionMessage());
 		throw poEXexception;
 	}
 	
@@ -27,8 +27,7 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 	
 	if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
 	{
-		CException * poCEXexception = new CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
-		throw poCEXexception;
+		throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
 	}
 	
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
@@ -113,10 +112,7 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 	while(*pcLine != '=' && *pcLine != '\0')
 		pcLine++;
 	if(*pcLine == '\0')
-	{
-		CException * poCEXexception = new CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
-		throw poCEXexception;
-	}
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
 	return pcLine + 1;
 }
 
@@ -233,10 +229,7 @@ CSquareMatrix<double> * CMatrixParser::PMTXreadSquareMatrix(char * pcFileName)
 	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName);
 	
 	if(sMTXinfos.uiWidth != sMTXinfos.uiHeight)
-	{
-		CException * poEXexception = new CException(NOT_SQUARE_MATRIX);
-		throw poEXexception;
-	}
+		throw CException(NOT_SQUARE_MATRIX);
 	
 	CSquareMatrix<double> * poMTXmatrix = new CSquareMatrix<double>(sMTXinfos.uiHeight);
 	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++)

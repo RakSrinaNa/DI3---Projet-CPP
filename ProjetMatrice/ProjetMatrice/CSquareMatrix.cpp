@@ -111,10 +111,7 @@ template <class T>
 CSquareMatrix<T>& CSquareMatrix<T>::operator= (CSquareMatrix<T> const& oSMTXmatrixParam)
 {
 	if (this->uiHeight != oSMTXmatrixParam.MTXgetHeight() || this->uiWidth != oSMTXmatrixParam.MTXgetWidth())
-	{
-		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
-		throw poCEXexception;
-	}
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
 	for (unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
 		for (unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)

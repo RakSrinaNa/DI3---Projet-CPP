@@ -31,6 +31,9 @@ CMatrix<T>::CMatrix(CMatrix<T> const& oMTXmatrixParam) : uiHeight(oMTXmatrixPara
 template <class T>
 CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiHeight(uiHeightParam), uiWidth(uiWidthParam)
 {
+	if(uiHeight == 0 || uiWidth == 0)
+		throw CException(IMPOSSIBLE_MATRIX_SIZE_EXCEPTION, (char *) "At least one of the dimensions was 0");
+
 	MMALLOC(ptValues, T*, uiHeight, "CMatrix constructor");
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 	{
@@ -64,21 +67,15 @@ template <class T>
 inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn) const
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
-	{
-		CException * poCEXexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-		throw poCEXexception;
-	}
+		throw oEXPexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 	return ptValues[uiRow][uiColumn];
 }
 
 template <class T>
-void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T uiValueParam)
+void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T tValueParam)
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
-	{
-		CException * poCEXexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-		throw poCEXexception;
-	}
+		throw oEXPexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 	ptValues[uiRow][uiColumn] = uiValueParam;
 }
 
@@ -110,10 +107,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
-	{
-		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
-		throw poCEXexception;
-	}
+		throw oEXPexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
 	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -127,10 +121,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
-	{
-		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
-		throw poCEXexception;
-	}
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
 	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth());
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -155,11 +146,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiWidth != oMTXmatrixParam.MTXgetHeight())
-	{
-		std::cout << uiWidth << "\t" << oMTXmatrixParam.MTXgetHeight() << std::endl;
-		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix are incompatible for multiplication");
-		throw * poCEXexception;
-	}
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix are incompatible for multiplication");
 
 	CMatrix<T> * poMTXtimes = new CMatrix(uiHeight, oMTXmatrixParam.MTXgetWidth());
 
@@ -179,10 +166,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator/(double dCoefficient)
 {
 	if(dCoefficient == 0)
-	{
-		CException * poCEXexception = new CException(DIVISION_BY_ZEO_EXCEPTION, (char *) "Division par zero");
-		throw poCEXexception;
-	}
+		throw CException(DIVISION_BY_ZEO_EXCEPTION, (char *) "Division par zero");
 	return (*this) * (1/dCoefficient);
 }
 
@@ -190,10 +174,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 {
 	if (uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
-	{
-		CException * poCEXexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
-		throw poCEXexception;
-	}
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
 	for (unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for (unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
@@ -220,10 +201,7 @@ template <class T>
 const T* const CMatrix<T>::operator[](unsigned int uiRow)
 {
 	if(uiRow >= uiHeight)
-	{
-		CException * poCEXexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-		throw poCEXexception;
-	}
+		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 
 	return ptValues[uiRow];
 }
