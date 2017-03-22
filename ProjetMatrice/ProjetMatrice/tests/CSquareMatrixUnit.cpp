@@ -99,13 +99,13 @@ void CSquareMatrixUnit::SMXUnitTestOperations()
 		if(oSMXmatrix3.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues2[uiIndex])
 			CUnit::UNITassertError("CSquareMatrix C3");
 	
-	double piValues3[] = {369/12114, -99/12114, 225/12114, -1557/12114, 270/12114, -63/12114, 2648/12114, -218/12114, 6/12114};
+	double piValues3[] = {369/12114.0, -99/12114.0, 225/12114.0, -1557/12114.0, 270/12114.0, -63/12114.0, 2648/12114.0, -218/12114.0, 6/12114.0};
 	CSquareMatrix<double> oSMXmatrix4 = oSMXmatrix2.SMTXinverse();
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
-		if(oSMXmatrix4.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues3[uiIndex])
+		if(CUnit::UNITabsolute(oSMXmatrix4.MTXgetValue(uiIndex / 3, uiIndex % 3) - piValues3[uiIndex]) > 0.00000000001)
 			CUnit::UNITassertError("CSquareMatrix C4");
 	
-	double piValues4[] = {62282, 126950, 69489, 681812, 1348280, 724968, 239338, 442654, 233613};
+	double piValues4[] = {62282, 126950, 69489, 681872, 1348280, 724968, 239338, 442654, 233613};
 	oSMXmatrix4 = oSMXmatrix2.SMTXpow(3);
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
 		if(oSMXmatrix4.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues4[uiIndex])
