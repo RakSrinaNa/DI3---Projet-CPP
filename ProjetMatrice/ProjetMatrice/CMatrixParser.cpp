@@ -120,6 +120,16 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 	return pcLine + 1;
 }
 
+char * CMatrixParser::PMTXgetLineKey(char * pcStart, char * pcEnd)
+{
+	char * pcKey;
+	unsigned int uiSize = pcEnd - pcStart;
+	MMALLOC(pcKey, char, uiSize, "Parser fail getting key");
+	for(unsigned int uiIndex = 0; uiIndex < uiSize; uiIndex++)
+		pcKey[uiIndex] = pcStart[uiIndex];
+	return pcKey;
+}
+
 CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
 	if(strcmp("byte", pcLine) == 0)

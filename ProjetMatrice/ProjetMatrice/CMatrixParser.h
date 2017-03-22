@@ -38,6 +38,7 @@ public:
 private:
 	static SMatrixInfos PMTXreadFile(char* pcFileName);
 	static char * PMTXgetLineValue(char * pcLine);
+	static char * PMTXgetLineKey(char * pcStart, char * pcEnd);
 	static double * PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int uiValuesCount);
 	static CMatrixType PMTXgetValueAsMType(char * pcLine);
 	static int PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
