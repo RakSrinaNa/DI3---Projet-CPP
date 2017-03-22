@@ -93,7 +93,7 @@ void CSquareMatrixUnit::SMXUnitTestOperations()
 	if(oSMXmatrix2.SMTXgetDeterminant() != -24228)
 		CUnit::UNITassertError("CSquareMatrix C2");
 	
-	double piValues2[] = {-738, 198, -450, 3114, -540, 126, -5296, 436, -12};
+	double piValues2[] = {-738, 3114, -5296, 198, -540, 436, -450, 126, -12};
 	CSquareMatrix<double> oSMXmatrix3 = oSMXmatrix2.SMTXcomatrix();
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
 		if(oSMXmatrix3.MTXgetValue(uiIndex / 3, uiIndex % 3) != piValues2[uiIndex])
