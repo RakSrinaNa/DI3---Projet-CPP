@@ -7,7 +7,13 @@
 class CException
 {
 	private:
+		/**************************************************************
+		* ID de l'exception.
+		**************************************************************/
 		unsigned int uiEXID;
+		/**************************************************************
+		* Message de l'exception.
+		**************************************************************/
 		char * pcEXmessage;
 	
 	public:
@@ -81,7 +87,7 @@ class CException
 		 * PreCond:
 		 * PostCond:
 		 */
-		unsigned int EXgetExceptionID(){return uiEXID;}
+		unsigned int EXgetExceptionID() const {return uiEXID;}
 	
 		/**************************************************************
 		* Permet d'obtenir le message d'erreur.
@@ -92,7 +98,7 @@ class CException
 		* PreCond:
 		* PostCond:
 		*/
-		char * EXgetExceptionMessage(){return pcEXmessage;}
+		char * EXgetExceptionMessage() const {return pcEXmessage;}
 	
 		/**************************************************************
 		* Permet de definir le numero de l'erreur.
@@ -129,7 +135,7 @@ class CException
 		 * PostCond:
 		 *      Objet actuel ayant des attributs identiques a celui passe en parametre.
 		 */
-		void operator=(CException &oEXexception);
+		void operator=(CException const& oEXexception);
 };
 
 #endif
