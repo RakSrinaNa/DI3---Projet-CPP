@@ -105,7 +105,6 @@ CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
 	CMatrix<T> * poMTXinverse;
 	CMatrix<T> oMTXcomatrix = SMTXcomatrix();
 	poMTXinverse = &oMTXcomatrix.MTXtranspose();
-	oMTXcomatrix.~CMatrix();
 	return (*poMTXinverse) /= SMTXgetDeterminant();
 }
 
