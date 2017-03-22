@@ -83,7 +83,6 @@ CSquareMatrix<T>& CSquareMatrix<T>::SMTXpow(unsigned int power)
 		return *poMTXmatrix;
 	}
 	return (this->SMTXpow(power - 1) *= (*this));
-
 }
 
 template <class T>
