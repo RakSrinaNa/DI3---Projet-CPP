@@ -53,7 +53,7 @@ public:
 	CMatrix(CMatrix<T> const& oMTXmatrixParam);
 	
 	/**************************************************************
-	 * Constructeur de comfort.
+	 * Constructeur de confort.
 	 **************************************************************
 	 *
 	 * Entree:
@@ -78,7 +78,7 @@ public:
 	~CMatrix();
 	
 	/**************************************************************
-	 * Renvoie le nombre de lines.
+	 * Renvoie le nombre de lignes.
 	 **************************************************************
 	 *
 	 * Entree:
@@ -118,7 +118,7 @@ public:
 	
 	
 	/**************************************************************
-	 * Ecris la valeur d'une case de la matrice.
+	 * Ecrit la valeur d'une case de la matrice.
 	 **************************************************************
 	 *
 	 * Entree:
@@ -164,7 +164,7 @@ public:
 	 * Entree:
 	 *      oMTXmatrixParam:    La matrice a ajouter.
 	 * Sortie:
-	 *      CMatrix:            Une matrice représentant la somme de matrices.
+	 *      CMatrix:            Une matrice représentant la somme des matrices.
 	 * PreCond:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille.
@@ -176,9 +176,9 @@ public:
 	 **************************************************************
 	 *
 	 * Entree:
-	 *      oMTXmatrixParam:    La matrice a ajouter.
+	 *      oMTXmatrixParam:    La matrice a soustraire.
 	 * Sortie:
-	 *      CMatrix:            Une matrice représentant la différence de matrices.
+	 *      CMatrix:            Une matrice représentant la différence des matrices.
 	 * PreCond:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille.
@@ -186,15 +186,16 @@ public:
 	CMatrix<T>& operator-(CMatrix<T> const& oMTXmatrixParam);
 	
 	/**************************************************************
-	 * Définit l'addition entre matrices.
+	 * Définit la multiplication entre matrices.
 	 **************************************************************
 	 *
 	 * Entree:
-	 *      oMTXmatrixParam:    La matrice a ajouter.
+	 *      oMTXmatrixParam:    La matrice a multiplier.
 	 * Sortie:
-	 *      CMatrix:            Une matrice représentant la somme de matrices.
+	 *      CMatrix:            Une matrice représentant le produit des matrices.
 	 * PreCond:
 	 * PostCond:
+	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si la multiplication n'est pas possible.
 	 */
 	CMatrix<T>& operator*(CMatrix<T> const& oMTXmatrixParam);
 	
@@ -208,7 +209,6 @@ public:
 	 *      CMatrix:            Une matrice étant la multiplication de la marice actuelle par le scalaire.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si la multiplication n'est pas possible.
 	 */
 	CMatrix<T>& operator*(double dCoefficient);
 	
@@ -219,7 +219,7 @@ public:
 	 * Entree:
 	 *      dCoefficient:       Le coefficient de division.
 	 * Sortie:
-	 *      CMatrix:            Une matrice étant la division de la marice actuelle par le scalaire.
+	 *      CMatrix:            Une matrice étant la division de la matrice actuelle par le scalaire.
 	 * PreCond:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `DIVISION_BY_0_EXCEPTION` si le coefficient est 0.
@@ -233,7 +233,7 @@ public:
 	 * Entree:
 	 *      oMTXmatrixParam:    La matrice a affecter.
 	 * Sortie:
-	 *      CMatrix:            Un duplicatat de la matrice en paramètre.
+	 *      CMatrix:            Un duplicatat de la matrice en paramètre dans la matrice en cours.
 	 * PreCond:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille.
@@ -247,7 +247,7 @@ public:
 	 * Entree:
 	 *      oMTXmatrixParam:    La matrice a comparer.
 	 * Sortie:
-	 *      bool:               true si les matrices sont égales, false sinon.
+	 *      bool:               true si les matrices sont de même taille et ont les mêmes valeurs, false sinon.
 	 * PreCond:
 	 * PostCond:
 	 */
@@ -263,6 +263,7 @@ public:
 	 *      T*:     Un tableau de uiWidth éléments T.
 	 * PreCond:
 	 * PostCond:
+	 *      Renvoie une CException avec l'ID `OUT_OF_RANGE_EXCEPTION` si la ligne n'existe pas.
 	 */
 	const T* const operator[](unsigned int uiRow);
 	

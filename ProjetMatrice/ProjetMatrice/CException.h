@@ -42,7 +42,7 @@ class CException
 		CException(CException const& oEXexception);
 	
 		/**************************************************************
-		 * Constructeur de comfort erreurID.
+		 * Constructeur de confort erreurID.
 		 **************************************************************
 		 *
 		 * Entree:
@@ -54,7 +54,7 @@ class CException
 		CException(unsigned int uiEXIDParam);
 	
 		/**************************************************************
-		 * Constructeur de comfort erreurID & message.
+		 * Constructeur de confort erreurID & message.
 		 **************************************************************
 		 *
 		 * Entree:
