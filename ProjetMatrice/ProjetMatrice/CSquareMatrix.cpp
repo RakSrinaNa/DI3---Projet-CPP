@@ -94,7 +94,7 @@ CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
 		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
 		{
 			CSquareMatrix<T> oMTXmatrix = CSquareMatrix<T>(*this, uiRow, uiColumn);
-			this->MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn)%2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
+			poMTXcomatrix->MTXsetValue(uiRow, uiColumn, (((uiRow + uiColumn) % 2 == 0 ? 1 : -1) * oMTXmatrix.SMTXgetDeterminant()));
 		}
 	return *poMTXcomatrix;
 }
