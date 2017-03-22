@@ -166,7 +166,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator/(double dCoefficient)
 {
 	if(dCoefficient == 0)
-		throw CException(DIVISION_BY_ZEO_EXCEPTION, (char *) "Division par zero");
+		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char *) "Division by zero");
 	return (*this) * (1/dCoefficient);
 }
 
@@ -206,15 +206,6 @@ const T* const CMatrix<T>::operator[](unsigned int uiRow)
 	return ptValues[uiRow];
 }
 
-
-template <class T>
-CMatrix<T>& CMatrix<T>::operator*=(CMatrix<T> const& oMTXmatrixParam)
-{
-	CMatrix<double> oMTXmatrix = (*this) * oMTXmatrixParam;
-	(*this) = oMTXmatrix;
-	return *this;
-}
-
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(double dCoefficient)
 {
@@ -227,5 +218,7 @@ CMatrix<T>& CMatrix<T>::operator*=(double dCoefficient)
 template <class T>
 CMatrix<T>& CMatrix<T>::operator/=(double dCoefficient)
 {
+	if(dCoefficient == 0)
+		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char *) "Division by zero");
 	return (*this) *= (1/dCoefficient);
 }
