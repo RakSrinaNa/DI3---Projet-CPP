@@ -71,6 +71,11 @@ double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int u
 	
 	do
 	{
+		if(uiValuesLength > uiValuesCount)
+		{
+			free(pdValues);
+			throw CException(PARSER_ERROR_EXCEPTION);
+		}
 		if(pcLine[uiIndex] == '\t' || pcLine[uiIndex] == ' ' || pcLine[uiIndex] == '\0' || pcLine[uiIndex] == '\n') // If we don't read a number
 		{
 			if(bReading) // If we were reading, add the number to the array
@@ -85,9 +90,6 @@ double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int u
 				pdValues[uiValuesLength - 1] = atof(buffer);
 				
 				uiLength = 0;
-				
-				if(uiValuesLength == uiValuesCount) // If we read enough, stop
-					break;
 			}
 		}
 		else // If we read a number
@@ -102,8 +104,11 @@ double * CMatrixParser::PMTXgetValuesAsDoubleArray(char * pcLine, unsigned int u
 		uiIndex++;
 	} while(pcLine[uiIndex - 1] != '\0'); // Read while we didn't reached the end of the string
 	
-	for(unsigned int uiValueIndex = uiValuesLength; uiValueIndex < uiValuesCount; uiValueIndex++) // Set missing pdValues to 0
-		pdValues[uiValueIndex] = 0;
+	if(uiValuesLength < uiValuesCount)
+	{
+		free(pdValues);
+		throw CException(PARSER_ERROR_EXCEPTION);
+	}
 	return pdValues;
 }
 
@@ -149,7 +154,7 @@ char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 {
 	char * pcLineRead = NULL;
 	size_t uiSize = 0;
-	int iEndString = -1;
+	int iEndString;
 	do
 	{
 		if(pcLineRead != NULL) // If an empty line was read before, free it
