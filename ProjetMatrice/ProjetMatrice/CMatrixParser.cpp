@@ -20,6 +20,7 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 	
 	SMatrixInfos sMIFinfos;
 	
+	/* Recuperation du type */
 	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
 	sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcTypeValue);
@@ -30,18 +31,22 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 		throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
 	}
 	
+	/* Recuperation du nombre de lignes */
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcRows = PMTXgetLineValue(pcCurrentLine);
 	sMIFinfos.uiHeight = (unsigned int)atoi(pcRows);
 	free(pcCurrentLine);
 	
+	/* Recuperation du nombre de colonnes */
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 	char * pcColumns = PMTXgetLineValue(pcCurrentLine);
 	sMIFinfos.uiWidth = (unsigned int)atoi(pcColumns);
 	free(pcCurrentLine);
 	
+	/* Saut du "matrix=[" */
 	free(PMTXreadLineFromFile(poFILEfile));
 	
+	/* Recuperation des valeurs de la matrice */
 	MMALLOC(sMIFinfos.pdValues, double *, sMIFinfos.uiHeight, "REALLOC ERROR CMATRIXPARSER");
 	
 	for(unsigned int uiRowIndex = 0; uiRowIndex < sMIFinfos.uiHeight; uiRowIndex++)
@@ -207,9 +212,9 @@ int CMatrixParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * po
 
 CMatrix<double> * CMatrixParser::PMTXreadMatrix(char * pcFileName)
 {
-	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName);
+	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName); // Recuperation des infos de la matrice
 	CMatrix<double> * poMTXmatrix = new CMatrix<double>(sMTXinfos.uiHeight, sMTXinfos.uiWidth);
-	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++)
+	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++) // Affectation des valeurs
 	{
 		for(unsigned int uiCol = 0; uiCol < sMTXinfos.uiWidth; uiCol++)
 			poMTXmatrix->MTXsetValue(uiRow, uiCol, sMTXinfos.pdValues[uiRow][uiCol]);
@@ -221,13 +226,13 @@ CMatrix<double> * CMatrixParser::PMTXreadMatrix(char * pcFileName)
 
 CSquareMatrix<double> * CMatrixParser::PMTXreadSquareMatrix(char * pcFileName)
 {
-	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName);
+	SMatrixInfos sMTXinfos = PMTXreadFile(pcFileName); // Recuperation des infos de la matrice
 	
-	if(sMTXinfos.uiWidth != sMTXinfos.uiHeight)
+	if(sMTXinfos.uiWidth != sMTXinfos.uiHeight) // Si la matrice n'est pas carree
 		throw CException(NOT_SQUARE_MATRIX);
 	
 	CSquareMatrix<double> * poMTXmatrix = new CSquareMatrix<double>(sMTXinfos.uiHeight);
-	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++)
+	for(unsigned int uiRow = 0; uiRow < sMTXinfos.uiHeight; uiRow++) // Affectation des valeurs
 	{
 		for(unsigned int uiCol = 0; uiCol < sMTXinfos.uiWidth; uiCol++)
 			poMTXmatrix->MTXsetValue(uiRow, uiCol, sMTXinfos.pdValues[uiRow][uiCol]);
