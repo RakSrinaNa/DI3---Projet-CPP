@@ -37,6 +37,8 @@ public:
 	 * Sortie:
 	 * PreCond:
 	 * PostCond:
+	 *      La matrice sera de taille 1x1.
+	 *      Les valeurs sont par default a 0.
 	 */
 	CMatrix();
 	
@@ -55,15 +57,16 @@ public:
 	/**************************************************************
 	 * Constructeur de confort.
 	 **************************************************************
-	 *
-	 * Entree:
-	 *      uiHeightParam:  Nombre de lignes de la matrice.
-	 *      uiWidthParam:   Nombre de colonnes de la matrice.
-	 * Sortie:
-	 * PreCond:
-	 * PostCond:
-	 *      Renvoie une CException avec ID `IMPOSSIBLE_MATRIX_SIZE_EXCEPTION` si au moins l'un des paramètres est inférieur à 1.
-	 */
+	*
+	* Entree:
+	*      uiHeightParam:  Nombre de lignes de la matrice.
+	*      uiWidthParam:   Nombre de colonnes de la matrice.
+	* Sortie:
+	* PreCond:
+	* PostCond:
+	*      Renvoie une CException avec ID `IMPOSSIBLE_MATRIX_SIZE_EXCEPTION` si au moins l'un des paramètres est inférieur à 1.
+	*      Les valeurs sont par default a 0.
+	*/
 	CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam);
 	
 	/**************************************************************

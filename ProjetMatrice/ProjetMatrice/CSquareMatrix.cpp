@@ -81,16 +81,16 @@ CSquareMatrix<T>& CSquareMatrix<T>::SMTXpow(unsigned int power)
 {
 	if(power == 0)
 	{
-		CSquareMatrix<T> * poMTXmatrix = new CSquareMatrix<T>(SMTXgetSize(), "eye"); //Toute matrice à la puissance 0 renvoie l'identité
+		CSquareMatrix<T> * poMTXmatrix = new CSquareMatrix<T>(SMTXgetSize(), (char *)"eye"); //Toute matrice à la puissance 0 renvoie l'identité
 		return *poMTXmatrix;
 	}
 	return (this->SMTXpow(power - 1) *= (*this)); //Multiplication de la matrice actuelle par la matrice à la puisance power-1 par appel récursif de la méthode
 }
 
 template <class T>
-CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
+CSquareMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
 {
-	CMatrix<T> * poMTXcomatrix = new CSquareMatrix<T>(SMTXgetSize()); //Créé une nouvelle matrice
+	CSquareMatrix<T> * poMTXcomatrix = new CSquareMatrix<T>(SMTXgetSize()); //Créé une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
 		{
@@ -101,11 +101,22 @@ CMatrix<T>& CSquareMatrix<T>::SMTXcomatrix()
 }
 
 template <class T>
-CMatrix<T>& CSquareMatrix<T>::SMTXinverse()
+CSquareMatrix<T>& CSquareMatrix<T>::SMTXtranspose()
 {
-	CMatrix<T> * poMTXinverse;
-	CMatrix<T> oMTXcomatrix = SMTXcomatrix(); //Calcul de la comatrie
-	poMTXinverse = &oMTXcomatrix.MTXtranspose(); //Transposée de la comatrice
+	CSquareMatrix<T> * poSMTXtrans = new CSquareMatrix(this->uiWidth); //Créé une nouvelle matrice
+	for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
+		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
+			poSMTXtrans->MTXsetValue(uiColumn, uiRow, this->MTXgetValue(uiRow, uiColumn)); //Recopie dans la nouvelle matrice les valeurs de l'originale en inversant lignes et colonnes
+	
+	return *poSMTXtrans;
+}
+
+template <class T>
+CSquareMatrix<T>& CSquareMatrix<T>::SMTXinverse()
+{
+	CSquareMatrix<T> * poMTXinverse;
+	CSquareMatrix<T> oMTXcomatrix = SMTXcomatrix(); //Calcul de la comatrie
+	poMTXinverse = &oMTXcomatrix.SMTXtranspose(); //Transposée de la comatrice
 	return (*poMTXinverse) /= SMTXgetDeterminant(); //Multiplication par l'inverse du déterminant
 }
 
@@ -135,7 +146,7 @@ CSquareMatrix<T>& CSquareMatrix<T>::operator*= (double dCoefficient)
 {
 	for(unsigned int uiRow = 0; uiRow < this->uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < this->uiWidth; uiColumn++)
-			MTXsetValue(uiRow, uiColumn, this->ptValues[uiRow][uiColumn] * dCoefficient); //Affecte à chaque case sa valeur multipliée par le coefficient passé en paramètre
+			this->MTXsetValue(uiRow, uiColumn, this->ptValues[uiRow][uiColumn] * dCoefficient); //Affecte à chaque case sa valeur multipliée par le coefficient passé en paramètre
 	return *this;
 }
 
