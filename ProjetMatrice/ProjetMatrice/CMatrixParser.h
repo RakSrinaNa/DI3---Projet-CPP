@@ -87,20 +87,6 @@ private:
 	static SMatrixInfos PMTXreadFile(char* pcFileName);
 	
 	/**************************************************************
-	 * Renvoi la clef (sur le tas) d'une ligne du ficher (valeur avant le =).
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      pcStart:    Le début de la ligne.
-	 *      pcEnd:      Un pointeur sur le =.
-	 * Sortie:
-	 *      char *:     Un tableau de char sur le tas représentant la clef.
-	 * PreCond:
-	 * PostCond:
-	 */
-	static char * PMTXgetLineKey(char * pcStart, char * pcEnd);
-	
-	/**************************************************************
 	 * Renvoi la valeur d'une ligne du ficher (valeur après le =).
 	 **************************************************************
 	 *

@@ -8,7 +8,7 @@ CMatrix<T>::CMatrix() : uiHeight(1), uiWidth(1)
 	{
 		MMALLOC(ptValues[uiRow], T, uiWidth, "CMatrix constructor"); //Allocation des cases (colonnes) sur toutes les lignes
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			ptValues[uiRow][uiColumn] = 0; //Met toutes les cases à 0
+			ptValues[uiRow][uiColumn] = 0; //Met toutes les cases Ã  0
 	}
 }
 
@@ -39,7 +39,7 @@ CMatrix<T>::CMatrix(unsigned int uiHeightParam, unsigned int uiWidthParam) : uiH
 	{
 		MMALLOC(ptValues[uiRow], T, uiWidth, "CMatrix constructor"); //Allocation des cases (colonnes) sur toutes les lignes
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			ptValues[uiRow][uiColumn] = 0; //Met toutes les cases à 0
+			ptValues[uiRow][uiColumn] = 0; //Met toutes les cases Ã  0
 	}
 }
 
@@ -47,8 +47,8 @@ template <class T>
 CMatrix<T>::~CMatrix()
 {
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
-		free(ptValues[uiRow]); //Libère toutes les cases
-	free(ptValues); //Libère toutes les lignes
+		free(ptValues[uiRow]); //LibÃ¨re toutes les cases
+	free(ptValues); //LibÃ¨re toutes les lignes
 }
 
 template <class T>
@@ -68,7 +68,7 @@ inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn) cons
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
 		throw oEXPexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-	return ptValues[uiRow][uiColumn]; //Retourne la valeur dans la case de la ligne et de la colonne demandées
+	return ptValues[uiRow][uiColumn]; //Retourne la valeur dans la case de la ligne et de la colonne demandÃ©es
 }
 
 template <class T>
@@ -76,7 +76,7 @@ void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T tValue
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
 		throw oEXPexception = new CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-	ptValues[uiRow][uiColumn] = uiValueParam; //Modifie la valeur dans la case de la ligne et de la colonne demandées par la valeur donnée
+	ptValues[uiRow][uiColumn] = uiValueParam; //Modifie la valeur dans la case de la ligne et de la colonne demandÃ©es par la valeur donnÃ©e
 }
 
 template <class T>
@@ -95,7 +95,7 @@ void CMatrix<T>::MTXdisplay()
 template <class T>
 CMatrix<T>& CMatrix<T>::MTXtranspose()
 {
-	CMatrix<T> * poMTXtrans = new CMatrix(MTXgetWidth(), MTXgetHeight()); //Créé une nouvelle matrice
+	CMatrix<T> * poMTXtrans = new CMatrix(MTXgetWidth(), MTXgetHeight()); //CrÃ©Ã© une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			poMTXtrans->MTXsetValue(uiColumn, uiRow, MTXgetValue(uiRow, uiColumn)); //Recopie dans la nouvelle matrice les valeurs de l'originale en inversant lignes et colonnes
@@ -109,7 +109,7 @@ CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
 		throw oEXPexception = new CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
-	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth()); //Créé une nouvelle matrice
+	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth()); //CrÃ©Ã© une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			poMTXsum->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) + oMTXmatrixParam.MTXgetValue(uiRow, uiColumn)); //Recopie dans chaque case de la nouvelle matrice les sommes de chaque case des deux matrices
@@ -123,10 +123,10 @@ CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
 		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
-	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth()); //Créé une nouvelle matrice
+	CMatrix<T> * poMTXsub = new CMatrix(MTXgetHeight(), MTXgetWidth()); //CrÃ©Ã© une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			poMTXsub->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) - oMTXmatrixParam.MTXgetValue(uiRow, uiColumn)); //Recopie dans chaque case de la nouvelle matrice les différences de chaque case des deux matrices
+			poMTXsub->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) - oMTXmatrixParam.MTXgetValue(uiRow, uiColumn)); //Recopie dans chaque case de la nouvelle matrice les diffÃ¨rences de chaque case des deux matrices
 
 	return *poMTXsub;
 }
@@ -134,10 +134,10 @@ CMatrix<T>& CMatrix<T>::operator-(CMatrix<T> const& oMTXmatrixParam)
 template <class T>
 CMatrix<T>& CMatrix<T>::operator*(double dCoefficient)
 {
-	CMatrix<T> * poMTXtimes = new CMatrix(*this); //Créé une nouvelle matrice
+	CMatrix<T> * poMTXtimes = new CMatrix(*this); //CrÃ©Ã© une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			poMTXtimes->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) * dCoefficient); //Recopie dans chaque case de la nouvelle matrice les produits des valeurs de la matrice originale par le coefficient passé en paramétre
+			poMTXtimes->MTXsetValue(uiRow, uiColumn, MTXgetValue(uiRow, uiColumn) * dCoefficient); //Recopie dans chaque case de la nouvelle matrice les produits des valeurs de la matrice originale par le coefficient passÃ© en paramÃ¨tre
 
 	return *poMTXtimes;
 }
@@ -148,15 +148,15 @@ CMatrix<T>& CMatrix<T>::operator*(CMatrix<T> const& oMTXmatrixParam)
 	if(uiWidth != oMTXmatrixParam.MTXgetHeight())
 		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix are incompatible for multiplication");
 
-	CMatrix<T> * poMTXtimes = new CMatrix(uiHeight, oMTXmatrixParam.MTXgetWidth()); //Créé une nouvelle matrice
+	CMatrix<T> * poMTXtimes = new CMatrix(uiHeight, oMTXmatrixParam.MTXgetWidth()); //Crï¿½ï¿½ une nouvelle matrice
 
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 		{
 			T dSum = 0;
 			for(unsigned int uiTimes = 0; uiTimes < uiWidth; uiTimes++)
-				dSum += ptValues[uiRow][uiTimes] * oMTXmatrixParam.MTXgetValue(uiTimes, uiColumn); //Calcul le produit d'une ligne par une colonne d'après le matrice matriciel standard
-			poMTXtimes->MTXsetValue(uiRow, uiColumn, dSum); //Affecte la valeur précédement calculée dans chaque case
+				dSum += ptValues[uiRow][uiTimes] * oMTXmatrixParam.MTXgetValue(uiTimes, uiColumn); //Calcul le produit d'une ligne par une colonne d'aprÃ¨s le matrice matriciel standard
+			poMTXtimes->MTXsetValue(uiRow, uiColumn, dSum); //Affecte la valeur prÃ©cÃ©dement calculÃ©e dans chaque case
 		}
 
 	return *poMTXtimes;
@@ -167,7 +167,7 @@ CMatrix<T>& CMatrix<T>::operator/(double dCoefficient)
 {
 	if(dCoefficient == 0)
 		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char *) "Division by zero");
-	return (*this) * (1/dCoefficient); //Appel l'opérateur de multiplication avec l'inverse du coefficient demandé
+	return (*this) * (1/dCoefficient); //Appel l'opÃ©rateur de multiplication avec l'inverse du coefficient demandÃ©
 }
 
 template <class T>
@@ -178,7 +178,7 @@ CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 
 	for (unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for (unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			ptValues[uiRow][uiColumn] = oMTXmatrixParam.MTXgetValue(uiRow, uiColumn); //Recopie chaque valeur de la matrice passée en paramètre dans la matrice en cours
+			ptValues[uiRow][uiColumn] = oMTXmatrixParam.MTXgetValue(uiRow, uiColumn); //Recopie chaque valeur de la matrice passÃ©e en paramÃ¨tre dans la matrice en cours
 
 	return *this;
 }
@@ -186,12 +186,12 @@ CMatrix<T>& CMatrix<T>::operator=(CMatrix<T> const& oMTXmatrixParam)
 template <class T>
 bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 {
-	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth()) //Vérifie que les matrices sont de même taille
+	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth()) //VÃ©rifie que les matrices sont de mÃªme taille
 		return false;
-	
+
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			if(ptValues[uiRow][uiColumn] != oMTXmatrixParam.MTXgetValue(uiRow, uiColumn)) //Vérifie que chaque case d'une matrice est égale à son homologue dans l'autre matrice
+			if(ptValues[uiRow][uiColumn] != oMTXmatrixParam.MTXgetValue(uiRow, uiColumn)) //VÃ©rifie que chaque case d'une matrice est Ã©gale Ã  son homologue dans l'autre matrice
 				return false;
 
 	return true;
@@ -203,7 +203,7 @@ const T* const CMatrix<T>::operator[](unsigned int uiRow)
 	if(uiRow >= uiHeight)
 		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 
-	return ptValues[uiRow]; //Renvoie la ligne demandée
+	return ptValues[uiRow]; //Renvoie la ligne demandÃ©e
 }
 
 template <class T>
@@ -211,7 +211,7 @@ CMatrix<T>& CMatrix<T>::operator*=(double dCoefficient)
 {
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
-			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * dCoefficient); //Affecte à chaque case sa valeur d'origine multipliée par le coefficient passé en paramètre
+			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * dCoefficient); //Affecte Ã  chaque case sa valeur d'origine multipliÃ©e par le coefficient passÃ© en paramÃ¨tre
 	return *this;
 }
 
@@ -220,5 +220,5 @@ CMatrix<T>& CMatrix<T>::operator/=(double dCoefficient)
 {
 	if(dCoefficient == 0)
 		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char *) "Division by zero");
-	return (*this) *= (1/dCoefficient); //Appel l'opérateur *= avec l'inverse du coefficient passé en paramètre
+	return (*this) *= (1/dCoefficient); //Appel l'opÃ©rateur *= avec l'inverse du coefficient passÃ© en paramÃ¨tre
 }
