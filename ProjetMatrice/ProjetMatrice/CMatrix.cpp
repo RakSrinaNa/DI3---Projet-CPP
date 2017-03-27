@@ -216,6 +216,14 @@ CMatrix<T>& CMatrix<T>::operator*=(double dCoefficient)
 }
 
 template <class T>
+CMatrix<T>& CMatrix<T>::operator*=(CMatrix<T> const& oMTXmatrixParam)
+{
+	CMatrix<T> oMTXmatrix = CMatrix<T>((*this) * oMTXmatrixParam); //Multiplication des matrices par appel au constructeur
+	(*this) = oMTXmatrix; //Affection du produit précèdement calculé dans la matrice en cours
+	return *this;	
+}
+
+template <class T>
 CMatrix<T>& CMatrix<T>::operator/=(double dCoefficient)
 {
 	if(dCoefficient == 0)
