@@ -285,6 +285,19 @@ public:
 	CMatrix<T>& operator*=(double dCoefficient);
 	
 	/**************************************************************
+	 * Multiplie la matrice actuelle par un coefficient.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      dCoefficient:   Le coefficient de multiplication.
+	 * Sortie:
+	 *      CMatrix:        Notre matrice multipliee.
+	 * PreCond:
+	 * PostCond:
+	 */
+	CMatrix<T>& operator*=(CMatrix<T> const& oMTXmatrixParam);
+	
+	/**************************************************************
 	 * Divise la matrice actuelle par un coefficient.
 	 **************************************************************
 	 *

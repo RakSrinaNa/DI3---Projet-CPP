@@ -85,10 +85,9 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 28 || oMTXmatrix2.MTXgetValue(0, 1) != 40 || oMTXmatrix2.MTXgetValue(1, 0) != 60 || oMTXmatrix2.MTXgetValue(1, 1) != 88)
 		CUnit::UNITassertError("CMatrix C10");
 	
-	/*oMTXmatrix2 *= oMTXmatrix4;
+	oMTXmatrix2 *= oMTXmatrix4;
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 148 || oMTXmatrix2.MTXgetValue(0, 1) != 216 || oMTXmatrix2.MTXgetValue(1, 0) != 324 || oMTXmatrix2.MTXgetValue(1, 1) != 472)
-		CUnit::UNITassertError("CMatrix C11");*/
-	oMTXmatrix2 = oMTXmatrix2 * oMTXmatrix4;
+		CUnit::UNITassertError("CMatrix C11");
 	
 	oMTXmatrix2 /= 4;
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 37 || oMTXmatrix2.MTXgetValue(0, 1) != 54 || oMTXmatrix2.MTXgetValue(1, 0) != 81 || oMTXmatrix2.MTXgetValue(1, 1) != 118)
