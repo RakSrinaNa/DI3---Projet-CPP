@@ -61,7 +61,7 @@ public:
 	 * Sortie:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si la matrice n'est pas carrée.
+	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si la matrice n'est pas carrée. //TODO A faire
 	 */
 	CSquareMatrix(CMatrix<T> const& oMTXmatrixParam);
 	
@@ -174,7 +174,7 @@ public:
 	 *      CSquareMatrix: Inverse de la matrice en cours.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `NOT_INVERSIBLE_EXCEPTION` si la matrice n'est pas inversible.
+	 *      Renvoie une CException avec l'ID `NOT_INVERSIBLE_EXCEPTION` si la matrice n'est pas inversible. //TODO A faire
 	 */
 	CSquareMatrix<T>& SMTXinverse();
 	
@@ -189,7 +189,7 @@ public:
 	 *      CSquareMatrix:      Un duplicatat de la matrice en paramètre dans la matrice en cours.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille.
+	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille. //TODO A faire
 	 */
 	CSquareMatrix<T>& operator= (CSquareMatrix<T> const& oSMTXmatrixParam);
 	
@@ -203,7 +203,7 @@ public:
 	 *      CSquareMatrix:      La matrice actuelle multipliée.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille.
+	 *      Renvoie une CException avec l'ID `INCOMPATIBLE_MATRIX_EXCEPTION` si les matrices ne sont pas de même taille. //TODO A faire
 	 */
 	CSquareMatrix<T>& operator*= (CSquareMatrix<T> const& oSMTXmatrixParam);
 	
@@ -230,7 +230,7 @@ public:
 	 *      CSquareMatrix:  Notre matrice divisée.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `DIVISION_BY_0_EXCEPTION` si le coefficient est 0.
+	 *      Renvoie une CException avec l'ID `DIVISION_BY_0_EXCEPTION` si le coefficient est 0. //TODO A faire
 	 */
 	CSquareMatrix<T>& operator/= (double dCoefficient);
 
