@@ -120,5 +120,20 @@
 		\end{itemize}
 	
 	\chapter{Conseils d'utilisation}
+	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments des fichiers sources de matrice formatés comme défini dans le sujet.
+	
+	Suite à cela, il va exécuter les instructions suivantes :
+	\begin{itemize}
+		\item Demander à l'utilisateur un coefficient.
+		\item Calculer et afficher les résultats de la multiplication de chaque matrice par le coefficient précédent.
+		\item Calculer et afficher les résultats de la division de chaque matrice par le coefficient précédent.
+		\item Calculer et afficher le résultat de la somme de toutes les matrices.
+		\item Calculer et afficher le résultat de la somme alternée de toutes les matrices.
+		\item Calculer et afficher le résultat du produit de toutes les matrices. \\
+	\end{itemize}
+	Si une exception est levée pour n'importe lequel de ces points, le message d'erreur est affiché et le programme s'arrète instantanément.\\
+	
+	Pour toute autre utilisation, la classe Main devra être modifier par l'utilisateur. Une matrice peut être lue d'un fichier grâce aux fonctions statiques "PMTXreadMatrix" et "PMTXreadSquareMatrix" prenant chacune en paramètre le chemin relatif d'un fichier source de matrice. La première renverra un objet de la classe CMatrix quelles que soient les réelles dimensions de la matrice lue alors que la seconde créera une matrice carrée (ou levera une exception si la matrice lue n'est pas carrée). Les deux leveront des exceptions si un problème survient lors de la lecture.
+	
 
 \end{document}
