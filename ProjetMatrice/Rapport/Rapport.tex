@@ -51,7 +51,60 @@
 		%Parser why sMatrixInfo?
 	
 	\chapter{Tests effectués}
-	
+		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés de manière manuelle mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classes XXX.
+		
+		Nous sommes conscients que les tests sont très minimalistes et ne couvrent pas tout, cependant cela est déjà un bon départ pour vérifier un fonctionnement "normal".
+		
+		Commençons par CExceptionUnit:
+		\begin{itemize}
+			\item Tests des différents constructeur impliquant l'ID de l'exception ainsi que les getters et setters de celui-ci.
+			\item Tests des différents constructeur impliquant le message de l'exception ainsi que les getters et setters de celui-ci.
+		\end{itemize}
+		Ceux-si sont très généralistes mais couvre relativement bien les différentes utilisations d'un objet de cette classe.
+		
+		Intéressons nous maintenant à CMatrixUnit:
+		\begin{itemize}
+			\item Test des différents constructeurs ainsi que les getters concernant le nombre de lignes et le nombre de colonnes.
+			\item Tests des getters et setters sur les valeurs de la matrice.
+			\item Tests des différentes opérations:
+			\item 
+			\begin{itemize}
+				\item Transposée d'une matrice.
+				\item Multiplication par une coefficient.
+				\item Division par un coefficient.
+				\item Division par le coefficient 0 renvoyant une exception.
+				\item Test d'égalité de matrices.
+				\item Test d'affectation de matrices.
+				\item Test de l'opérateur $\left(\right])$
+				\item Test de l'opérateur $\left(\right])$ avec coordonnées invalides renvoyant une exception.
+				\item Test de la somme de deux matrices.
+				\item Test de la sous traction de deux matrices.
+				\item Test du produit de deux matrices.
+				\item Test du produit de deux matrices incompatibles renvoyant une exception.
+				\item Test de l'opérateur *= avec un coefficient.
+				\item Test de l'opérateur *= avec une matrice.
+				\item Test de l'opérateur *= avec une matrice incompatible renvoyant une exception.
+				\item Test de l'opérateur /= avec un coefficient.
+				\item Test de l'opérateur /= avec un coefficient 0 renvoyant une exception.
+			\end{itemize}
+		\end{itemize}
+		
+		Ces tests nous semblent assez complet sur les matrices. Cependant chaque test n'est effectué qu'une seule fois ce qui peut remettre en doute l'efficacité du test.
+		
+		Passons ensuite aux tests contenus dans CSquareMatrixUnit:
+		\begin{itemize}
+			\item Test des différents constructeurs ainsi que les getters concernant la dimension de la matrice.
+			\item Tests des getters et setters sur les valeurs de la matrice.
+			\item Tests des différentes opérations:
+			\item 
+			\begin{itemize}
+				\item Test du calcul du déterminant.
+				\item Test du calcul d'une comatrice.
+				\item Test du calcul d'une matrice inverse.
+				\item Test du calcul d'une matrice inverse avec déterminant nul, renvoyant une exception.
+				\item Calcul de la puissance d'une matrice.
+			\end{itemize}
+		\end{itemize}
 	
 	\chapter{Conseils d'utilisation}
 
