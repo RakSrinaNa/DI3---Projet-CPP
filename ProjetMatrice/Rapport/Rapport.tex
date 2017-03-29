@@ -17,7 +17,7 @@
 		\begin{itemize}
 			\item La hauteur représentant le nombre de lignes de la matrice.
 			\item La largeur représentant le nombre de colonnes de la matrice.
-			\item Un tableau 2D contenant l'ensemble des valeurs de la matrice.
+			\item Un tableau 2D contenant l'ensemble des valeurs de la matrice.\\
 		\end{itemize}
 		De plus, cette classe contient l'ensemble des méthodes demandées telles que :
 		\begin{itemize}
@@ -31,7 +31,7 @@
 			\item L'opérateur d'affection copiant le contenu d'une matrice dans une autre.
 			\item L'opérateur de comparaison.
 			\item Les opérateurs *= et /= avec un scalaire ou une matrice. Ceux-ci modifient la matrice en cours.
-			\item L'opérateur parenthèse prennant deux paramètres et renvoyant la valeur contenue dans la case demandée.
+			\item L'opérateur parenthèse prennant deux paramètres et renvoyant la valeur contenue dans la case demandée.\\
 		\end{itemize}
 		
 		Nous avons ensuite fait hériter à cette classe une autre classe appelée CSquareMatrix représentant elle aussi une matrice mais carrée. Celle-ci contient les mêmes informations que sa classe mère mais propose des méthodes supplémentaires spécifiques aux calculs mathématiques réservés aux matrices carrées:
@@ -39,19 +39,24 @@
 			\item Calcul du déterminant.
 			\item Calcul de l'inverse.
 			\item Calcul de la comatrice.
-			\item Calcul des puissances d'une matrice.
+			\item Calcul des puissances d'une matrice.\\
 		\end{itemize}
 		
 		Afin de pouvoir lire des matrices externes au programme, nous avons implémenté une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
 		
 	\chapter{Choix de codage}
-		Le choix de créer une classe CSquareMatrix héritée de CMatrix vient des nombreuses opérations mathématiques propres aux matrices carrées. Nous aurions put implémenter celles-ci directement dans la classe des matrices quelconques mais nous aurions alors du vérifier à chaque appel si la matrice avait le même nombre de lignes et de collones et lever une exception en cas d'échec.
-		Grâce à ce choix, nous évitons une grand nombre de vérifications sans pour autant géner les calculs normaux puisque des matrices carrées sont aussi des matrices simples et donc peuvent être multipliées, transposées, etc..
+		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.
+	
+		Le choix de créer une classe CSquareMatrix héritée de CMatrix vient des nombreuses opérations mathématiques propres aux matrices carrées. Nous aurions put implémenter celles-ci directement dans la classe des matrices quelconques mais nous aurions alors du vérifier à chaque appel si la matrice avait le même nombre de lignes et de colonnes et lever une exception en cas d'échec.
+		Grâce à ce choix, nous évitons un grand nombre de vérifications sans pour autant géner les calculs normaux puisque des matrices carrées sont aussi des matrices simples et peuvent donc être multipliées, transposées, etc..
+		
+		
 	
 		%Parser why sMatrixInfo?
+		Dans le parser, nous utilisons une structure SMatrixInfo. Celle-ci contient temporairement les informations d'une matrice. Nous en avons l'utilité lors de la création de nos matrices après lecture. En effet, si nous stockions directement les informations lues dans un objet matrice, nous ne pourions pas faire la différence entre une matrice quelconque et une matrice carrée. Cela est du au fait que l'objet doit être créé avant la lecture mais que nous avons besoin des informations lues pour définir le type d'objet à créer. La structure sert donc à vérifier si une matrice est carrée ou non pour ensuite instancier l'objet approprié.
 	
 	\chapter{Tests effectués}
-		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés de manière manuelle mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classes XXX.
+		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés de manière manuelle mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leurs classes XXX.
 		
 		Nous sommes conscients que les tests sont très minimalistes et ne couvrent pas tout, cependant cela est déjà un bon départ pour vérifier un fonctionnement "normal".
 		
