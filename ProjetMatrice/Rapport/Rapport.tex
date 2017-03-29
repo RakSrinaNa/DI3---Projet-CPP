@@ -132,7 +132,11 @@
 	\end{itemize}
 	Si une exception est levée pour n'importe lequel de ces points, le message d'erreur est affiché et le programme s'arrête instantanément.\\
 	
-	Pour toute autre utilisation, la classe Main devra être modifier par l'utilisateur. Une matrice peut être lue d'un fichier grâce aux fonctions statiques "PMTXreadMatrix" et "PMTXreadSquareMatrix" prenant chacune en paramètre le chemin relatif d'un fichier source de matrice. La première renverra un objet de la classe CMatrix quelles que soient les réelles dimensions de la matrice lue alors que la seconde créera une matrice carrée (ou lèvera une exception si la matrice lue n'est pas carrée). Les deux lèveront des exceptions si un problème survient lors de la lecture.
+	Pour toute autre utilisation, la classe Main devra être modifier par l'utilisateur, deux choix sont possibles.
 	
+	Une matrice peut être lue d'un fichier grâce aux fonctions statiques "PMTXreadMatrix" et "PMTXreadSquareMatrix" prenant chacune en paramètre le chemin relatif d'un fichier source de matrice. La première renverra un objet de la classe CMatrix quelles que soient les réelles dimensions de la matrice lue alors que la seconde créera une matrice carrée (ou lèvera une exception si la matrice lue n'est pas carrée). Les deux lèveront des exceptions si un problème survient lors de la lecture.
+	
+	D'une seconde manière, une matrice peut être créée directement depuis son constructeur mais celle-ci sera remplie de 0. Nous pouvons par la suite utiliser le setter adéquat pour modifier chaque valeur de la matrice a sa guise. A savoir qu'un constructeur identité est disponible pour les matrices carrées.
 
+	Pour toute information supplémentaire sur les méthodes, se référer aux cartouches d'entête présents dans les fichiers .h.
 \end{document}
