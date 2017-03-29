@@ -310,6 +310,21 @@ public:
 	 *      Renvoie une CException avec l'ID `DIVISION_BY_0_EXCEPTION` si le coefficient est 0.
 	 */
 	CMatrix<T>& operator/=(double dCoefficient);
+	
+	/**************************************************************
+	 * Obtient la valeur de la matrice aux coordonnees voulues.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      uiRow:      L'indice de la ligne.
+	 *      uiColumn:   L'indice de la colonne.
+	 * Sortie:
+	 *      T:          L'élément de la case.
+	 * PreCond:
+	 * PostCond:
+	 *      Renvoie une CException avec l'ID `OUT_OF_RANGE_EXCEPTION` si la case n'existe pas.
+	 */
+	T operator()(unsigned int uiRow, unsigned int uiColumn);
 };
 
 template<class T>

@@ -30,7 +30,7 @@ template <class T>
 CSquareMatrix<T>::CSquareMatrix(CMatrix<T> const& oMTXmatrixParam) : CMatrix<T>(oMTXmatrixParam)
 {
 	if(oMTXmatrixParam.MTXgetHeight() != oMTXmatrixParam.MTXgetWidth())
-		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, "Not a square matrix");
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char*) "Not a square matrix");
 }
 
 template <class T>
@@ -121,7 +121,7 @@ CSquareMatrix<T>& CSquareMatrix<T>::SMTXinverse()
 	poMTXinverse = &oMTXcomatrix.SMTXtranspose(); //Transposée de la comatrice
 	double dDet = SMTXgetDeterminant();
 	if(dDet == 0)
-		throw CException(NOT_INVERSIBLE_EXCEPTION, "Matrix not inversible");
+		throw CException(NOT_INVERSIBLE_EXCEPTION, (char *) "Matrix not inversible");
 	return (*poMTXinverse) /= SMTXgetDeterminant(); //Multiplication par l'inverse du déterminant
 }
 
@@ -161,6 +161,6 @@ template <class T>
 CSquareMatrix<T>& CSquareMatrix<T>::operator/= (double dCoefficient)
 {
 	if(dCoefficient == 0)
-		throw CException(DIVISION_BY_ZERO_EXCEPTION, "Division by zero");
+		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char*)"Division by zero");
 	return (*this) *= (1/dCoefficient); //Appel de l'opérateur *= avec l'inverse du coefficient passé en paramètre
 }
