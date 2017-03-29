@@ -9,14 +9,28 @@
 	\maketitle
 	\tableofcontents
 	\chapter{Présentation du sujet}
-	
+		L'objectif de ce projet est de réaliser une librairie de classes et de fonctions permettant de manipuler des matrices.
 	
 	\chapter{Architecture}
 		\img{diagramClass.png}{Diagramme de classes}{0.42}
+		La classe centrale de notre projet est CMatrix. Celle-ci représente une matrice. Y sont stockées les informations suivantes:
+		\begin{itemize}
+			\item La hauteur représentant le nombre de lignes de la matrice.
+			\item La largeur représentant le nombre de colonnes de la matrice.
+			\item Un tableau 2D contenant l'ensemble des valeurs de la matrice.
+		\end{itemize}
 		
-	
+		Nous avons fait hériter à cette classe une autre classe appelée CSquareMatrix représentant elle aussi une matrice mais carrée. Celle-ci contient les mêmes informations que sa classe mère mais propose des méthodes supplémentaires spécifiques aux calculs mathématiques réservés aux matrices carrées:
+		\begin{itemize}
+			\item Calcul du déterminant.
+			\item Calcul de l'inverse.
+			\item Calcul de la comatrice.
+		\end{itemize}
+		
+		Afin de pouvoir lire les matrices externes au programme, nous avons implémenté une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice ecrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
+		
 	\chapter{Choix de codage}
-	
+		%Perser why sMatrixInfo?
 	
 	\chapter{Tests effectués}
 	
