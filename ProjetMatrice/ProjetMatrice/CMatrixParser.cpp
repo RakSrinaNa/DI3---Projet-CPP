@@ -125,21 +125,21 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 	return pcLine + 1;
 }
 
-CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
+EMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
-	if(strcmp("byte", pcLine) == 0)
+	if(STRCMPI("byte", pcLine) == 0)
 		return BYTE;
-	if(strcmp("short", pcLine) == 0)
+	if(STRCMPI("short", pcLine) == 0)
 		return SHORT;
-	if(strcmp("int", pcLine) == 0)
+	if(STRCMPI("int", pcLine) == 0)
 		return INT;
-	if(strcmp("float", pcLine) == 0)
+	if(STRCMPI("float", pcLine) == 0)
 		return FLOAT;
-	if(strcmp("double", pcLine) == 0)
+	if(STRCMPI("double", pcLine) == 0)
 		return DOUBLE;
-	if(strcmp("boolean", pcLine) == 0)
+	if(STRCMPI("boolean", pcLine) == 0)
 		return BOOLEAN;
-	if(strcmp("char", pcLine) == 0)
+	if(STRCMPI("char", pcLine) == 0)
 		return CHAR;
 	return ERROR;
 }
