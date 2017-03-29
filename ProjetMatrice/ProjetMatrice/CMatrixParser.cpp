@@ -17,18 +17,43 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 		throw poEXexception;
 	}
 	
+	bool bMatrixPart = false;
 	SMatrixInfos sMIFinfos;
+	sMIFinfos.eMTTtype = UNSET;
 	
-	/* Recuperation du type */
-	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
-	sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcTypeValue);
-	free(pcCurrentLine);
-	
-	if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
+	do
 	{
-		throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
-	}
+		char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+		char * pcKey = PMTXgetLineValue(pcCurrentLine);
+		char * pcValue = PMTXgetLineValue(pcCurrentLine);
+		
+		if(STRCMPI("Matrice", pcKey) == 0)
+		{
+			if(sMIFinfos.uiHeight == 0 || sMIFinfos.uiWidth == 0 || sMIFinfos.eMTTtype == UNSET)
+			{
+				free(pcKey);
+				free(pcCurrentLine);
+				throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File should begin with height, width and type");
+			}
+			bMatrixPart = true;
+		}
+		else if(STRCMPI("TypeMatrice", pcKey))
+		{
+			sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcValue);
+			if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
+			{
+				free(pcKey);
+				free(pcCurrentLine);
+				throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
+			}
+		}
+		
+		free(pcKey);
+		free(pcCurrentLine);
+	} while(!bMatrixPart);
+	
+	
+	
 	
 	/* Recuperation du nombre de lignes */
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
@@ -125,21 +150,21 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 	return pcLine + 1;
 }
 
-CMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
+EMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
-	if(strcmp("byte", pcLine) == 0)
+	if(STRCMPI("byte", pcLine) == 0)
 		return BYTE;
-	if(strcmp("short", pcLine) == 0)
+	if(STRCMPI("short", pcLine) == 0)
 		return SHORT;
-	if(strcmp("int", pcLine) == 0)
+	if(STRCMPI("int", pcLine) == 0)
 		return INT;
-	if(strcmp("float", pcLine) == 0)
+	if(STRCMPI("float", pcLine) == 0)
 		return FLOAT;
-	if(strcmp("double", pcLine) == 0)
+	if(STRCMPI("double", pcLine) == 0)
 		return DOUBLE;
-	if(strcmp("boolean", pcLine) == 0)
+	if(STRCMPI("boolean", pcLine) == 0)
 		return BOOLEAN;
-	if(strcmp("char", pcLine) == 0)
+	if(STRCMPI("char", pcLine) == 0)
 		return CHAR;
 	return ERROR;
 }

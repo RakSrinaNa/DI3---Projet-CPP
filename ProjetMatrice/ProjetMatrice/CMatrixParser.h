@@ -15,7 +15,8 @@
 /**************************************************************
 * Types primitifs qu'une matrice peut avoir.
 **************************************************************/
-enum CMatrixType{
+enum EMatrixType{
+	UNSET,
 	ERROR,
 	BYTE,
 	SHORT,
@@ -33,7 +34,7 @@ typedef struct{
 	unsigned int uiWidth;
 	unsigned int uiHeight;
 	double ** pdValues;
-	CMatrixType eMTTtype;
+	EMatrixType eMTTtype;
 } SMatrixInfos;
 
 class CMatrixParser
@@ -126,7 +127,7 @@ private:
 	 * PostCond:
 	 *      Si le type est inconnu, le type ERROR sera renvoyé.
 	 */
-	static CMatrixType PMTXgetValueAsMType(char * pcLine);
+	static EMatrixType PMTXgetValueAsMType(char * pcLine);
 	
 	/**************************************************************
 	 * Lis une ligne du fichier.
