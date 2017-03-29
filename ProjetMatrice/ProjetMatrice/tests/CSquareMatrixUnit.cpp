@@ -20,6 +20,28 @@ void CSquareMatrixUnit::SMXUnitTestGetSet()
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
 		if(oSMXmatrix.MTXgetValue(uiIndex / 3, uiIndex % 3) !=  uiIndex + 1)
 			CUnit::UNITassertError("CSquareMatrix A2");
+	
+	try
+	{
+		oSMXmatrix.MTXgetValue(99, 99);
+		CUnit::UNITassertError("CMatrix A3.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix A3.2");
+	}
+	
+	try
+	{
+		oSMXmatrix.MTXsetValue(99, 99, 99);
+		CUnit::UNITassertError("CMatrix A4.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix A4.2");
+	}
 }
 
 void CSquareMatrixUnit::SMXUnitTestConstructors()
@@ -104,6 +126,17 @@ void CSquareMatrixUnit::SMXUnitTestOperations()
 	for(unsigned int uiIndex = 0; uiIndex < 9; uiIndex++)
 		if(CUnit::UNITabsolute(oSMXmatrix4.MTXgetValue(uiIndex / 3, uiIndex % 3) - piValues3[uiIndex]) > 0.00000000001)
 			CUnit::UNITassertError("CSquareMatrix C4");
+	
+	try
+	{
+		CSquareMatrix<double>(2).SMTXinverse();
+		CUnit::UNITassertError("CSquareMatrix C4.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != NOT_INVERSIBLE_EXCEPTION)
+			CUnit::UNITassertError("CSquareMatrix C4.2");
+	}
 	
 	double piValues4[] = {62282, 126950, 69489, 681872, 1348280, 724968, 239338, 442654, 233613};
 	oSMXmatrix4 = oSMXmatrix2.SMTXpow(3);

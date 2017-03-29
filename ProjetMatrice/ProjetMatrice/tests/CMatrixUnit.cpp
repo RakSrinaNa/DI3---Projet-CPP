@@ -20,6 +20,28 @@ void CMatrixUnit::MTXUnitTestGetSet()
 	for(unsigned int uiIndex = 0; uiIndex < 12; uiIndex++)
 		if(oMTXmatrix.MTXgetValue(uiIndex / 4, uiIndex % 4) !=  uiIndex + 1)
 			CUnit::UNITassertError("CMatrix A2");
+	
+	try
+	{
+		oMTXmatrix.MTXgetValue(99, 99);
+		CUnit::UNITassertError("CMatrix A3.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix A3.2");
+	}
+	
+	try
+	{
+		oMTXmatrix.MTXsetValue(99, 99, 99);
+		CUnit::UNITassertError("CMatrix A4.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix A4.2");
+	}
 }
 
 void CMatrixUnit::MTXUnitTestConstructors()
@@ -77,8 +99,41 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix1.MTXgetHeight() != 2 || oMTXmatrix1.MTXgetWidth() != 2 || oMTXmatrix1.MTXgetValue(0, 0) != 2 || oMTXmatrix1.MTXgetValue(0, 1) != 4 || oMTXmatrix1.MTXgetValue(1, 0) != 6 || oMTXmatrix1.MTXgetValue(1, 1) != 8)
 		CUnit::UNITassertError("CMatrix C5");
 	
-	if(oMTXmatrix1[0][0] != 2 || oMTXmatrix1[0][1] != 4 || oMTXmatrix1[1][0] != 6 || oMTXmatrix1[1][1] != 8)
+	if(oMTXmatrix1(0, 0) != 2 || oMTXmatrix1(0, 1) != 4 || oMTXmatrix1(1, 0) != 6 || oMTXmatrix1(1, 1) != 8)
 		CUnit::UNITassertError("CMatrix C6");
+	
+	try
+	{
+		oMTXmatrix1(0, 99);
+		CUnit::UNITassertError("CMatrix C6.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C6.2");
+	}
+	
+	try
+	{
+		oMTXmatrix1(99, 0);
+		CUnit::UNITassertError("CMatrix C6.3");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C6.4");
+	}
+	
+	try
+	{
+		oMTXmatrix1(0, 99);
+		CUnit::UNITassertError("CMatrix C6.5");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != OUT_OF_RANGE_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C6.6");
+	}
 		
 	CMatrix<double> oMTXmatrix4 = oMTXmatrix1 + oMTXmatrix3;
 	if(oMTXmatrix4.MTXgetValue(0, 0) != 3 || oMTXmatrix4.MTXgetValue(0, 1) != 6 || oMTXmatrix4.MTXgetValue(1, 0) != 9 || oMTXmatrix4.MTXgetValue(1, 1) != 12)
@@ -92,6 +147,17 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 14 || oMTXmatrix2.MTXgetValue(0, 1) != 20 || oMTXmatrix2.MTXgetValue(1, 0) != 30 || oMTXmatrix2.MTXgetValue(1, 1) != 44)
 		CUnit::UNITassertError("CMatrix C9");
 	
+	try
+	{
+		oMTXmatrix4 * CMatrix<double>(10, 20);
+		CUnit::UNITassertError("CMatrix C9.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != INCOMPATIBLE_MATRIX_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C9.2");
+	}
+	
 	oMTXmatrix2 *= 2;
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 28 || oMTXmatrix2.MTXgetValue(0, 1) != 40 || oMTXmatrix2.MTXgetValue(1, 0) != 60 || oMTXmatrix2.MTXgetValue(1, 1) != 88)
 		CUnit::UNITassertError("CMatrix C10");
@@ -100,7 +166,29 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 148 || oMTXmatrix2.MTXgetValue(0, 1) != 216 || oMTXmatrix2.MTXgetValue(1, 0) != 324 || oMTXmatrix2.MTXgetValue(1, 1) != 472)
 		CUnit::UNITassertError("CMatrix C11");
 	
+	try
+	{
+		oMTXmatrix4 *= CMatrix<double>(10, 20);
+		CUnit::UNITassertError("CMatrix C11.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != INCOMPATIBLE_MATRIX_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C11.2");
+	}
+	
 	oMTXmatrix2 /= 4;
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 37 || oMTXmatrix2.MTXgetValue(0, 1) != 54 || oMTXmatrix2.MTXgetValue(1, 0) != 81 || oMTXmatrix2.MTXgetValue(1, 1) != 118)
 		CUnit::UNITassertError("CMatrix C12");
+	
+	try
+	{
+		oMTXmatrix4 /= 0;
+		CUnit::UNITassertError("CMatrix C12.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != DIVISION_BY_ZERO_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C12.2");
+	}
 }

@@ -236,3 +236,9 @@ CMatrix<T>& operator*(double dCoefficient, CMatrix<T> const& oMTXmatrixParam)
 {
 	return oMTXmatrixParam * dCoefficient;
 }
+
+template <class T>
+T CMatrix<T>::operator()(unsigned int uiRow, unsigned int uiColumn)
+{
+	return MTXgetValue(uiRow, uiColumn);
+}
