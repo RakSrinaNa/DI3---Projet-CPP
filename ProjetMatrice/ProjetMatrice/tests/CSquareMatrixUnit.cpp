@@ -64,9 +64,9 @@ void CSquareMatrixUnit::SMXUnitTestConstructors()
 	{
 		CSquareMatrix<double> oSMXmatrix8 = CSquareMatrix<double>(oMTXmatrix7);
 	}
-	catch(CException * poEXexception)
+	catch(CException const& poEXexception)
 	{
-		if(poEXexception->EXgetExceptionID() != INCOMPATIBLE_MATRIX_EXCEPTION)
+		if(poEXexception.EXgetExceptionID() != INCOMPATIBLE_MATRIX_EXCEPTION)
 			CUnit::UNITassertError("CSquareMatrix B8");
 	}
 	

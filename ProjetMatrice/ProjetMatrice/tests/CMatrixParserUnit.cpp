@@ -34,9 +34,9 @@ void CMatrixParserUnit::MTXPUnitTests()
 		delete poMTXmatrix;
 		CUnit::UNITassertError("CMatrixParser 7");
 	}
-	catch(CException * poEXexception)
+	catch(CException const& poEXexception)
 	{
-		if(poEXexception->EXgetExceptionID() != UNSUPPORTED_TYPE_EXCEPTION)
+		if(poEXexception.EXgetExceptionID() != UNSUPPORTED_TYPE_EXCEPTION)
 			CUnit::UNITassertError("CMatrixParser 8");
 	}
 	
@@ -48,9 +48,9 @@ void CMatrixParserUnit::MTXPUnitTests()
 		delete poMTXmatrix;
 		CUnit::UNITassertError("CMatrixParser 9");
 	}
-	catch(CException * poEXexception)
+	catch(CException const& poEXexception)
 	{
-		if(poEXexception->EXgetExceptionID() != NOT_SQUARE_MATRIX)
+		if(poEXexception.EXgetExceptionID() != NOT_SQUARE_MATRIX)
 			CUnit::UNITassertError("CMatrixParser 10");
 	}
 	
