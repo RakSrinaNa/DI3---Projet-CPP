@@ -58,6 +58,17 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix3.MTXgetValue(0, 0) != 1 || oMTXmatrix3.MTXgetValue(0, 1) != 2 || oMTXmatrix3.MTXgetValue(1, 0) != 3 || oMTXmatrix3.MTXgetValue(1, 1) != 4)
 		CUnit::UNITassertError("CMatrix C3");
 	
+	try
+	{
+		oMTXmatrix3 / 0;
+		CUnit::UNITassertError("CMatrix C3.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != DIVISION_BY_ZERO_EXCEPTION)
+			CUnit::UNITassertError("CMatrix C3.2");
+	}
+	
 	if(!(oMTXmatrix1 == oMTXmatrix3) || oMTXmatrix1 == oMTXmatrix2)
 		CUnit::UNITassertError("CMatrix C4");
 	
