@@ -82,6 +82,8 @@
     <Text Include="..\Matrices\M2.txt" />
     <Text Include="..\Matrices\M3.txt" />
     <Text Include="..\Matrices\M4.txt" />
+    <Text Include="..\Matrices\M5.txt" />
+    <Text Include="..\Matrices\M6.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,6 @@
 
 SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 {
-	
 	FILE* poFILEfile;
 	try
 	{
@@ -166,7 +165,7 @@ char * CMatrixParser::PMTXreadLineFromFile(FILE * poFILEfile)
 		iEndString--;
 	iEndString++;
 	pcLineRead[iEndString] = '\0';
-	RREALLOC(pcLineRead, char, iEndString, "Error realloc PMTXreadLineFromFile");
+	// RREALLOC(pcLineRead, char, iEndString, "Error realloc PMTXreadLineFromFile");
 	return pcLineRead;
 }
 

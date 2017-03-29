@@ -28,6 +28,12 @@
     <Text Include="..\Matrices\M4.txt">
       <Filter>Fichiers de ressources</Filter>
     </Text>
+    <Text Include="..\Matrices\M5.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="..\Matrices\M6.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMatrix.h">
