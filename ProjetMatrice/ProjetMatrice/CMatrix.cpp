@@ -67,7 +67,7 @@ template <class T>
 inline T CMatrix<T>::MTXgetValue(unsigned int uiRow, unsigned int uiColumn) const
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
-		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix"); //TODO A verifier les catchs de ça si ils sont a jour pour catch la référence
+		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 	return ptValues[uiRow][uiColumn]; //Retourne la valeur dans la case de la ligne et de la colonne demandées
 }
 
@@ -75,7 +75,7 @@ template <class T>
 void CMatrix<T>::MTXsetValue(unsigned int uiRow, unsigned int uiColumn, T tValueParam)
 {
 	if(uiRow >= uiHeight || uiColumn >= uiWidth)
-		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix"); //TODO A verifier les catchs de ça si ils sont a jour pour catch la référence
+		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
 	ptValues[uiRow][uiColumn] = tValueParam; //Modifie la valeur dans la case de la ligne et de la colonne demandées par la valeur donnée
 }
 
@@ -107,7 +107,7 @@ template <class T>
 CMatrix<T>& CMatrix<T>::operator+(CMatrix<T> const& oMTXmatrixParam)
 {
 	if(uiHeight != oMTXmatrixParam.MTXgetHeight() || uiWidth != oMTXmatrixParam.MTXgetWidth())
-		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size"); //TODO A verifier les catchs de ça si ils sont a jour pour catch la référence
+		throw CException(INCOMPATIBLE_MATRIX_EXCEPTION, (char *) "The two matrix don't have the same size");
 
 	CMatrix<T> * poMTXsum = new CMatrix(MTXgetHeight(), MTXgetWidth()); //Créé une nouvelle matrice
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
@@ -229,4 +229,10 @@ CMatrix<T>& CMatrix<T>::operator/=(double dCoefficient)
 	if(dCoefficient == 0)
 		throw CException(DIVISION_BY_ZERO_EXCEPTION, (char *) "Division by zero");
 	return (*this) *= (1/dCoefficient); //Appel l'opérateur *= avec l'inverse du coefficient passé en paramètre
+}
+
+template<class T>
+CMatrix<T>& operator*(double dCoefficient, CMatrix<T> const& oMTXmatrixParam)
+{
+	return oMTXmatrixParam * dCoefficient;
 }

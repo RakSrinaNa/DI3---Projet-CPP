@@ -92,6 +92,7 @@
     <ClInclude Include="tests\CExceptionUnit.h" />
     <ClInclude Include="tests\CMatrixParserUnit.h" />
     <ClInclude Include="tests\CMatrixUnit.h" />
+    <ClInclude Include="tests\CSquareMatrixUnit.h" />
     <ClInclude Include="tests\CUnit.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
@@ -110,6 +111,7 @@
     <ClCompile Include="tests\CExceptionUnit.cpp" />
     <ClCompile Include="tests\CMatrixParserUnit.cpp" />
     <ClCompile Include="tests\CMatrixUnit.cpp" />
+    <ClCompile Include="tests\CSquareMatrixUnit.cpp" />
     <ClCompile Include="tests\CUnit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

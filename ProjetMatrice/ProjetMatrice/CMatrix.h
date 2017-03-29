@@ -312,6 +312,9 @@ public:
 	CMatrix<T>& operator/=(double dCoefficient);
 };
 
+template<class T>
+CMatrix<T>& operator*(double dCoefficient, CMatrix<T> const& oMTXmatrixParam);
+
 #include "CMatrix.cpp"
 
 #endif
