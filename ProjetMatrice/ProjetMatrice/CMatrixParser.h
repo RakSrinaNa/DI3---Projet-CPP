@@ -16,6 +16,7 @@
 * Types primitifs qu'une matrice peut avoir.
 **************************************************************/
 enum EMatrixType{
+	UNSET,
 	ERROR,
 	BYTE,
 	SHORT,

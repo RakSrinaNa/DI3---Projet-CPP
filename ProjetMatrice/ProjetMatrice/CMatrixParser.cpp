@@ -17,18 +17,43 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 		throw poEXexception;
 	}
 	
+	bool bMatrixPart = false;
 	SMatrixInfos sMIFinfos;
+	sMIFinfos.eMTTtype = UNSET;
 	
-	/* Recuperation du type */
-	char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-	char * pcTypeValue = PMTXgetLineValue(pcCurrentLine);
-	sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcTypeValue);
-	free(pcCurrentLine);
-	
-	if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
+	do
 	{
-		throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
-	}
+		char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+		char * pcKey = PMTXgetLineValue(pcCurrentLine);
+		char * pcValue = PMTXgetLineValue(pcCurrentLine);
+		
+		if(STRCMPI("Matrice", pcKey) == 0)
+		{
+			if(sMIFinfos.uiHeight == 0 || sMIFinfos.uiWidth == 0 || sMIFinfos.eMTTtype == UNSET)
+			{
+				free(pcKey);
+				free(pcCurrentLine);
+				throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File should begin with height, width and type");
+			}
+			bMatrixPart = true;
+		}
+		else if(STRCMPI("TypeMatrice", pcKey))
+		{
+			sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcValue);
+			if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
+			{
+				free(pcKey);
+				free(pcCurrentLine);
+				throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
+			}
+		}
+		
+		free(pcKey);
+		free(pcCurrentLine);
+	} while(!bMatrixPart);
+	
+	
+	
 	
 	/* Recuperation du nombre de lignes */
 	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
