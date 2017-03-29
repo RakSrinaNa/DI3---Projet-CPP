@@ -19,18 +19,36 @@
 			\item La largeur représentant le nombre de colonnes de la matrice.
 			\item Un tableau 2D contenant l'ensemble des valeurs de la matrice.
 		\end{itemize}
+		De plus, cette classe contient l'ensemble des méthodes demandées telles que :
+		\begin{itemize}
+			\item L'opérateur d'addition avec une deuxième matrice en renvoyant une nouvelle.
+			\item L'opérateur dde soustraction avec une deuxième matrice en renvoyant une nouvelle.
+			\item L'opérateur de multiplication par un scalaire (à droite et à gauche) renvoyant une nouvelle matrice.
+			\item L'opérateur de division par un scalaire renvoyant une nouvelle matrice.
+			\item L'opérateur de multiplication par une autre matrice en renvoyant une nouvelle.
+			\item L'affichage d'une matrice dans la console.
+			\item Le calcul et la création de la transposée d'une matrice sans changer l'originale.
+			\item L'opérateur d'affection copiant le contenu d'une matrice dans une autre.
+			\item L'opérateur de comparaison.
+			\item Les opérateurs *= et /= avec un scalaire ou une matrice. Ceux-ci modifient la matrice en cours.
+			\item L'opérateur parenthèse prennant deux paramètres et renvoyant la valeur contenue dans la case demandée.
+		\end{itemize}
 		
-		Nous avons fait hériter à cette classe une autre classe appelée CSquareMatrix représentant elle aussi une matrice mais carrée. Celle-ci contient les mêmes informations que sa classe mère mais propose des méthodes supplémentaires spécifiques aux calculs mathématiques réservés aux matrices carrées:
+		Nous avons ensuite fait hériter à cette classe une autre classe appelée CSquareMatrix représentant elle aussi une matrice mais carrée. Celle-ci contient les mêmes informations que sa classe mère mais propose des méthodes supplémentaires spécifiques aux calculs mathématiques réservés aux matrices carrées:
 		\begin{itemize}
 			\item Calcul du déterminant.
 			\item Calcul de l'inverse.
 			\item Calcul de la comatrice.
+			\item Calcul des puissances d'une matrice.
 		\end{itemize}
 		
-		Afin de pouvoir lire les matrices externes au programme, nous avons implémenté une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice ecrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
+		Afin de pouvoir lire des matrices externes au programme, nous avons implémenté une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
 		
 	\chapter{Choix de codage}
-		%Perser why sMatrixInfo?
+		Le choix de créer une classe CSquareMatrix héritée de CMatrix vient des nombreuses opérations mathématiques propres aux matrices carrées. Nous aurions put implémenter celles-ci directement dans la classe des matrices quelconques mais nous aurions alors du vérifier à chaque appel si la matrice avait le même nombre de lignes et de collones et lever une exception en cas d'échec.
+		Grâce à ce choix, nous évitons une grand nombre de vérifications sans pour autant géner les calculs normaux puisque des matrices carrées sont aussi des matrices simples et donc peuvent être multipliées, transposées, etc..
+	
+		%Parser why sMatrixInfo?
 	
 	\chapter{Tests effectués}
 	
