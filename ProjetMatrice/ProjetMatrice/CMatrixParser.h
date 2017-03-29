@@ -97,8 +97,23 @@ private:
 	 *      char *:     Un pointeur sur le premier caractère après le =.
 	 * PreCond:
 	 * PostCond:
+	 *      Renvoi une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si aucun = n'est trouve.
 	 */
 	static char * PMTXgetLineValue(char * pcLine);
+	
+	/**************************************************************
+	 * Renvoi la clef d'une ligne du ficher (valeur avant le =) dupliquee sur le tas.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      pcStart:    Le debut de la ligne.
+	 *      pcEnd:      La position du signe =;
+	 * Sortie:
+	 *      char *:     Un string sur le tas representant la clef.
+	 * PreCond:
+	 * PostCond:
+	 */
+	static char * PMTXgetLineKey(char * pcStart, char * pcEnd);
 	
 	/**************************************************************
 	 * Renvoi les valeur contenues sur une ligne du fichier.

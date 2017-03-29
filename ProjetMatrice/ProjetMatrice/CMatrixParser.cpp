@@ -24,8 +24,8 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 	do
 	{
 		char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-		char * pcKey = PMTXgetLineValue(pcCurrentLine);
 		char * pcValue = PMTXgetLineValue(pcCurrentLine);
+		char * pcKey = PMTXgetLineKey(pcCurrentLine, pcValue - 1);
 		
 		if(STRCMPI("Matrice", pcKey) == 0)
 		{
@@ -37,7 +37,7 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 			}
 			bMatrixPart = true;
 		}
-		else if(STRCMPI("TypeMatrice", pcKey))
+		else if(STRCMPI("TypeMatrice", pcKey) == 0)
 		{
 			sMIFinfos.eMTTtype = PMTXgetValueAsMType(pcValue);
 			if(sMIFinfos.eMTTtype == ERROR || sMIFinfos.eMTTtype != DOUBLE)
@@ -47,35 +47,24 @@ SMatrixInfos CMatrixParser::PMTXreadFile(char* pcFileName)
 				throw CException(UNSUPPORTED_TYPE_EXCEPTION, (char *) "Matrix type unsupported");
 			}
 		}
+		else if(STRCMPI("NBLignes", pcKey) == 0)
+			sMIFinfos.uiHeight = (unsigned int)atoi(pcValue);
+		else if(STRCMPI("NBColonnes", pcKey) == 0)
+			sMIFinfos.uiWidth = (unsigned int)atoi(pcValue);
+		else
+			std::cout << "Clef de fichier non reconnue: " << pcKey << ", skipping..." << std::endl;
+		
 		
 		free(pcKey);
 		free(pcCurrentLine);
 	} while(!bMatrixPart);
-	
-	
-	
-	
-	/* Recuperation du nombre de lignes */
-	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-	char * pcRows = PMTXgetLineValue(pcCurrentLine);
-	sMIFinfos.uiHeight = (unsigned int)atoi(pcRows);
-	free(pcCurrentLine);
-	
-	/* Recuperation du nombre de colonnes */
-	pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
-	char * pcColumns = PMTXgetLineValue(pcCurrentLine);
-	sMIFinfos.uiWidth = (unsigned int)atoi(pcColumns);
-	free(pcCurrentLine);
-	
-	/* Saut du "matrix=[" */
-	free(PMTXreadLineFromFile(poFILEfile));
 	
 	/* Recuperation des valeurs de la matrice */
 	MMALLOC(sMIFinfos.pdValues, double *, sMIFinfos.uiHeight, "REALLOC ERROR CMATRIXPARSER");
 	
 	for(unsigned int uiRowIndex = 0; uiRowIndex < sMIFinfos.uiHeight; uiRowIndex++)
 	{
-		pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
+		char * pcCurrentLine = PMTXreadLineFromFile(poFILEfile);
 		double * pdValues = PMTXgetValuesAsDoubleArray(pcCurrentLine, sMIFinfos.uiWidth);
 		sMIFinfos.pdValues[uiRowIndex] = pdValues;
 		free(pcCurrentLine);
@@ -149,6 +138,18 @@ char * CMatrixParser::PMTXgetLineValue(char * pcLine)
 		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
 	return pcLine + 1;
 }
+
+char * CMatrixParser::PMTXgetLineKey(char * pcStart, char * pcEnd)
+{
+	char * pcKey;
+	unsigned int uiSize = (unsigned int) (pcEnd - pcStart);
+	MMALLOC(pcKey, char, uiSize + 1, "Parser fail getting key");
+	for(unsigned int uiIndex = 0; uiIndex < uiSize; uiIndex++)
+		pcKey[uiIndex] = pcStart[uiIndex];
+	pcKey[uiSize] = '\0';
+	return pcKey;
+}
+
 
 EMatrixType CMatrixParser::PMTXgetValueAsMType(char * pcLine)
 {
