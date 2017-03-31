@@ -1,6 +1,8 @@
 #ifndef UTILS
 #define UTILS
 
+#include <stdlib.h>
+
 #define UNUSED(x) (void)(x)
 
 // Malloc utils, to get the memory space and verify it.

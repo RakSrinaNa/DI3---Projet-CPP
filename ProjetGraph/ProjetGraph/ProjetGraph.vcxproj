@@ -81,9 +81,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CArc.cpp" />
+    <ClCompile Include="CException.cpp" />
+    <ClCompile Include="CVertex.cpp" />
     <ClCompile Include="ProjetGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CArc.h" />
+    <ClInclude Include="CException.h" />
+    <ClInclude Include="CGraph.h" />
+    <ClInclude Include="CVertex.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
