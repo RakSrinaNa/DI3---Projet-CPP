@@ -15,9 +15,9 @@ public:
 
 	void GRAaddVertex(unsigned int uiVertexIndex);
 	void GRAremoveVertex(unsigned int uiVertexIndex);
-	void GRAaddArc(unsigned int uiFromVertex, unsigned int uiToVertex);
-	void GRAremoveArc(unsigned int uiFromVertex, unsigned int uiToVertex);
-	void GRAmodifyArc(unsigned int uiFromVertex, unsigned int uiLastTo, unsigned int uiNewTo);
+	void GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
+	void GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
+	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 
 };
 
