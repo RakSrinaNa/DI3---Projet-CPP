@@ -1,9 +1,14 @@
-// ProjetGraph.cpp : définit le point d'entrée pour l'application console.
-//
+#include "tests/CUnit.h"
 
-
-int main(int argc, char* argv[])
+int main(int argc, char * argv[])
 {
+	if(argc == 1)
+		CUnit::UNITlaunchTests();
+	else if(argc == 2)
+	{
+		// CGraphParser::readGraph(argv[1]);
+		// Actions TODO
+	}
 	return 0;
 }
  
