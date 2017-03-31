@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(PreojetMatrice)
+project(ProjetMatrice)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -21,4 +21,4 @@ set(SOURCE_FILES
         ProjetMatrice/utils.h
         ProjetMatrice/tests/CUnit.cpp ProjetMatrice/tests/CUnit.h
         )
-add_executable(TP1 ${SOURCE_FILES})
+add_executable(ProjetMatrice ${SOURCE_FILES})
