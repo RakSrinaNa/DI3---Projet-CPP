@@ -81,12 +81,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClCompile Include="ProjetGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ProjetGraph.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
