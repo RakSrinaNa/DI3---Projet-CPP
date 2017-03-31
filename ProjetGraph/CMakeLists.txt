@@ -6,7 +6,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
         ProjetGraph/ProjetGraph.cpp
 
+        ProjetGraph/CException.cpp ProjetGraph/Cexception.h
+
+        ProjetGraph/Carc.cpp ProjetGraph/Carc.h
+
+        ProjetGraph/CVertex.cpp ProjetGraph/CVertex.h
+
+        ProjetGraph/CGraph.cpp ProjetGraph/Cgraph.h
+
         ProjetGraph/utils.h
-        ProjetGraph/CUnit.cpp ProjetGraph/CUnit.h
+        ProjetGraph/tests/CUnit.cpp ProjetGraph/tests/CUnit.h
         )
 add_executable(ProjetGraph ${SOURCE_FILES})
