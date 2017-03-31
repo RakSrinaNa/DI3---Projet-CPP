@@ -11,6 +11,9 @@
 #define INCOMPATIBLE_MATRIX_EXCEPTION 89716
 #define IMPOSSIBLE_MATRIX_SIZE_EXCEPTION 89717
 
+/**************************************************************
+ * Classe représentant une matrice.
+ **************************************************************/
 template <class T>
 class CMatrix
 {
