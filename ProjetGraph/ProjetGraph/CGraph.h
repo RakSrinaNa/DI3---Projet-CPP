@@ -8,6 +8,7 @@ class CGraph{
 protected:
 	unsigned int uiVertexCount;
 	CVertex ** poVERvertexList;
+	unsigned int uiBiggestVertex;
 
 public:
 	CGraph();
