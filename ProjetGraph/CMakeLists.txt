@@ -7,6 +7,7 @@ set(SOURCE_FILES
         ProjetGraph/ProjetGraph.cpp
 
         ProjetGraph/CException.cpp ProjetGraph/Cexception.h
+        ProjetGraph/tests/CExceptionUnit.cpp ProjetGraph/tests/CexceptionUnit.h
 
         ProjetGraph/Carc.cpp ProjetGraph/Carc.h
 

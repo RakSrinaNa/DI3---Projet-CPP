@@ -1,4 +1,6 @@
+#include <iostream>
 #include "CUnit.h"
+#include "CExceptionUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
@@ -9,5 +11,7 @@ void CUnit::UNITassertError(const char * pcMessage)
 
 void CUnit::UNITlaunchTests()
 {
-	fflush(stdout);
+	std::cout << "Starting CException tests..." << std::endl;
+	CExceptionUnit::EXUnitTests();
+	std::cout << "CException OK" << std::endl;
 }
