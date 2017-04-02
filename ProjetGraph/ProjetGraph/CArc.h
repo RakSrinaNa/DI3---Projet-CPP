@@ -58,7 +58,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int ARCgetVertexIndex(){return uiVertexIndex;};
+	unsigned int ARCgetVertexIndex() const{return uiVertexIndex;};
 	
 	/**************************************************************
 	 * Permet de definir l'ID du noeud cible.
