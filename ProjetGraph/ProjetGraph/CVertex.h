@@ -87,6 +87,7 @@ public:
 	 * Sortie:
 	 * PreCond:
 	 * PostCond:
+	 *      Renvoie une CException avec l'ID `DUPLICATE_ARC_EXCEPTION` si l'arc est deja present.
 	 */
 	void VERaddArcOut(unsigned int uiToVertexIndex);
 	
