@@ -113,6 +113,7 @@ public:
 	* Sortie:
 	* PreCond:
 	* PostCond:
+	 *      Si uiLastFromVertexIndex n'existe pas, le nouvel index n'est pas ajoute.
 	*/
 	void VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int uiNewFromVertexIndex);
 	
@@ -126,6 +127,7 @@ public:
 	* Sortie:
 	* PreCond:
 	* PostCond:
+	 *      Si uiLastToVertexIndex n'existe pas, le nouvel index n'est pas ajoute.
 	*/
 	void VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 	
@@ -144,8 +146,30 @@ public:
 		return uiVertexIndex;
 	};
 	
+	/**************************************************************
+	 * Recherche un arc entrant dans le noeud.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      uiFromVertexIndex:  L'ID du noeud a rechercher.
+	 * Sortie:
+	 *      bool:               true si l'arc entrant existe, false sinon.
+	 * PreCond:
+	 * PostCond:
+	 */
 	bool VERhasIndexIn(unsigned int uiFromVertexIndex);
 	
+	/**************************************************************
+	 * Recherche un arc sortant dans le noeud.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      uiToVertexIndex:    L'ID du noeud a rechercher.
+	 * Sortie:
+	 *      bool:               true si l'arc sortant existe, false sinon.
+	 * PreCond:
+	 * PostCond:
+	 */
 	bool VERhasIndexOut(unsigned int uiToVertexIndex);
 };
 
