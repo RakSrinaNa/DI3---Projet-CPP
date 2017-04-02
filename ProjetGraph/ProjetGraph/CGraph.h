@@ -1,7 +1,7 @@
 #ifndef CGRAPH
 #define CGRAPH
 
-#include "CVertex.h";
+#include "CVertex.h"
 
 class CGraph{
 
