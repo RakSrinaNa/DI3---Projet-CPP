@@ -90,3 +90,19 @@ void CVertex::VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiN
 			break;
 		}
 }
+
+bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex)
+{
+	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
+		if(poARCinList[uiIndex]->ARCgetVertexIndex == uiFromVertexIndex)
+			return true;
+	return false;
+}
+
+bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex)
+{
+	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		if(poARCoutList[uiIndex]->ARCgetVertexIndex == uiToVertexIndex)
+			return true;
+	return false;
+}

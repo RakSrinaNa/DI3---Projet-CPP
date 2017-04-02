@@ -20,6 +20,7 @@ public:
 	void GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
 	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 
+	CGraph& operator+(unsigned int uiVertexIndex);
 };
 
 #endif

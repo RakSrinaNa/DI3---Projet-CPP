@@ -134,6 +134,10 @@ public:
 	 * PostCond:
 	 */
 	unsigned int VERgetVertexIndex();
+
+	bool VERhasIndexIn(unsigned int uiFromVertexIndex);
+
+	bool VERhasIndexOut(unsigned int uiToVertexIndex);
 };
 
 #endif
