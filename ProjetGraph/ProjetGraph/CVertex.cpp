@@ -18,7 +18,7 @@ CVertex::~CVertex()
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		delete poARCinList[uiIndex];
 	free(poARCinList);
-
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		delete poARCoutList[uiIndex];
 	free(poARCoutList);
@@ -28,8 +28,8 @@ void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 {
 	for(int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		if(uiFromVertexIndex == poARCinList[uiIndex]->ARCgetVertexIndex())
-			throw CException(ARC_ALREADY_EXISTING_EXCEPTION, (char *)"This arc is already existing");
-
+			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
+	
 	RREALLOC(poARCinList, CArc *, ++uiArcInCount, "Fail realloc VERaddArcOut");
 	poARCinList[uiArcInCount - 1] = new CArc(uiFromVertexIndex);
 }
@@ -50,8 +50,8 @@ void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 {
 	for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		if(uiToVertexIndex == poARCoutList[uiIndex]->ARCgetVertexIndex())
-			throw CException(ARC_ALREADY_EXISTING_EXCEPTION, (char *)"This arc is already existing");
-
+			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
+	
 	RREALLOC(poARCoutList, CArc *, ++uiArcOutCount, "Fail realloc VERaddArcOut");
 	poARCoutList[uiArcOutCount - 1] = new CArc(uiToVertexIndex);
 }
@@ -68,15 +68,11 @@ void CVertex::VERremoveArcOut(unsigned int uiToVertexIndex)
 		}
 }
 
-unsigned int CVertex::VERgetVertexIndex()
-{
-	return uiVertexIndex;
-}
-
 void CVertex::VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int uiNewFromVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
-		if(poARCinList[uiIndex]->ARCgetVertexIndex() == uiLastFromVertexIndex){
+		if(poARCinList[uiIndex]->ARCgetVertexIndex() == uiLastFromVertexIndex)
+		{
 			poARCinList[uiIndex]->ARCsetVertexIndex(uiNewFromVertexIndex);
 			break;
 		}
@@ -85,7 +81,8 @@ void CVertex::VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int ui
 void CVertex::VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
-		if(poARCoutList[uiIndex]->ARCgetVertexIndex() == uiLastToVertexIndex){
+		if(poARCoutList[uiIndex]->ARCgetVertexIndex() == uiLastToVertexIndex)
+		{
 			poARCoutList[uiIndex]->ARCsetVertexIndex(uiNewToVertexIndex);
 			break;
 		}

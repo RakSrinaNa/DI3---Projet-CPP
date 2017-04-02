@@ -1,6 +1,7 @@
 #ifndef CARC
 #define CARC
 
+#define MISSING_ARC_INDEX_EXCEPTION 8793
 
 /**************************************************************
  * Classe représentant un arc d'un graph.
@@ -47,7 +48,6 @@ public:
 	 */
 	~CArc();
 	
-	
 	/**************************************************************
 	 * Permet d'obtenir l'ID du noeud cible.
 	 **************************************************************
@@ -58,7 +58,10 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int ARCgetVertexIndex() const{return uiVertexIndex;};
+	unsigned int ARCgetVertexIndex() const
+	{
+		return uiVertexIndex;
+	};
 	
 	/**************************************************************
 	 * Permet de definir l'ID du noeud cible.
@@ -70,7 +73,10 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	void ARCsetVertexIndex(unsigned int uiVertexIndexParam){uiVertexIndex = uiVertexIndexParam;};
+	void ARCsetVertexIndex(unsigned int uiVertexIndexParam)
+	{
+		uiVertexIndex = uiVertexIndexParam;
+	};
 };
 
 #endif

@@ -3,6 +3,10 @@
 
 #include "CArc.h"
 
+#define MISSING_VERTEX_INDEX_EXCEPTION 8792
+#define DUPLICATE_ARC_EXCEPTION 8794
+#define VERTEX_ALREADY_EXISTING_EXCEPTION 8794
+
 class CVertex
 {
 
@@ -58,6 +62,7 @@ public:
 	 * Sortie:
 	 * PreCond:
 	 * PostCond:
+	 *      Renvoie une CException avec l'ID `DUPLICATE_ARC_EXCEPTION` si l'arc est deja present.
 	 */
 	void VERaddArcIn(unsigned int uiFromVertexIndex);
 	
@@ -133,10 +138,13 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int VERgetVertexIndex();
-
+	unsigned int VERgetVertexIndex() const
+	{
+		return uiVertexIndex;
+	};
+	
 	bool VERhasIndexIn(unsigned int uiFromVertexIndex);
-
+	
 	bool VERhasIndexOut(unsigned int uiToVertexIndex);
 };
 

@@ -1,7 +1,8 @@
 #ifndef CARCUNIT
 #define CARCUNIT
 
-class CArcUnit{
+class CArcUnit
+{
 public:
 	static void ARCUnitTests();
 };

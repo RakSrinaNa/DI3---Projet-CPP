@@ -9,8 +9,13 @@ class CUnit
 {
 public:
 	static void UNITlaunchTests();
+	
 	static void UNITassertError(const char * pcMessage);
-	static double UNITabsolute(double dValue){return dValue >= 0 ? dValue : -dValue;};
+	
+	static double UNITabsolute(double dValue)
+	{
+		return dValue >= 0 ? dValue : -dValue;
+	};
 };
 
 #endif

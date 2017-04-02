@@ -13,6 +13,7 @@ set(SOURCE_FILES
         ProjetGraph/tests/CArcUnit.cpp ProjetGraph/tests/CArcUnit.h
 
         ProjetGraph/CVertex.cpp ProjetGraph/CVertex.h
+        ProjetGraph/tests/CVertexUnit.cpp ProjetGraph/tests/CVertexUnit.h
 
         ProjetGraph/CGraph.cpp ProjetGraph/Cgraph.h
 

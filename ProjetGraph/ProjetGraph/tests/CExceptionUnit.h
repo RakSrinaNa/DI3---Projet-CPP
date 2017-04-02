@@ -5,9 +5,10 @@ class CExceptionUnit
 {
 public:
 	static void EXUnitTests();
-	
+
 private:
 	static void EXUnitTestID();
+	
 	static void EXUnitTestMessage();
 };
 

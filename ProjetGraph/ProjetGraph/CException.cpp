@@ -10,7 +10,7 @@ CException::CException()
 	pcEXmessage = nullptr;
 }
 
-CException::CException(CException const&oEXexception)
+CException::CException(CException const &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	pcEXmessage = STRDUP(oEXexception.pcEXmessage);
@@ -33,7 +33,7 @@ CException::~CException()
 	free(pcEXmessage);
 }
 
-void CException::operator=(CException const&oEXexception)
+void CException::operator=(CException const &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	free(pcEXmessage);
