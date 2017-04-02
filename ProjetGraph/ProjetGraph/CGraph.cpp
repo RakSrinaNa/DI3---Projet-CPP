@@ -47,6 +47,8 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 		poVERvertexList[uiVertexIndex - 1]->~CVertex();
 		poVERvertexList[uiVertexIndex - 1] = nullptr;
 	}
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex doesn't exist");
 }
 
 void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
@@ -77,7 +79,17 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 	poVERvertexList[uiNewToVertexIndex - 1]->VERaddArcIn(uiFromVertexIndex);
 }
 
-CGraph &CGraph::operator+(unsigned int uiVertexIndex)
+void CGraph::GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2)
+{
+	if(poVERvertexList[uiVertexIndex1 - 1] == nullptr || poVERvertexList[uiVertexIndex2 - 1] == nullptr)
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
+
+	GRAaddArc(uiVertexIndex1, uiVertexIndex2);
+	GRAaddArc(uiVertexIndex2, uiVertexIndex1);
+
+}
+
+CGraph & CGraph::operator+(unsigned int uiVertexIndex)
 {
 	GRAaddVertex(uiVertexIndex);
 	return *this;

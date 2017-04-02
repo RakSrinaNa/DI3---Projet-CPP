@@ -26,7 +26,9 @@ public:
 	
 	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 	
-	CGraph &operator+(unsigned int uiVertexIndex);
+	void GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2);
+
+	CGraph & operator+(unsigned int uiVertexIndex);
 };
 
 #endif
