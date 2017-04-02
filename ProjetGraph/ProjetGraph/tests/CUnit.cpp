@@ -1,6 +1,7 @@
 #include <iostream>
 #include "CUnit.h"
 #include "CExceptionUnit.h"
+#include "CArcUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
@@ -13,5 +14,9 @@ void CUnit::UNITlaunchTests()
 {
 	std::cout << "Starting CException tests..." << std::endl;
 	CExceptionUnit::EXUnitTests();
-	std::cout << "CException OK" << std::endl;
+	std::cout << "CException OK" << std::endl << std::endl;
+	
+	std::cout << "Starting CArc tests..." << std::endl;
+	CArcUnit::ARCUnitTests();
+	std::cout << "CArc OK" << std::endl << std::endl;
 }
