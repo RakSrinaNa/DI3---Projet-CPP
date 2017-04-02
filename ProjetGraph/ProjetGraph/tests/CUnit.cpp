@@ -3,6 +3,7 @@
 #include "CExceptionUnit.h"
 #include "CArcUnit.h"
 #include "CVertexUnit.h"
+#include "CGraphUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
@@ -25,4 +26,8 @@ void CUnit::UNITlaunchTests()
 	std::cout << "Starting CVertex tests..." << std::endl;
 	CVertexUnit::VERUnitTest();
 	std::cout << "CVertex OK" << std::endl << std::endl;
+	
+	std::cout << "Starting CGraph tests..." << std::endl;
+	CGraphUnit::GRAUnitTests();
+	std::cout << "CGraph OK" << std::endl << std::endl;
 }
