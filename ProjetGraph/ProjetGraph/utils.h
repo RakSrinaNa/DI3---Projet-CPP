@@ -27,4 +27,9 @@
 	#define FOPEN(v, n, m, e, f) v = fopen(n, m); if(v == nullptr){throw CException(e, (char *) f);}
 #endif
 
+#define MISSING_VERTEX_INDEX_EXCEPTION 8792
+#define MISSING_ARC_INDEX_EXCEPTION 8793
+#define ARC_ALREADY_EXISTING_EXCEPTION 8794
+#define VERTEX_ALREADY_EXISTING_EXCEPTION 8794
+
 #endif

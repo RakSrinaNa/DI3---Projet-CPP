@@ -1,5 +1,6 @@
 #include "CArc.h"
 #include "CException.h"
+#include "utils.h"
 
 CArc::CArc()
 {

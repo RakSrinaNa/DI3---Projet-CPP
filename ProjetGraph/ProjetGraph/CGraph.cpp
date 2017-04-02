@@ -1,6 +1,7 @@
 #include <cstdlib>
 
 #include "CGraph.h"
+#include "CException.h"
 #include "utils.h"
 
 CGraph::CGraph() : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0)
@@ -40,15 +41,28 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 
 void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
-	//TODO
+	if(poVERvertexList[uiFromVertexIndex -1] == nullptr || poVERvertexList[uiToVertexIndex -1] == nullptr)
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *)"One of these vertex doesn't exist");
+
+	poVERvertexList[uiFromVertexIndex -1]->VERaddArcOut(uiToVertexIndex);
+	poVERvertexList[uiToVertexIndex -1]->VERaddArcIn(uiFromVertexIndex);
 }
 
 void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
-	//TODO
+	if(poVERvertexList[uiFromVertexIndex -1] == nullptr || poVERvertexList[uiToVertexIndex -1] == nullptr)
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *)"One of these vertex doesn't exist");
+
+	poVERvertexList[uiFromVertexIndex -1]->VERremoveArcOut(uiToVertexIndex);
+	poVERvertexList[uiToVertexIndex -1]->VERremoveArcIn(uiToVertexIndex);
 }
 
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
-	//TODO
+	if(poVERvertexList[uiFromVertexIndex -1] == nullptr || poVERvertexList[uiLastToVertexIndex -1] == nullptr ||  poVERvertexList[uiNewToVertexIndex -1] == nullptr)
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *)"One of these vertex doesn't exist");
+
+	poVERvertexList[uiLastToVertexIndex -1]->VERremoveArcIn(uiFromVertexIndex);
+	poVERvertexList[uiFromVertexIndex -1]->VERmodifyArcOut(uiLastToVertexIndex, uiNewToVertexIndex);
+	poVERvertexList[uiNewToVertexIndex -1]->VERaddArcIn(uiFromVertexIndex);
 }

@@ -1,7 +1,6 @@
 #ifndef CARC
 #define CARC
 
-#define MISSING_ARC_INDEX_EXCEPTION 1564
 
 /**************************************************************
  * Classe représentant un arc d'un graph.

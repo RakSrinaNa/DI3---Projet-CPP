@@ -3,8 +3,6 @@
 
 #include "CArc.h"
 
-#define MISSING_VERTEX_INDEX_EXCEPTION 8792
-
 class CVertex
 {
 
