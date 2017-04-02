@@ -86,12 +86,22 @@
     <ClCompile Include="CGraph.cpp" />
     <ClCompile Include="CVertex.cpp" />
     <ClCompile Include="ProjetGraph.cpp" />
+    <ClCompile Include="tests\CArcUnit.cpp" />
+    <ClCompile Include="tests\CExceptionUnit.cpp" />
+    <ClCompile Include="tests\CGraphUnit.cpp" />
+    <ClCompile Include="tests\CUnit.cpp" />
+    <ClCompile Include="tests\CVertexUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CArc.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="CGraph.h" />
     <ClInclude Include="CVertex.h" />
+    <ClInclude Include="tests\CArcUnit.h" />
+    <ClInclude Include="tests\CExceptionUnit.h" />
+    <ClInclude Include="tests\CGraphUnit.h" />
+    <ClInclude Include="tests\CUnit.h" />
+    <ClInclude Include="tests\CVertexUnit.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
