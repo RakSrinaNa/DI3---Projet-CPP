@@ -31,7 +31,7 @@
 			\item Le calcul et la création de la transposée d'une matrice sans changer l'originale.
 			\item L'opérateur d'affection copiant le contenu d'une matrice dans une autre.
 			\item L'opérateur de comparaison.
-			\item Les opérateurs *= et /= avec un scalaire ou une matrice. Ceux-ci modifient la matrice en cours.
+			\item Les opérateurs *= et /= avec un scalaire. Ceux-ci modifient la matrice en cours.
 			\item L'opérateur parenthèse prenant deux paramètres et renvoyant la valeur contenue dans la case demandée.\\
 		\end{itemize}
 		
@@ -43,7 +43,7 @@
 			\item Calcul des puissances d'une matrice.\\
 		\end{itemize}
 		
-		Afin de pouvoir lire des matrices externes au programme, nous avons implémentée une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
+		Afin de pouvoir lire des matrices externes au programme, nous avons implémentée une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure SMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
 		
 		\img{../../classDiagram.png}{Diagramme de classes}{0.55}{90}
 		
@@ -65,8 +65,8 @@
 		
 		Commençons par CExceptionUnit:
 		\begin{itemize}
-			\item Tests des différents constructeur impliquant l'ID de l'exception ainsi que des getters et setters de celui-ci.
-			\item Tests des différents constructeur impliquant le message de l'exception ainsi que des getters et setters de celui-ci.\\
+			\item Tests des différents constructeurs impliquant l'ID de l'exception ainsi que des getters et setters de celui-ci.
+			\item Tests des différents constructeurs impliquant le message de l'exception ainsi que des getters et setters de celui-ci.\\
 		\end{itemize}
 		Ceux-ci sont très généralistes mais couvrent relativement bien les différentes utilisations d'un objet de cette classe.
 		
@@ -89,14 +89,13 @@
 				\item[$\bullet$] Test du produit de deux matrices.
 				\item[$\bullet$] Test du produit de deux matrices incompatibles renvoyant une exception.
 				\item[$\bullet$] Test de l'opérateur *= avec un coefficient.
-				\item[$\bullet$] Test de l'opérateur *= avec une matrice.
 				\item[$\bullet$] Test de l'opérateur *= avec une matrice incompatible renvoyant une exception.
 				\item[$\bullet$] Test de l'opérateur /= avec un coefficient.
 				\item[$\bullet$] Test de l'opérateur /= avec un coefficient 0 renvoyant une exception.\\
 			\end{itemize}
 		\end{itemize}
 		
-		Ces tests nous semblent assez complets sur les matrices. Cependant chaque test n'est effectué qu'une seule fois ce qui peut mettre en douter l'efficacité de celui-ci.
+		Ces tests nous semblent assez complets sur les matrices. Cependant chaque test n'est effectué qu'une seule fois ce qui peut mettre en doute l'efficacité de ceux-ci.
 		
 		Passons ensuite aux tests contenus dans CSquareMatrixUnit:
 		\begin{itemize}
@@ -134,11 +133,13 @@
 	\end{itemize}
 	Si une exception est levée pour n'importe lequel de ces points, le message d'erreur est affiché et le programme s'arrête instantanément.\\
 	
+	Si l'exécutable est lancé sans fichier en argument, alors les tests unitaires s'exécuteront sur les matrices de tests M1 ... M9 devant être présente dans le même dossier que l'exécutable.\\
+	
 	Pour toute autre utilisation, la classe Main devra être modifier par l'utilisateur, deux choix sont possibles.
 	
 	Une matrice peut être lue d'un fichier grâce aux fonctions statiques "PMTXreadMatrix" et "PMTXreadSquareMatrix" prenant chacune en paramètre le chemin relatif d'un fichier source de matrice. La première renverra un objet de la classe CMatrix quelles que soient les réelles dimensions de la matrice lue alors que la seconde créera une matrice carrée (ou lèvera une exception si la matrice lue n'est pas carrée). Les deux lèveront des exceptions si un problème survient lors de la lecture.
 	
-	D'une seconde manière, une matrice peut être créée directement depuis son constructeur mais celle-ci sera remplie de 0. Nous pouvons par la suite utiliser le setter adéquat pour modifier chaque valeur de la matrice a sa guise. A savoir qu'un constructeur identité est disponible pour les matrices carrées.
+	D'une seconde manière, une matrice peut être créée directement depuis son constructeur mais celle-ci sera remplie de 0. Nous pouvons par la suite utiliser le setter adéquat pour modifier chaque valeur de la matrice à sa guise. A savoir qu'un constructeur identité est disponible pour les matrices carrées.
 
 	Pour toute information supplémentaire sur les méthodes, se référer aux cartouches d'entête présents dans les fichiers .h.
 \end{document}
