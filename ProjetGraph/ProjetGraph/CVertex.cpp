@@ -52,7 +52,7 @@ void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 		{
 			delete poARCinList[uiIndex];
 			poARCinList[uiIndex] = poARCinList[--uiArcInCount];
-			RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERremoveArcOut");
+			RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERremoveArcIn");
 			break;
 		}
 }

@@ -36,7 +36,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 
 void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 {
-	if(poVERvertexList[uiVertexIndex - 1] != nullptr)
+	if(uiVertexIndex <= uiBiggestVertex  && poVERvertexList[uiVertexIndex - 1] != nullptr)
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		{
@@ -59,7 +59,7 @@ bool CGraph::GRAhasVertex(unsigned int uiVertexIndex) const
 
 void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
-	if(poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiToVertexIndex - 1] == nullptr)
+	if(uiFromVertexIndex > uiBiggestVertex  && uiToVertexIndex > uiBiggestVertex  && poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiToVertexIndex - 1] == nullptr)
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
 	
 	poVERvertexList[uiFromVertexIndex - 1]->VERaddArcOut(uiToVertexIndex);
@@ -74,7 +74,7 @@ void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVerte
 
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
-	if(poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiLastToVertexIndex - 1] == nullptr || poVERvertexList[uiNewToVertexIndex - 1] == nullptr)
+	if(uiFromVertexIndex > uiBiggestVertex  && uiLastToVertexIndex > uiBiggestVertex  && uiNewToVertexIndex > uiBiggestVertex  && poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiLastToVertexIndex - 1] == nullptr || poVERvertexList[uiNewToVertexIndex - 1] == nullptr)
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
 	
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
@@ -86,7 +86,7 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 
 bool CGraph::GRAhasArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex) const
 {
-	if(poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiToVertexIndex - 1] == nullptr)
+	if(uiFromVertexIndex > uiBiggestVertex  && uiToVertexIndex > uiBiggestVertex  && poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiToVertexIndex - 1] == nullptr)
 		return false;
 	
 	return poVERvertexList[uiFromVertexIndex - 1]->VERhasIndexOut(uiToVertexIndex) && poVERvertexList[uiToVertexIndex - 1]->VERhasIndexIn(uiFromVertexIndex);
@@ -94,7 +94,7 @@ bool CGraph::GRAhasArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIn
 
 void CGraph::GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2)
 {
-	if(poVERvertexList[uiVertexIndex1 - 1] == nullptr || poVERvertexList[uiVertexIndex2 - 1] == nullptr)
+	if(uiVertexIndex1 > uiBiggestVertex  && uiVertexIndex2 > uiBiggestVertex  && poVERvertexList[uiVertexIndex1 - 1] == nullptr || poVERvertexList[uiVertexIndex2 - 1] == nullptr)
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
 	
 	GRAaddArc(uiVertexIndex1, uiVertexIndex2);
