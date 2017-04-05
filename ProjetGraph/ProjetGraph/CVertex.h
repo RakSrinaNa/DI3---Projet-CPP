@@ -53,9 +53,9 @@ public:
 	 */
 	~CVertex();
 	
-	unsigned int VERgetArcInCount();
+	unsigned int VERgetArcInCount() const;
 	
-	unsigned int VERgetArcOutCount();
+	unsigned int VERgetArcOutCount() const;
 
 	/**************************************************************
 	 * Ajoute un arc entrant au noeud.
@@ -161,7 +161,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	bool VERhasIndexIn(unsigned int uiFromVertexIndex);
+	bool VERhasIndexIn(unsigned int uiFromVertexIndex) const;
 	
 	/**************************************************************
 	 * Recherche un arc sortant dans le noeud.
@@ -174,11 +174,11 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	bool VERhasIndexOut(unsigned int uiToVertexIndex);
+	bool VERhasIndexOut(unsigned int uiToVertexIndex) const;
 
-	void VERdisplayArcIn();
+	void VERdisplayArcIn() const;
 
-	void VERdisplayArcOut();
+	void VERdisplayArcOut() const;
 };
 
 #endif

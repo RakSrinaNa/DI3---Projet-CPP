@@ -25,11 +25,13 @@ CVertex::~CVertex()
 	free(poARCoutList);
 }
 
-unsigned int CVertex::VERgetArcInCount(){
+unsigned int CVertex::VERgetArcInCount() const
+{
 	return uiArcInCount;
 }
-	
-unsigned int CVertex::VERgetArcOutCount(){
+
+unsigned int CVertex::VERgetArcOutCount() const
+{
 	return uiArcOutCount;
 }
 
@@ -97,7 +99,7 @@ void CVertex::VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiN
 		}
 }
 
-bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex)
+bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex) const
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		if(poARCinList[uiIndex]->ARCgetVertexIndex() == uiFromVertexIndex)
@@ -105,7 +107,7 @@ bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex)
 	return false;
 }
 
-bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex)
+bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex) const
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		if(poARCoutList[uiIndex]->ARCgetVertexIndex() == uiToVertexIndex)
@@ -113,14 +115,16 @@ bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex)
 	return false;
 }
 
-void CVertex::VERdisplayArcIn(){
+void CVertex::VERdisplayArcIn() const
+{
 	std::cout << std::endl;
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
-		std::cout << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
+		std::cout << "\t"  << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }
 
-void CVertex::VERdisplayArcOut(){
+void CVertex::VERdisplayArcOut() const
+{
 	std::cout << std::endl;
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
-		std::cout << "-> " << poARCoutList[uiIndex]->ARCgetVertexIndex() << std::endl;
+		std::cout << "\t" << "-> " << poARCoutList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }
