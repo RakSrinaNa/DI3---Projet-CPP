@@ -14,7 +14,7 @@
 // Realloc utils, to get the memory space and verify it.
 #define REALLOC(t, p, n) (t *) realloc(p, (n) * sizeof(t))
 #define RCHECK(x, m) if(!x){perror("REALLOC ERROR"); if(m)perror(m); exit(EXIT_FAILURE);}
-#define RREALLOC(p, t, n, m) p = if(n == 0){free(p); p = nullptr;} else{REALLOC(t, p, n); RCHECK(p, m)};
+#define RREALLOC(p, t, n, m) if(n == 0){free(p); p = nullptr;} else{p = REALLOC(t, p, n); RCHECK(p, m)};
 
 // Define functions for Visual studio or UNIX (else)
 #ifdef _MSC_VER
