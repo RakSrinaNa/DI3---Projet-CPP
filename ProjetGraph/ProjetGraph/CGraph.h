@@ -3,6 +3,8 @@
 
 #include "CVertex.h"
 
+#define ARC_MISSING_EXCEPTION 3049
+
 class CGraph
 {
 
