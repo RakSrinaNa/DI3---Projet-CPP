@@ -23,6 +23,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `IO_FILE_EXCEPTION` si une erreur de lecture est survenue.
+	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
 	 */
 	static CGraph * PGRAreadGraph(char * pcFileName);
 	
@@ -37,7 +38,7 @@ private:
 	 *      char *:     Un pointeur sur le premier caractère après le =.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoi une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si aucun = n'est trouve.
+	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si aucun = n'est trouve.
 	 */
 	static char * PGRAgetLineValue(char * pcLine);
 	
@@ -72,7 +73,7 @@ private:
 	 *
 	 *      Si aucune ligne n'a pu être lue, -1 est renvoyé.
 	 */
-	static int PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
+	static int PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
 	
 	/**************************************************************
 	 * Lis une ligne non vide du fichier.
@@ -86,6 +87,8 @@ private:
 	 * PostCond:
 	 *      Si aucune ligne n'a pu être lue, NULL est renvoyé.
 	 */
-	static char * PMTXreadLineFromFile(FILE * poFILEfile);
+	static char * PGRAreadLineFromFile(FILE * poFILEfile);
+	
+	static char ** PGRASplit(char cSeparator, unsigned int * puiSize, void * pcString);
 };
 #endif

@@ -7,6 +7,7 @@
 
 CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 {
+	/* Open the file */
 	FILE* poFILEfile;
 	try
 	{
@@ -18,11 +19,133 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 		throw poEXexception;
 	}
 	
+	/* Prepare graph */
 	CGraph * poGRAgraph;
 	MMALLOC(poGRAgraph, CGraph, 1, "Malloc error PGRAreadGraph");
 	
-	//TODO
-	throw CException(0, (char *) "Reviens plus tard");
+	/* Get vertices count */
+	char * pcLineRead = PGRAreadLineFromFile(poFILEfile);
+	char * pcLineValue = PGRAgetLineValue(pcLineRead);
+	char * pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("NBSommets", pcLineKey) == 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		free(poGRAgraph);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "NBSommets expected, get something else");
+	}
+	unsigned int uiVertexCount = (unsigned int) atoi(pcLineValue);
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* Get arcs count */
+	pcLineRead = PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = PGRAgetLineValue(pcLineRead);
+	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("NBArcs", pcLineKey) == 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		free(poGRAgraph);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "NBArcs expected, get something else");
+	}
+	unsigned int uiArcCount = (unsigned int) atoi(pcLineValue);
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* Get vertices */
+	pcLineRead = PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = PGRAgetLineValue(pcLineRead);
+	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("Sommets", pcLineKey) == 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		free(poGRAgraph);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
+	}
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	for(unsigned int uiVertexIndex = 0; uiVertexIndex < uiVertexCount; uiVertexIndex++)
+	{
+		pcLineRead = PGRAreadLineFromFile(poFILEfile);
+		pcLineValue = PGRAgetLineValue(pcLineRead);
+		pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+		if(STRCMPI("Numero", pcLineKey) == 0)
+		{
+			free(pcLineKey);
+			free(pcLineRead);
+			free(poGRAgraph);
+			
+			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
+		}
+		poGRAgraph->GRAaddVertex((unsigned int) atoi(pcLineValue));
+		free(pcLineKey);
+		free(pcLineRead);
+	}
+	
+	/* Skip line containing ] */
+	free(PGRAreadLineFromFile(poFILEfile));
+	
+	/* Get arcs */
+	pcLineRead = PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = PGRAgetLineValue(pcLineRead);
+	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("Arcs", pcLineKey) == 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		free(poGRAgraph);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs expected, get something else");
+	}
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	for(unsigned int uiArcIndex = 0; uiArcIndex < uiArcCount; uiArcIndex++)
+	{
+		pcLineRead = PGRAreadLineFromFile(poFILEfile);
+		pcLineValue = PGRAgetLineValue(pcLineRead);
+		pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+		
+		int iStart = -1;
+		int iEnd = -1;
+		
+		unsigned int uiValuesCount = 0;
+		char ** pcValues = PGRASplit(',', &uiValuesCount, pcLineValue);
+		
+		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
+		{
+			char * pcValueValue = PGRAgetLineValue(pcValues[uiValueIndex]);
+			char * pcValueKey = PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
+			
+			if(STRCMPI("Debut", pcValueKey) == 1)
+				iStart = atoi(pcValueValue);
+			else if(STRCMPI("Fin", pcValueKey) == 1)
+				iEnd = atoi(pcValueValue);
+			
+			free(pcValueValue);
+			free(pcValueKey);
+		}
+		free(pcValues);
+		
+		if(iStart < 0 || iEnd < 0)
+		{
+			free(pcLineKey);
+			free(pcLineRead);
+			free(poGRAgraph);
+			
+			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs malformatted");
+		}
+		
+		poGRAgraph->GRAaddArc((unsigned int) iStart, (unsigned int) iEnd);
+		free(pcLineKey);
+		free(pcLineRead);
+	}
 	
 	fclose(poFILEfile);
 	return poGRAgraph;
@@ -48,7 +171,7 @@ char * CGraphParser::PGRAgetLineKey(char * pcStart, char * pcEnd)
 	return pcKey;
 }
 
-char * CGraphParser::PMTXreadLineFromFile(FILE * poFILEfile)
+char * CGraphParser::PGRAreadLineFromFile(FILE * poFILEfile)
 {
 	char * pcLineRead = NULL;
 	size_t uiSize = 0;
@@ -60,7 +183,7 @@ char * CGraphParser::PMTXreadLineFromFile(FILE * poFILEfile)
 			free(pcLineRead);
 			pcLineRead = NULL;
 		}
-		if((iEndString = PMTXgetLine(&pcLineRead, &uiSize, poFILEfile)) == -1) // Read a line, and return NULL if end of poFILEfile
+		if((iEndString = PGRAgetLine(&pcLineRead, &uiSize, poFILEfile)) == -1) // Read a line, and return NULL if end of poFILEfile
 			return NULL;
 	} while(*pcLineRead == '\n' || (*pcLineRead == '\r' && pcLineRead[1] == '\n')); // While we have a non empty line
 	
@@ -69,11 +192,11 @@ char * CGraphParser::PMTXreadLineFromFile(FILE * poFILEfile)
 		iEndString--;
 	iEndString++;
 	pcLineRead[iEndString] = '\0';
-	// RREALLOC(pcLineRead, char, iEndString, "Error realloc PMTXreadLineFromFile");
+	// RREALLOC(pcLineRead, char, iEndString, "Error realloc PGRAreadLineFromFile");
 	return pcLineRead;
 }
 
-int CGraphParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
+int CGraphParser::PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile)
 {
 	char * pcBuffer = NULL; // Buffer string
 	unsigned int uiWritingHead = 0; // Pointer to the writing position in the buffer
@@ -111,4 +234,20 @@ int CGraphParser::PMTXgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poF
 	*pcLineSize = uiSize; // Set uiSize being pointer by pcLineSize
 	
 	return uiWritingHead - 1; // Return the length of the read string, not counting the terminating byte
+}
+
+char ** CGraphParser::PGRASplit(char cSeparator, unsigned int * puiSize, void * pcString)
+{
+	char ** ppcValues = nullptr;
+	*puiSize = 0;
+	
+	while(pcString != nullptr)
+	{
+		(*puiSize)++;
+		RREALLOC(ppcValues, char *, *puiSize, "REALLOC ERROR PGRASPLIT");
+		MMALLOC(ppcValues[*puiSize - 1], char, 50, "MALLOC ERROR PGRASPLIT");
+		pcString = memccpy(ppcValues[*puiSize - 1], pcString, cSeparator, 50u);
+	}
+	
+	return ppcValues;
 }
