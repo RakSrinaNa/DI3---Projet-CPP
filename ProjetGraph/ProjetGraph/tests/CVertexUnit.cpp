@@ -38,7 +38,7 @@ void CVertexUnit::VERUnitTestArcIn()
 	CVertex oVERvertex = CVertex(0);
 	
 	oVERvertex.VERaddArcIn(10);
-	if(!oVERvertex.VERhasIndexIn(10))
+	if(!oVERvertex.VERhasIndexIn(10) || oVERvertex.VERgetArcInCount() != 1)
 		CUnit::UNITassertError("ASSERT VERTEX B1");
 	
 	/* Test adding duplicate */
@@ -55,7 +55,7 @@ void CVertexUnit::VERUnitTestArcIn()
 	
 	/* Test removing arcIn */
 	oVERvertex.VERremoveArcIn(10);
-	if(oVERvertex.VERhasIndexIn(10))
+	if(oVERvertex.VERhasIndexIn(10) || oVERvertex.VERgetArcInCount() != 0)
 		CUnit::UNITassertError("ASSERT VERTEX B4");
 	
 	/* Test removing unknown arcIn */
@@ -64,7 +64,7 @@ void CVertexUnit::VERUnitTestArcIn()
 	/* Test modifying existing arcIn */
 	oVERvertex.VERaddArcIn(15);
 	oVERvertex.VERmodifyArcIn(15, 30);
-	if(oVERvertex.VERhasIndexIn(15) || !oVERvertex.VERhasIndexIn(30))
+	if(oVERvertex.VERhasIndexIn(15) || !oVERvertex.VERhasIndexIn(30) || oVERvertex.VERgetArcInCount() != 1)
 		CUnit::UNITassertError("ASSERT VERTEX B5");
 	
 	/* Test modifying unknown arcIn */
@@ -79,7 +79,7 @@ void CVertexUnit::VERUnitTestArcOut()
 	CVertex oVERvertex = CVertex(0);
 	
 	oVERvertex.VERaddArcOut(10);
-	if(!oVERvertex.VERhasIndexOut(10))
+	if(!oVERvertex.VERhasIndexOut(10) || oVERvertex.VERgetArcOutCount() != 1)
 		CUnit::UNITassertError("ASSERT VERTEX C1");
 	
 	/* Test adding duplicate */
@@ -96,7 +96,7 @@ void CVertexUnit::VERUnitTestArcOut()
 	
 	/* Test removing arcOut */
 	oVERvertex.VERremoveArcOut(10);
-	if(oVERvertex.VERhasIndexOut(10))
+	if(oVERvertex.VERhasIndexOut(10) || oVERvertex.VERgetArcOutCount() != 0)
 		CUnit::UNITassertError("ASSERT VERTEX C4");
 	
 	/* Test removing unknown arcOut */
@@ -105,7 +105,7 @@ void CVertexUnit::VERUnitTestArcOut()
 	/* Test modifying existing arcOut */
 	oVERvertex.VERaddArcOut(15);
 	oVERvertex.VERmodifyArcOut(15, 30);
-	if(oVERvertex.VERhasIndexOut(15) || !oVERvertex.VERhasIndexOut(30))
+	if(oVERvertex.VERhasIndexOut(15) || !oVERvertex.VERhasIndexOut(30) || oVERvertex.VERgetArcOutCount() != 1)
 		CUnit::UNITassertError("ASSERT VERTEX C5");
 	
 	/* Test modifying unknown arcOut */
