@@ -53,6 +53,10 @@ public:
 	 */
 	~CVertex();
 	
+	unsigned int VERgetArcInCount();
+	
+	unsigned int VERgetArcOutCount();
+
 	/**************************************************************
 	 * Ajoute un arc entrant au noeud.
 	 **************************************************************
@@ -171,6 +175,10 @@ public:
 	 * PostCond:
 	 */
 	bool VERhasIndexOut(unsigned int uiToVertexIndex);
+
+	void VERdisplayArcIn();
+
+	void VERdisplayArcOut();
 };
 
 #endif

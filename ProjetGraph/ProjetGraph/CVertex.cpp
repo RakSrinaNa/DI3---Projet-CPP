@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 
 #include "CVertex.h"
 #include "CException.h"
@@ -22,6 +23,14 @@ CVertex::~CVertex()
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		delete poARCoutList[uiIndex];
 	free(poARCoutList);
+}
+
+unsigned int CVertex::VERgetArcInCount(){
+	return uiArcInCount;
+}
+	
+unsigned int CVertex::VERgetArcOutCount(){
+	return uiArcOutCount;
 }
 
 void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
@@ -102,4 +111,16 @@ bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex)
 		if(poARCoutList[uiIndex]->ARCgetVertexIndex() == uiToVertexIndex)
 			return true;
 	return false;
+}
+
+void CVertex::VERdisplayArcIn(){
+	std::cout << std::endl;
+	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
+		std::cout << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
+}
+
+void CVertex::VERdisplayArcOut(){
+	std::cout << std::endl;
+	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		std::cout << "-> " << poARCoutList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }

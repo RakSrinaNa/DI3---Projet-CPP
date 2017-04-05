@@ -34,7 +34,7 @@ public:
 
 	void GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2);
 
-	void GRAdisplay();
+	void GRAdisplay(unsigned int uiLevel = 4);
 
 	CGraph & operator+(unsigned int uiVertexIndex);
 };

@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <stdio.h>
+#include <iostream>
 
 #include "CGraph.h"
 #include "CException.h"
@@ -44,8 +46,9 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 				poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
 		}
 		
-		poVERvertexList[uiVertexIndex - 1]->~CVertex();
+		delete poVERvertexList[uiVertexIndex - 1];
 		poVERvertexList[uiVertexIndex - 1] = nullptr;
+		uiVertexCount--;
 	}
 	else
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex doesn't exist");
@@ -101,7 +104,19 @@ void CGraph::GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2
 
 }
 
-void CGraph::GRAdisplay(){
+void CGraph::GRAdisplay(unsigned int uiLevel){
+	std::cout << "This graph contains " << uiVertexCount << " vertex." << std::endl;
+
+	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++){
+		if(poVERvertexList[uiIndex] != nullptr){
+			if(uiLevel >= 1)
+				std::cout << std::endl << "Vertex n°" << poVERvertexList[uiIndex]->VERgetVertexIndex();
+			if(uiLevel == 2 || uiLevel > 3)
+				poVERvertexList[uiIndex]->VERdisplayArcOut();
+			if(uiLevel >= 3)
+				poVERvertexList[uiIndex]->VERdisplayArcIn();
+		}
+	}
 }
 
 CGraph & CGraph::operator+(unsigned int uiVertexIndex)
