@@ -29,7 +29,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 	}
 	
 	if(poVERvertexList[uiVertexIndex - 1] != nullptr)
-		throw CException(DUPLICATE_VERTEX_EXCEPTION, "Vertex already existing");
+		throw CException(DUPLICATE_VERTEX_EXCEPTION, (char *) "Vertex already existing");
 	
 	poVERvertexList[uiVertexIndex - 1] = new CVertex(uiVertexIndex);
 	uiVertexCount++;
