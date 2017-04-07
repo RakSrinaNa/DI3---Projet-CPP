@@ -36,7 +36,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 
 void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 {
-	if(uiVertexIndex <= uiBiggestVertex  && poVERvertexList[uiVertexIndex - 1] != nullptr)
+	if(GRAhasVertex(uiVertexIndex))
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		{
