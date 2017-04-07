@@ -55,7 +55,7 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 
 bool CGraph::GRAhasVertex(unsigned int uiVertexIndex) const
 {
-	return uiVertexIndex <= uiBiggestVertex && poVERvertexList[uiVertexIndex - 1] != nullptr;
+	return uiVertexIndex > 0 && uiVertexIndex <= uiBiggestVertex && poVERvertexList[uiVertexIndex - 1] != nullptr;
 }
 
 void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
@@ -100,6 +100,12 @@ void CGraph::GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2
 	
 	GRAaddArc(uiVertexIndex1, uiVertexIndex2);
 	GRAaddArc(uiVertexIndex2, uiVertexIndex1);
+}
+
+void CGraph::GRAinvert(){
+	for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
+		if(GRAhasVertex(uiIndex))
+			poVERvertexList[uiIndex -1]->VERinvert();
 }
 
 void CGraph::GRAdisplay(unsigned int uiLevel) const

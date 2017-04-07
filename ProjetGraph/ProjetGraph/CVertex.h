@@ -179,6 +179,8 @@ public:
 	void VERdisplayArcIn() const;
 
 	void VERdisplayArcOut() const;
+
+	void VERinvert();
 };
 
 #endif
