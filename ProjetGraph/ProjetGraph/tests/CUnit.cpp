@@ -4,12 +4,17 @@
 #include "CArcUnit.h"
 #include "CVertexUnit.h"
 #include "CGraphUnit.h"
+#include "CGraphParserUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
 	perror(pcMessage);
 	perror("\n");
+#ifdef _MSC_VER
+	throw CException(0, (char *) "BREAKPOINT UNIT TESTS");
+#else
 	raise(SIGINT);
+#endif
 	exit(EXIT_FAILURE);
 }
 
@@ -30,4 +35,8 @@ void CUnit::UNITlaunchTests()
 	std::cout << "Starting CGraph tests..." << std::endl;
 	CGraphUnit::GRAUnitTests();
 	std::cout << "CGraph OK" << std::endl << std::endl;
+	
+	std::cout << "Starting CGraphParser tests..." << std::endl;
+	CGraphParserUnit::PGRAUnitTests();
+	std::cout << "CGraphParser OK" << std::endl << std::endl;
 }
