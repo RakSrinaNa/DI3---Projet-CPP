@@ -28,9 +28,10 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 		uiBiggestVertex = uiVertexIndex;
 	}
 	
-	if(poVERvertexList[uiVertexIndex - 1] == nullptr)
-		poVERvertexList[uiVertexIndex - 1] = new CVertex(uiVertexIndex);
-	
+	if(poVERvertexList[uiVertexIndex - 1] != nullptr)
+		throw CException(DUPLICATE_VERTEX_EXCEPTION, "Vertex already existing");
+
+	poVERvertexList[uiVertexIndex - 1] = new CVertex(uiVertexIndex);
 	uiVertexCount++;
 }
 
@@ -78,7 +79,7 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
 	
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
-		throw CException(ARC_MISSING_EXCEPTION, (char *) "Modifying non existing arc");
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "Modifying non existing arc");
 	poVERvertexList[uiLastToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 	poVERvertexList[uiFromVertexIndex - 1]->VERmodifyArcOut(uiLastToVertexIndex, uiNewToVertexIndex);
 	poVERvertexList[uiNewToVertexIndex - 1]->VERaddArcIn(uiFromVertexIndex);
