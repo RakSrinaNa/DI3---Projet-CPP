@@ -242,7 +242,7 @@ char ** CGraphParser::PGRASplit(char * cSeparators, unsigned int * puiSize, char
 	{
 		(*puiSize)++;
 		RREALLOC(ppcValues, char *, *puiSize, "REALLOC ERROR PGRASPLIT");
-		ppcValues[*puiSize - 1] = strsep(&pcString, cSeparators);
+		ppcValues[*puiSize - 1] = mystrsep(&pcString, cSeparators);
 	}
 	
 	return ppcValues;
@@ -258,4 +258,24 @@ char * CGraphParser::PGRATrim(char * string)
 		end--;
 	*(end + 1) = '\0';
 	return start;
+}
+
+char* CGraphParser::mystrsep(char** stringp, const char* delim)
+{
+  char* start = *stringp;
+  char* p;
+
+  p = (start != NULL) ? strpbrk(start, delim) : NULL;
+
+  if (p == NULL)
+  {
+    *stringp = NULL;
+  }
+  else
+  {
+    *p = '\0';
+    *stringp = p + 1;
+  }
+
+  return start;
 }

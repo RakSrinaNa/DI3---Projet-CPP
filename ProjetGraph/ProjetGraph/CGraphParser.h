@@ -92,5 +92,7 @@ private:
 	static char ** PGRASplit(char * cSeparators, unsigned int * puiSize, char * pcString);
 	
 	static char * PGRATrim(char * string);
+
+	static char * mystrsep(char** stringp, const char* delim);
 };
 #endif

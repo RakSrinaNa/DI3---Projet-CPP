@@ -61,7 +61,7 @@ void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 
 void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 {
-	for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		if(uiToVertexIndex == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
 	
