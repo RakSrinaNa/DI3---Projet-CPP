@@ -5,6 +5,7 @@
 #include "CVertexUnit.h"
 #include "CGraphUnit.h"
 #include "CGraphParserUnit.h"
+#include "../CException.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
