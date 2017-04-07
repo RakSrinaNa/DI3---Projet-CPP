@@ -74,7 +74,7 @@ void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVerte
 
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
-	if(uiFromVertexIndex > uiBiggestVertex  || uiLastToVertexIndex > uiBiggestVertex  || uiNewToVertexIndex > uiBiggestVertex  && poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiLastToVertexIndex - 1] == nullptr || poVERvertexList[uiNewToVertexIndex - 1] == nullptr)
+	if(uiFromVertexIndex > uiBiggestVertex  || uiLastToVertexIndex > uiBiggestVertex  || uiNewToVertexIndex > uiBiggestVertex  || poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiLastToVertexIndex - 1] == nullptr || poVERvertexList[uiNewToVertexIndex - 1] == nullptr)
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
 	
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
