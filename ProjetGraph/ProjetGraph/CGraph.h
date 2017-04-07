@@ -2,8 +2,7 @@
 #define CGRAPH
 
 #include "CVertex.h"
-
-#define MISSING_ARC_INDEX_EXCEPTION 3049
+#include "CArc.h"
 
 class CGraph
 {
