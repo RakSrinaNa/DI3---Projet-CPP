@@ -18,6 +18,9 @@ set(SOURCE_FILES
         ProjetGraph/CGraph.cpp ProjetGraph/Cgraph.h
         ProjetGraph/tests/CGraphUnit.cpp ProjetGraph/tests/CGraphUnit.h
 
+        ProjetGraph/CGraphParser.cpp ProjetGraph/CGraphParser.h
+        ProjetGraph/tests/CGraphParserUnit.cpp ProjetGraph/tests/CGraphParserUnit.h
+
         ProjetGraph/utils.h
         ProjetGraph/tests/CUnit.cpp ProjetGraph/tests/CUnit.h
         )

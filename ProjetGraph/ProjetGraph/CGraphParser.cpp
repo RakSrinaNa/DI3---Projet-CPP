@@ -20,14 +20,13 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 	}
 	
 	/* Prepare graph */
-	CGraph * poGRAgraph;
-	MMALLOC(poGRAgraph, CGraph, 1, "Malloc error PGRAreadGraph");
+	CGraph * poGRAgraph = new CGraph();
 	
 	/* Get vertices count */
 	char * pcLineRead = PGRAreadLineFromFile(poFILEfile);
 	char * pcLineValue = PGRAgetLineValue(pcLineRead);
 	char * pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-	if(STRCMPI("NBSommets", pcLineKey) == 0)
+	if(STRCMPI("NBSommets", pcLineKey) != 0)
 	{
 		free(pcLineKey);
 		free(pcLineRead);
@@ -43,7 +42,7 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 	pcLineRead = PGRAreadLineFromFile(poFILEfile);
 	pcLineValue = PGRAgetLineValue(pcLineRead);
 	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-	if(STRCMPI("NBArcs", pcLineKey) == 0)
+	if(STRCMPI("NBArcs", pcLineKey) != 0)
 	{
 		free(pcLineKey);
 		free(pcLineRead);
@@ -59,7 +58,7 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 	pcLineRead = PGRAreadLineFromFile(poFILEfile);
 	pcLineValue = PGRAgetLineValue(pcLineRead);
 	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-	if(STRCMPI("Sommets", pcLineKey) == 0)
+	if(STRCMPI("Sommets", pcLineKey) != 0)
 	{
 		free(pcLineKey);
 		free(pcLineRead);
@@ -75,7 +74,7 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 		pcLineRead = PGRAreadLineFromFile(poFILEfile);
 		pcLineValue = PGRAgetLineValue(pcLineRead);
 		pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-		if(STRCMPI("Numero", pcLineKey) == 0)
+		if(STRCMPI("Numero", PGRATrim(pcLineKey)) != 0)
 		{
 			free(pcLineKey);
 			free(pcLineRead);
@@ -95,7 +94,7 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 	pcLineRead = PGRAreadLineFromFile(poFILEfile);
 	pcLineValue = PGRAgetLineValue(pcLineRead);
 	pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-	if(STRCMPI("Arcs", pcLineKey) == 0)
+	if(STRCMPI("Arcs", pcLineKey) != 0)
 	{
 		free(pcLineKey);
 		free(pcLineRead);
@@ -109,23 +108,21 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 	for(unsigned int uiArcIndex = 0; uiArcIndex < uiArcCount; uiArcIndex++)
 	{
 		pcLineRead = PGRAreadLineFromFile(poFILEfile);
-		pcLineValue = PGRAgetLineValue(pcLineRead);
-		pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
 		
 		int iStart = -1;
 		int iEnd = -1;
 		
 		unsigned int uiValuesCount = 0;
-		char ** pcValues = PGRASplit(',', &uiValuesCount, pcLineValue);
+		char ** pcValues = PGRASplit((char *) ",", &uiValuesCount, pcLineRead);
 		
 		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
 		{
 			char * pcValueValue = PGRAgetLineValue(pcValues[uiValueIndex]);
 			char * pcValueKey = PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
 			
-			if(STRCMPI("Debut", pcValueKey) == 1)
+			if(STRCMPI("Debut", PGRATrim(pcValueKey)) == 1)
 				iStart = atoi(pcValueValue);
-			else if(STRCMPI("Fin", pcValueKey) == 1)
+			else if(STRCMPI("Fin", PGRATrim(pcValueKey)) == 1)
 				iEnd = atoi(pcValueValue);
 			
 			free(pcValueValue);
@@ -236,7 +233,7 @@ int CGraphParser::PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poF
 	return uiWritingHead - 1; // Return the length of the read string, not counting the terminating byte
 }
 
-char ** CGraphParser::PGRASplit(char cSeparator, unsigned int * puiSize, void * pcString)
+char ** CGraphParser::PGRASplit(char * cSeparators, unsigned int * puiSize, char * pcString)
 {
 	char ** ppcValues = nullptr;
 	*puiSize = 0;
@@ -245,9 +242,20 @@ char ** CGraphParser::PGRASplit(char cSeparator, unsigned int * puiSize, void * 
 	{
 		(*puiSize)++;
 		RREALLOC(ppcValues, char *, *puiSize, "REALLOC ERROR PGRASPLIT");
-		MMALLOC(ppcValues[*puiSize - 1], char, 50, "MALLOC ERROR PGRASPLIT");
-		pcString = memccpy(ppcValues[*puiSize - 1], pcString, cSeparator, 50u);
+		ppcValues[*puiSize - 1] = strsep(&pcString, cSeparators);
 	}
 	
 	return ppcValues;
+}
+
+char * CGraphParser::PGRATrim(char * string)
+{
+	char * start = string;
+	char * end = start + strlen(string);
+	while(*start == '\t' || *start == '\n' || *start == ' ')
+		start++;
+	while(*end == '\t' || *end == '\n' || *end == ' ' || *end == '\0')
+		end--;
+	*(end + 1) = '\0';
+	return start;
 }

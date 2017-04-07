@@ -89,6 +89,8 @@ private:
 	 */
 	static char * PGRAreadLineFromFile(FILE * poFILEfile);
 	
-	static char ** PGRASplit(char cSeparator, unsigned int * puiSize, void * pcString);
+	static char ** PGRASplit(char * cSeparators, unsigned int * puiSize, char * pcString);
+	
+	static char * PGRATrim(char * string);
 };
 #endif
