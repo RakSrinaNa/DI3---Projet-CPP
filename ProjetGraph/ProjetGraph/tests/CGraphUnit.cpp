@@ -57,7 +57,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAaddArc(1, 6);
 		CUnit::UNITassertError("ASSERT CGRAPH B3.1");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B3.2");
@@ -67,7 +67,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAaddArc(6, 1);
 		CUnit::UNITassertError("ASSERT CGRAPH B3.3");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B3.4");
@@ -79,7 +79,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAaddArc(1, 6);
 		CUnit::UNITassertError("ASSERT CGRAPH B4.1");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B4.2");
@@ -89,7 +89,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAaddArc(6, 1);
 		CUnit::UNITassertError("ASSERT CGRAPH B4.3");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B4.4");
@@ -107,7 +107,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAmodifyArc(6, 2, 3);
 		CUnit::UNITassertError("ASSERT CGRAPH B6.1");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B6.2");
@@ -117,7 +117,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAmodifyArc(1, 6, 3);
 		CUnit::UNITassertError("ASSERT CGRAPH B6.3");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B6.4");
@@ -127,7 +127,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAmodifyArc(1, 2, 6);
 		CUnit::UNITassertError("ASSERT CGRAPH B6.5");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B6.6");
@@ -137,7 +137,7 @@ void CGraphUnit::GRAUnitTestArcs()
 		oGraph.GRAmodifyArc(1, 2, 3);
 		CUnit::UNITassertError("ASSERT CGRAPH B6.7");
 	}
-	catch(CException const& oEXexception)
+	catch(CException const &oEXexception)
 	{
 		if(oEXexception.EXgetExceptionID() != MISSING_ARC_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPH B6.8");
@@ -147,7 +147,7 @@ void CGraphUnit::GRAUnitTestArcs()
 	
 	/* Test adding link */
 	oGraph.GRAaddLink(1, 2);
-	if(!oGraph.GRAhasArc(1, 2) || ! oGraph.GRAhasArc(2, 1))
+	if(!oGraph.GRAhasArc(1, 2) || !oGraph.GRAhasArc(2, 1))
 		CUnit::UNITassertError("ASSERT CGRAPH B7");
 	
 	oGraph.GRAaddLink(2, 3);

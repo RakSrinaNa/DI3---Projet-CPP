@@ -89,10 +89,10 @@ private:
 	 */
 	static char * PGRAreadLineFromFile(FILE * poFILEfile);
 	
-	static char ** PGRASplit(char * cSeparators, unsigned int * puiSize, char * pcString);
+	static char ** PGRAsplit(char * cSeparators, unsigned int * puiSize, char * pcString);
 	
-	static char * PGRATrim(char * string);
+	static char * PGRAtrim(char * pcString);
 
-	static char * mystrsep(char** stringp, const char* delim);
+	static char * PGRAstrsep(char ** ppcNextString, const char * pcDelims);
 };
 #endif
