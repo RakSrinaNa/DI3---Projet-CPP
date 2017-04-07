@@ -69,7 +69,7 @@ void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIn
 void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
 	poVERvertexList[uiFromVertexIndex - 1]->VERremoveArcOut(uiToVertexIndex);
-	poVERvertexList[uiToVertexIndex - 1]->VERremoveArcIn(uiToVertexIndex);
+	poVERvertexList[uiToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 }
 
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
