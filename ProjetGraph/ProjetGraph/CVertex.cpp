@@ -122,7 +122,7 @@ void CVertex::VERdisplayArcIn() const
 {
 	std::cout << std::endl;
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
-		std::cout << "\t"  << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
+		std::cout << "\t" << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }
 
 void CVertex::VERdisplayArcOut() const
@@ -137,9 +137,8 @@ void CVertex::VERinvert()
 	unsigned int uiInTempo = uiArcInCount;
 	uiArcInCount = uiArcOutCount;
 	uiArcOutCount = uiInTempo;
-
+	
 	CArc ** poARCInTempo = poARCinList;
 	poARCinList = poARCoutList;
 	poARCoutList = poARCInTempo;
-
 }

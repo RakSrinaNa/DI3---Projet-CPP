@@ -56,7 +56,7 @@ public:
 	unsigned int VERgetArcInCount() const;
 	
 	unsigned int VERgetArcOutCount() const;
-
+	
 	/**************************************************************
 	 * Ajoute un arc entrant au noeud.
 	 **************************************************************
@@ -175,11 +175,11 @@ public:
 	 * PostCond:
 	 */
 	bool VERhasIndexOut(unsigned int uiToVertexIndex) const;
-
+	
 	void VERdisplayArcIn() const;
-
+	
 	void VERdisplayArcOut() const;
-
+	
 	void VERinvert();
 };
 

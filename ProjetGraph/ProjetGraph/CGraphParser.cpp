@@ -5,15 +5,15 @@
 #include "utils.h"
 #include "CException.h"
 
-CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
+CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 {
 	/* Open the file */
-	FILE* poFILEfile;
+	FILE * poFILEfile;
 	try
 	{
 		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
 	}
-	catch(CException const& poEXexception)
+	catch(CException const &poEXexception)
 	{
 		perror(poEXexception.EXgetExceptionMessage());
 		throw poEXexception;
@@ -74,7 +74,7 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 		pcLineRead = PGRAreadLineFromFile(poFILEfile);
 		pcLineValue = PGRAgetLineValue(pcLineRead);
 		pcLineKey = PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-		if(STRCMPI("Numero", PGRATrim(pcLineKey)) != 0)
+		if(STRCMPI("Numero", PGRAtrim(pcLineKey)) != 0)
 		{
 			free(pcLineKey);
 			free(pcLineRead);
@@ -113,16 +113,16 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 		int iEnd = -1;
 		
 		unsigned int uiValuesCount = 0;
-		char ** pcValues = PGRASplit((char *) ",", &uiValuesCount, pcLineRead);
+		char ** pcValues = PGRAsplit((char *) ",", &uiValuesCount, pcLineRead);
 		
 		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
 		{
 			char * pcValueValue = PGRAgetLineValue(pcValues[uiValueIndex]);
 			char * pcValueKey = PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
 			
-			if(STRCMPI("Debut", PGRATrim(pcValueKey)) == 0)
+			if(STRCMPI("Debut", PGRAtrim(pcValueKey)) == 0)
 				iStart = atoi(pcValueValue);
-			else if(STRCMPI("Fin", PGRATrim(pcValueKey)) == 0)
+			else if(STRCMPI("Fin", PGRAtrim(pcValueKey)) == 0)
 				iEnd = atoi(pcValueValue);
 			
 			free(pcValueKey);
@@ -230,7 +230,7 @@ int CGraphParser::PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poF
 	return uiWritingHead - 1; // Return the length of the read string, not counting the terminating byte
 }
 
-char ** CGraphParser::PGRASplit(char * cSeparators, unsigned int * puiSize, char * pcString)
+char ** CGraphParser::PGRAsplit(char * cSeparators, unsigned int * puiSize, char * pcString)
 {
 	char ** ppcValues = nullptr;
 	*puiSize = 0;
@@ -239,16 +239,16 @@ char ** CGraphParser::PGRASplit(char * cSeparators, unsigned int * puiSize, char
 	{
 		(*puiSize)++;
 		RREALLOC(ppcValues, char *, *puiSize, "REALLOC ERROR PGRASPLIT");
-		ppcValues[*puiSize - 1] = mystrsep(&pcString, cSeparators);
+		ppcValues[*puiSize - 1] = PGRAstrsep(&pcString, cSeparators);
 	}
 	
 	return ppcValues;
 }
 
-char * CGraphParser::PGRATrim(char * string)
+char * CGraphParser::PGRAtrim(char * pcString)
 {
-	char * start = string;
-	char * end = start + strlen(string);
+	char * start = pcString;
+	char * end = start + strlen(pcString);
 	while(*start == '\t' || *start == '\n' || *start == ' ')
 		start++;
 	while(*end == '\t' || *end == '\n' || *end == ' ' || *end == '\0')
@@ -257,22 +257,17 @@ char * CGraphParser::PGRATrim(char * string)
 	return start;
 }
 
-char* CGraphParser::mystrsep(char** stringp, const char* delim)
+char * CGraphParser::PGRAstrsep(char ** ppcNextString, const char * pcDelims)
 {
-  char* start = *stringp;
-  char* p;
-
-  p = (start != NULL) ? strpbrk(start, delim) : NULL;
-
-  if (p == NULL)
-  {
-    *stringp = NULL;
-  }
-  else
-  {
-    *p = '\0';
-    *stringp = p + 1;
-  }
-
-  return start;
+	char * pcString = *ppcNextString;
+	char * pcToken;
+	pcToken = (pcString != nullptr) ? strpbrk(pcString, pcDelims) : nullptr;
+	if(pcToken == nullptr)
+		*ppcNextString = nullptr;
+	else
+	{
+		*pcToken = '\0';
+		*ppcNextString = pcToken + 1;
+	}
+	return pcString;
 }
