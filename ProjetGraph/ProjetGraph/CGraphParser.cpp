@@ -120,19 +120,17 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 			char * pcValueValue = PGRAgetLineValue(pcValues[uiValueIndex]);
 			char * pcValueKey = PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
 			
-			if(STRCMPI("Debut", PGRATrim(pcValueKey)) == 1)
+			if(STRCMPI("Debut", PGRATrim(pcValueKey)) == 0)
 				iStart = atoi(pcValueValue);
-			else if(STRCMPI("Fin", PGRATrim(pcValueKey)) == 1)
+			else if(STRCMPI("Fin", PGRATrim(pcValueKey)) == 0)
 				iEnd = atoi(pcValueValue);
 			
-			free(pcValueValue);
 			free(pcValueKey);
 		}
 		free(pcValues);
 		
 		if(iStart < 0 || iEnd < 0)
 		{
-			free(pcLineKey);
 			free(pcLineRead);
 			free(poGRAgraph);
 			
@@ -140,7 +138,6 @@ CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
 		}
 		
 		poGRAgraph->GRAaddArc((unsigned int) iStart, (unsigned int) iEnd);
-		free(pcLineKey);
 		free(pcLineRead);
 	}
 	
