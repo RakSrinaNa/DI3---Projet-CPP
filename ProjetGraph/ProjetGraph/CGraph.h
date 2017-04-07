@@ -33,6 +33,8 @@ public:
 	
 	void GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2);
 	
+	void GRAinvert();
+	
 	void GRAdisplay(unsigned int uiLevel = 4) const;
 	
 	CGraph &operator+(unsigned int uiVertexIndex);

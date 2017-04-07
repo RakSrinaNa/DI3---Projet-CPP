@@ -5,15 +5,15 @@
 #include "utils.h"
 #include "CException.h"
 
-CGraph * CGraphParser::PGRAreadGraph(char* pcFileName)
+CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 {
 	/* Open the file */
-	FILE* poFILEfile;
+	FILE * poFILEfile;
 	try
 	{
 		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
 	}
-	catch(CException const& poEXexception)
+	catch(CException const &poEXexception)
 	{
 		perror(poEXexception.EXgetExceptionMessage());
 		throw poEXexception;
@@ -257,17 +257,17 @@ char * CGraphParser::PGRAtrim(char * pcString)
 	return start;
 }
 
-char* CGraphParser::PGRAstrsep(char ** ppcNextString, const char * pcDelims)
+char * CGraphParser::PGRAstrsep(char ** ppcNextString, const char * pcDelims)
 {
-  char* pcString = *ppcNextString;
-  char* pcToken;
-  pcToken = (pcString != nullptr) ? strpbrk(pcString, pcDelims) : nullptr;
-  if(pcToken == nullptr)
-    *ppcNextString = nullptr;
-  else
-  {
-    *pcToken = '\0';
-    *ppcNextString = pcToken + 1;
-  }
-  return pcString;
+	char * pcString = *ppcNextString;
+	char * pcToken;
+	pcToken = (pcString != nullptr) ? strpbrk(pcString, pcDelims) : nullptr;
+	if(pcToken == nullptr)
+		*ppcNextString = nullptr;
+	else
+	{
+		*pcToken = '\0';
+		*ppcNextString = pcToken + 1;
+	}
+	return pcString;
 }

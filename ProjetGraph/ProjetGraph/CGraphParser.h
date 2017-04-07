@@ -26,7 +26,7 @@ public:
 	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
 	 */
 	static CGraph * PGRAreadGraph(char * pcFileName);
-	
+
 private:
 	/**************************************************************
 	 * Renvoi la valeur d'une ligne du ficher (valeur après le =).
@@ -92,7 +92,8 @@ private:
 	static char ** PGRAsplit(char * cSeparators, unsigned int * puiSize, char * pcString);
 	
 	static char * PGRAtrim(char * pcString);
-
+	
 	static char * PGRAstrsep(char ** ppcNextString, const char * pcDelims);
 };
+
 #endif
