@@ -38,6 +38,8 @@ public:
 	void GRAdisplay(unsigned int uiLevel = 4) const;
 
 	CGraph & operator+(unsigned int uiVertexIndex);
+
+	CGraph & operator-(unsigned int uiVertexIndex);
 };
 
 #endif

@@ -133,3 +133,9 @@ CGraph &CGraph::operator+(unsigned int uiVertexIndex)
 	GRAaddVertex(uiVertexIndex);
 	return *this;
 }
+
+CGraph &CGraph::operator-(unsigned int uiVertexIndex)
+{
+	GRAremoveVertex(uiVertexIndex);
+	return *this;
+}
