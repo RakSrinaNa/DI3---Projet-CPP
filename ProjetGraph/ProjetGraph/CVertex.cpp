@@ -37,11 +37,12 @@ unsigned int CVertex::VERgetArcOutCount() const
 
 void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 {
-	for(int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
+	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		if(uiFromVertexIndex == poARCinList[uiIndex]->ARCgetVertexIndex())
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
 	
-	RREALLOC(poARCinList, CArc *, ++uiArcInCount, "Fail realloc VERaddArcOut");
+	uiArcInCount++;
+	RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERaddArcOut");
 	poARCinList[uiArcInCount - 1] = new CArc(uiFromVertexIndex);
 }
 
@@ -50,8 +51,9 @@ void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		if(uiFromVertexIndex == poARCinList[uiIndex]->ARCgetVertexIndex())
 		{
+			uiArcInCount--;
 			delete poARCinList[uiIndex];
-			poARCinList[uiIndex] = poARCinList[--uiArcInCount];
+			poARCinList[uiIndex] = poARCinList[uiArcInCount];
 			RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERremoveArcIn");
 			break;
 		}
@@ -63,7 +65,8 @@ void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 		if(uiToVertexIndex == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
 	
-	RREALLOC(poARCoutList, CArc *, ++uiArcOutCount, "Fail realloc VERaddArcOut");
+	uiArcOutCount++;
+	RREALLOC(poARCoutList, CArc *, uiArcOutCount, "Fail realloc VERaddArcOut");
 	poARCoutList[uiArcOutCount - 1] = new CArc(uiToVertexIndex);
 }
 
