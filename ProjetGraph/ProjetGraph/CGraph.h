@@ -118,6 +118,7 @@ public:
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `MISSING_VERTEX_INDEX_EXCEPTION` si l'un des deux sommets n'existe pas.
 	 *      Renvoie une CException avec l'ID `MISSING_ARC_INDEX_EXCEPTION` si l'arc n'existe pas.
+	 *      Renvoie une CException avec l'ID `DUPLICATE_ARC_EXCEPTION` si le nouvel arc existe deja.
 	 */
 	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 	
