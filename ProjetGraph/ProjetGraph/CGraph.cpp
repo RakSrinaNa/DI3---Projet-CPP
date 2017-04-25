@@ -37,17 +37,14 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 	uiVertexCount++;
 }
 
-// TODO
 void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 {
 	if(GRAhasVertex(uiVertexIndex))
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		{
-			if(poVERvertexList[uiVertexIndex - 1]->VERhasIndexOut(uiIndex))
-				poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
-			if(poVERvertexList[uiVertexIndex - 1]->VERhasIndexIn(uiIndex))
-				poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
+			poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
+			poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
 		}
 		
 		delete poVERvertexList[uiVertexIndex - 1];
@@ -61,7 +58,6 @@ bool CGraph::GRAhasVertex(unsigned int uiVertexIndex) const
 	return uiVertexIndex > 0 && uiVertexIndex <= uiBiggestVertex && poVERvertexList[uiVertexIndex - 1] != nullptr;
 }
 
-//TODO verifier duplicate
 void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
 	if(!GRAhasVertex(uiFromVertexIndex) || !GRAhasVertex(uiToVertexIndex))
@@ -80,7 +76,6 @@ void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVerte
 	poVERvertexList[uiToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 }
 
-//TODO
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
 	if(!GRAhasVertex(uiFromVertexIndex) || !GRAhasVertex(uiLastToVertexIndex) || !GRAhasVertex(uiNewToVertexIndex))
@@ -88,6 +83,9 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 	
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "Modifying non existing arc");
+	
+	if(!GRAhasArc(uiFromVertexIndex, uiNewToVertexIndex))
+		throw CException (DUPLICATE_ARC_EXCEPTION, (char *) "The new arc already exists");
 
 	poVERvertexList[uiLastToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 	poVERvertexList[uiFromVertexIndex - 1]->VERmodifyArcOut(uiLastToVertexIndex, uiNewToVertexIndex);
