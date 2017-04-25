@@ -53,8 +53,28 @@ public:
 	 */
 	~CVertex();
 	
+	/**************************************************************
+	 * Renvoi le nombre d'arcs entrants.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 *      unsigned int: Le nombre d'arcs entrants.
+	 * PreCond:
+	 * PostCond:
+	 */
 	unsigned int VERgetArcInCount() const;
 	
+	/**************************************************************
+	 * Renvoi le nombre d'arcs sortants.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 *      unsigned int: Le nombre d'arcs sortants.
+	 * PreCond:
+	 * PostCond:
+	 */
 	unsigned int VERgetArcOutCount() const;
 	
 	/**************************************************************
@@ -176,10 +196,37 @@ public:
 	 */
 	bool VERhasIndexOut(unsigned int uiToVertexIndex) const;
 	
+	/**************************************************************
+	 * Affiche la liste des arcs entrants dans la console.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	void VERdisplayArcIn() const;
 	
+	/**************************************************************
+	 * Affiche la liste des arcs sortants dans la console.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	void VERdisplayArcOut() const;
 	
+	/**************************************************************
+	 * Inverse le sens de tous les arcs du noeud.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	void VERinvert();
 };
 

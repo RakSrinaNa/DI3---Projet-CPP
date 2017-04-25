@@ -89,10 +89,51 @@ private:
 	 */
 	static char * PGRAreadLineFromFile(FILE * poFILEfile);
 	
-	static char ** PGRAsplit(char * cSeparators, unsigned int * puiSize, char * pcString);
+	/**************************************************************
+	 * Renvoie un tableau de clef/valeur.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      pcSeparators:   Un string representant une liste des separateurs.
+	 *      puiSize:        Un pointeur sur un entier qui contiendra la taille du tableau.
+	 *      pcString:       Le string a decouper.
+	 * Sortie:
+	 *      char**:         Un tableau de string contenant les clefs/valeurs.
+	 * PreCond:
+	 * PostCond:
+	 *      puiSize contient la taille du tableau retourne.
+	 */
+	static char ** PGRAsplit(char * pcSeparators, unsigned int * puiSize, char * pcString);
 	
+	/**************************************************************
+	 * Rogne le string.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      pcString:   Le string a rogner.
+	 * Sortie:
+	 *      char*:      Le string rogne.
+	 * PreCond:
+	 *      pcString non null.
+	 * PostCond:
+	 */
 	static char * PGRAtrim(char * pcString);
 	
+	/**************************************************************
+	 * Decoupe une portion d'un string jusqu'a un delimiteur.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      ppcNextString:  Un pointeur sur le string a decouper.
+	 *      pcDelims:       Un string contenant les delimiteurs.
+	 * Sortie:
+	 *      char*:          Un pointeur sur le debut du string jusqu'au prochain delimiteur.
+	 * PreCond:
+	 * PostCond:
+	 *      ppcNextString contient un pointeur sur le string apres le delimiteur, ou null si le string ne contenait pas de delimiteur.
+	 *      La valeur pointee par ppcNextString est modifiee.
+	 *      Le retour pointe sur une partie du string contenu dans ppcNextString, a ne pas desalouer.
+	 */
 	static char * PGRAstrsep(char ** ppcNextString, const char * pcDelims);
 };
 

@@ -12,14 +12,16 @@ CGraph::CGraph() : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0
 
 CGraph::~CGraph()
 {
+	/* Destroy and free all vertex */
 	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
 		if(poVERvertexList[uiIndex] != nullptr)
-			poVERvertexList[uiIndex]->~CVertex();
+			delete poVERvertexList[uiIndex];
 	free(poVERvertexList);
 }
 
 void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 {
+	/* If the index of the new vertex is bigger than the biggest, realloc the list for the new size and fill it with nullptr */
 	if(uiVertexIndex > uiBiggestVertex)
 	{
 		RREALLOC(poVERvertexList, CVertex *, uiVertexIndex, "Fail Realloc GRAaddVertex");
@@ -27,7 +29,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 			poVERvertexList[uiIndex] = nullptr;
 		uiBiggestVertex = uiVertexIndex;
 	}
-	
+
 	if(poVERvertexList[uiVertexIndex - 1] != nullptr)
 		throw CException(DUPLICATE_VERTEX_EXCEPTION, (char *) "Vertex already existing");
 	
@@ -41,10 +43,8 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		{
-			if(poVERvertexList[uiVertexIndex - 1]->VERhasIndexOut(uiIndex))
-				poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
-			if(poVERvertexList[uiVertexIndex - 1]->VERhasIndexIn(uiIndex))
-				poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
+			poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
+			poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
 		}
 		
 		delete poVERvertexList[uiVertexIndex - 1];
@@ -69,6 +69,9 @@ void CGraph::GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIn
 
 void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex)
 {
+	if(!GRAhasVertex(uiFromVertexIndex) || !GRAhasVertex(uiToVertexIndex))
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
+
 	poVERvertexList[uiFromVertexIndex - 1]->VERremoveArcOut(uiToVertexIndex);
 	poVERvertexList[uiToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 }
@@ -76,11 +79,14 @@ void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVerte
 void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
 	if(!GRAhasVertex(uiFromVertexIndex) || !GRAhasVertex(uiLastToVertexIndex) || !GRAhasVertex(uiNewToVertexIndex))
-	if(uiFromVertexIndex > uiBiggestVertex || uiLastToVertexIndex > uiBiggestVertex || uiNewToVertexIndex > uiBiggestVertex || poVERvertexList[uiFromVertexIndex - 1] == nullptr || poVERvertexList[uiLastToVertexIndex - 1] == nullptr || poVERvertexList[uiNewToVertexIndex - 1] == nullptr)
-		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of those vertex doesn't exist");
 	
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "Modifying non existing arc");
+	
+	if(!GRAhasArc(uiFromVertexIndex, uiNewToVertexIndex))
+		throw CException (DUPLICATE_ARC_EXCEPTION, (char *) "The new arc already exists");
+
 	poVERvertexList[uiLastToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 	poVERvertexList[uiFromVertexIndex - 1]->VERmodifyArcOut(uiLastToVertexIndex, uiNewToVertexIndex);
 	poVERvertexList[uiNewToVertexIndex - 1]->VERaddArcIn(uiFromVertexIndex);
@@ -97,7 +103,7 @@ bool CGraph::GRAhasArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIn
 void CGraph::GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2)
 {
 	if(!GRAhasVertex(uiVertexIndex1) || !GRAhasVertex(uiVertexIndex2))
-		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of those vertex doesn't exist");
 	
 	GRAaddArc(uiVertexIndex1, uiVertexIndex2);
 	GRAaddArc(uiVertexIndex2, uiVertexIndex1);
@@ -114,18 +120,19 @@ void CGraph::GRAdisplay(unsigned int uiLevel) const
 {
 	std::cout << "This graph contains " << uiVertexCount << " vertex." << std::endl;
 	
-	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
-	{
-		if(poVERvertexList[uiIndex] != nullptr)
+	if(uiLevel > 0)
+		for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
 		{
-			if(uiLevel >= 1)
-				std::cout << std::endl << "Vertex number " << poVERvertexList[uiIndex]->VERgetVertexIndex();
-			if(uiLevel == 2 || uiLevel > 3)
-				poVERvertexList[uiIndex]->VERdisplayArcOut();
-			if(uiLevel >= 3)
-				poVERvertexList[uiIndex]->VERdisplayArcIn();
+			if(poVERvertexList[uiIndex] != nullptr)
+			{
+				if(uiLevel >= 1)
+					std::cout << std::endl << "Vertex number " << poVERvertexList[uiIndex]->VERgetVertexIndex();
+				if(uiLevel == 2 || uiLevel > 3)
+					poVERvertexList[uiIndex]->VERdisplayArcOut();
+				if(uiLevel >= 3)
+					poVERvertexList[uiIndex]->VERdisplayArcIn();
+			}
 		}
-	}
 	
 	std::cout << std::endl;
 }
