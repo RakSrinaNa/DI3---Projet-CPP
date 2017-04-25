@@ -11,7 +11,7 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 	FILE * poFILEfile;
 	try
 	{
-		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening matrix file");
+		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening graph file");
 	}
 	catch(CException const &poEXexception)
 	{
@@ -69,6 +69,7 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 	free(pcLineKey);
 	free(pcLineRead);
 	
+	/* For each expected vertex */
 	for(unsigned int uiVertexIndex = 0; uiVertexIndex < uiVertexCount; uiVertexIndex++)
 	{
 		pcLineRead = PGRAreadLineFromFile(poFILEfile);
@@ -105,6 +106,7 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 	free(pcLineKey);
 	free(pcLineRead);
 	
+	/* For each expected arc */
 	for(unsigned int uiArcIndex = 0; uiArcIndex < uiArcCount; uiArcIndex++)
 	{
 		pcLineRead = PGRAreadLineFromFile(poFILEfile);
@@ -115,6 +117,7 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 		unsigned int uiValuesCount = 0;
 		char ** pcValues = PGRAsplit((char *) ",", &uiValuesCount, pcLineRead);
 		
+		/* For each key/value */
 		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
 		{
 			char * pcValueValue = PGRAgetLineValue(pcValues[uiValueIndex]);
@@ -129,6 +132,7 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 		}
 		free(pcValues);
 		
+		/* If we don't have the required keys, start and end */
 		if(iStart < 0 || iEnd < 0)
 		{
 			free(pcLineRead);
@@ -147,11 +151,12 @@ CGraph * CGraphParser::PGRAreadGraph(char * pcFileName)
 
 char * CGraphParser::PGRAgetLineValue(char * pcLine)
 {
+	/* Find the next = */
 	while(*pcLine != '=' && *pcLine != '\0')
 		pcLine++;
 	if(*pcLine == '\0')
 		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "File is not in a correct format");
-	return pcLine + 1;
+	return pcLine + 1; // Return what is after the =
 }
 
 char * CGraphParser::PGRAgetLineKey(char * pcStart, char * pcEnd)
@@ -159,6 +164,7 @@ char * CGraphParser::PGRAgetLineKey(char * pcStart, char * pcEnd)
 	char * pcKey;
 	unsigned int uiSize = (unsigned int) (pcEnd - pcStart);
 	MMALLOC(pcKey, char, uiSize + 1, "Parser fail getting key");
+	/* Copy the substring */
 	for(unsigned int uiIndex = 0; uiIndex < uiSize; uiIndex++)
 		pcKey[uiIndex] = pcStart[uiIndex];
 	pcKey[uiSize] = '\0';
@@ -230,16 +236,17 @@ int CGraphParser::PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poF
 	return uiWritingHead - 1; // Return the length of the read string, not counting the terminating byte
 }
 
-char ** CGraphParser::PGRAsplit(char * cSeparators, unsigned int * puiSize, char * pcString)
+char ** CGraphParser::PGRAsplit(char * pcSeparators, unsigned int * puiSize, char * pcString)
 {
 	char ** ppcValues = nullptr;
 	*puiSize = 0;
 	
+	/* While there is something to read, get the next token */
 	while(pcString != nullptr)
 	{
 		(*puiSize)++;
 		RREALLOC(ppcValues, char *, *puiSize, "REALLOC ERROR PGRASPLIT");
-		ppcValues[*puiSize - 1] = PGRAstrsep(&pcString, cSeparators);
+		ppcValues[*puiSize - 1] = PGRAstrsep(&pcString, pcSeparators); //Put the text before the next token into our array and the rest of the string in pcString
 	}
 	
 	return ppcValues;
@@ -249,25 +256,28 @@ char * CGraphParser::PGRAtrim(char * pcString)
 {
 	char * start = pcString;
 	char * end = start + strlen(pcString);
+	/* Trim beginning of string */
 	while(*start == '\t' || *start == '\n' || *start == ' ')
 		start++;
+	/* Trim end of string */
 	while(*end == '\t' || *end == '\n' || *end == ' ' || *end == '\0')
 		end--;
-	*(end + 1) = '\0';
+	*(end + 1) = '\0'; //Set the end of the string
 	return start;
 }
 
 char * CGraphParser::PGRAstrsep(char ** ppcNextString, const char * pcDelims)
 {
 	char * pcString = *ppcNextString;
-	char * pcToken;
-	pcToken = (pcString != nullptr) ? strpbrk(pcString, pcDelims) : nullptr;
+	char * pcToken = pcString != nullptr ? strpbrk(pcString, pcDelims) : nullptr; //Find the next token
+	//If no next token, nothing more to read
 	if(pcToken == nullptr)
 		*ppcNextString = nullptr;
+	/* Replace our token with '\0', set the next string to be what is after */
 	else
 	{
 		*pcToken = '\0';
 		*ppcNextString = pcToken + 1;
 	}
-	return pcString;
+	return pcString; //Return a pointer to the string on the part that is before the token
 }
