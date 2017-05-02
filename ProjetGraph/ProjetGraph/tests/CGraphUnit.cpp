@@ -167,12 +167,8 @@ void CGraphUnit::GRAUnitTestCopy()
 	oGRAgraph1.GRAaddArc(2, 3);
 	oGRAgraph1.GRAaddArc(3, 1);
 	
-	CGraph oGRAgraph2 = CGraph(oGRAgraph1);
+	CGraph oGRAgraph2;
+	oGRAgraph2 = oGRAgraph1;
 	if(!oGRAgraph2.GRAhasVertex(1) || !oGRAgraph2.GRAhasVertex(2) || !oGRAgraph2.GRAhasVertex(3) || !oGRAgraph2.GRAhasArc(1, 2) || !oGRAgraph2.GRAhasArc(2, 3) || !oGRAgraph2.GRAhasArc(3, 1))
-		CUnit::UNITassertError("ASSERT CGRAPH C1");
-	
-	CGraph oGRAgraph3;
-	oGRAgraph3 = oGRAgraph2;
-	if(!oGRAgraph3.GRAhasVertex(1) || !oGRAgraph3.GRAhasVertex(2) || !oGRAgraph3.GRAhasVertex(3) || !oGRAgraph3.GRAhasArc(1, 2) || !oGRAgraph3.GRAhasArc(2, 3) || !oGRAgraph3.GRAhasArc(3, 1))
 		CUnit::UNITassertError("ASSERT CGRAPH C2");
 }
