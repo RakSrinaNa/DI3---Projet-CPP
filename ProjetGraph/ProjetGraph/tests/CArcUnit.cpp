@@ -29,4 +29,8 @@ void CArcUnit::ARCUnitTests()
 	oARCarc2.ARCsetVertexIndex(150);
 	if(oARCarc1.ARCgetVertexIndex() != 10 || oARCarc2.ARCgetVertexIndex() != 150)
 		CUnit::UNITassertError("ASSERT CARC 4");
+	
+	oARCarc2 = oARCarc1;
+	if(oARCarc1.ARCgetVertexIndex() != 10)
+		CUnit::UNITassertError("ASSERT CARC 5");
 }
