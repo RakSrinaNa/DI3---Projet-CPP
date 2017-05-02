@@ -125,7 +125,7 @@ void CVertexUnit::VERUnitTestOperators()
 	CVertex oVERvertex2 = CVertex(2);
 	oVERvertex2 = *poVERvertex1;
 	if(oVERvertex2.VERgetVertexIndex() != 15 || !oVERvertex2.VERhasIndexIn(13) || !oVERvertex2.VERhasIndexIn(14) || !oVERvertex2.VERhasIndexOut(13))
-		CUnit::UNITassertError("ASSERT VERTEX D6");
+		CUnit::UNITassertError("ASSERT VERTEX D1");
 	
 	delete poVERvertex1;
 	
@@ -134,4 +134,8 @@ void CVertexUnit::VERUnitTestOperators()
 	
 	oVERvertex2.VERremoveArcIn(16);
 	oVERvertex2.VERremoveArcIn(17);
+	
+	CVertex oVERvertex3 = CVertex(oVERvertex2);
+	if(oVERvertex3.VERgetVertexIndex() != 15 || !oVERvertex3.VERhasIndexIn(13) || !oVERvertex3.VERhasIndexIn(14) || !oVERvertex3.VERhasIndexOut(13))
+		CUnit::UNITassertError("ASSERT VERTEX D2");
 }
