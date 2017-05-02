@@ -76,7 +76,7 @@ void CGraphUnit::GRAUnitTestArcs()
 	/* Test removing arc with missing vertex */
 	try
 	{
-		oGraph.GRAaddArc(1, 6);
+		oGraph.GRAremoveArc(1, 6);
 		CUnit::UNITassertError("ASSERT CGRAPH B4.1");
 	}
 	catch(CException const &oEXexception)
@@ -86,7 +86,7 @@ void CGraphUnit::GRAUnitTestArcs()
 	}
 	try
 	{
-		oGraph.GRAaddArc(6, 1);
+		oGraph.GRAremoveArc(6, 1);
 		CUnit::UNITassertError("ASSERT CGRAPH B4.3");
 	}
 	catch(CException const &oEXexception)
