@@ -175,6 +175,15 @@ public:
 	 */
 	void GRAinvert();
 	
+	/**************************************************************
+	 * Resets the graph.
+	 **************************************************************
+	 *
+	 * Entree:
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	void GRAclear();
 
 	/**************************************************************
@@ -220,6 +229,16 @@ public:
 	 */
 	CGraph & operator-(unsigned int uiVertexIndex);
 
+	/**************************************************************
+	 * Defines the operator =.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      oGRAgraphParam: The graph to copy.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	CGraph & operator=(CGraph const& oGRAgraphParam);
 };
 
