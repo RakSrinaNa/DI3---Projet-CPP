@@ -155,7 +155,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 	/* If the index of the new vertex is bigger than the biggest, realloc the list for the new size and fill it with nullptr */
 	if(uiVertexIndex > uiBiggestVertex)
 	{
-		RREALLOC(poVERvertexList, CVertex *, uiVertexIndex, "Fail Realloc GRAaddVertex");
+		RREALLOC(poVERvertexList, CVertex *, uiVertexIndex, "RREALLOC ERROR GRAaddVertex");
 		for(unsigned int uiIndex = uiBiggestVertex; uiIndex < uiVertexIndex; uiIndex++)
 			poVERvertexList[uiIndex] = nullptr;
 		uiBiggestVertex = uiVertexIndex;
@@ -295,7 +295,7 @@ CGraph & CGraph::operator=(CGraph const& oGRAgraphParam){
 	uiVertexCount = oGRAgraphParam.uiVertexCount;
 	uiBiggestVertex = oGRAgraphParam.uiBiggestVertex;
 
-	MMALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "Mmalloc fail");
+	MMALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "MMALLOC ERROR OPERATOR= CGRAPH");
 	for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		if(oGRAgraphParam.GRAhasVertex(uiIndex))
 			poVERvertexList[uiIndex -1] = new CVertex(*oGRAgraphParam.poVERvertexList[uiIndex -1]);
