@@ -143,7 +143,7 @@ void CVertex::VERinvert()
 	poARCoutList = poARCInTempo;
 }
 
-void CVertex::operator=(CVertex & oVERvertexParam){
+CVertex& CVertex::operator=(CVertex const& oVERvertexParam){
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		delete poARCinList[uiIndex];
@@ -157,8 +157,8 @@ void CVertex::operator=(CVertex & oVERvertexParam){
 	uiArcInCount = oVERvertexParam.uiArcInCount;
 	uiArcOutCount = oVERvertexParam.uiArcOutCount;
 
-	RREALLOC(poARCinList, CArc *, uiArcInCount, "Rrealloc fail operator =");
-	RREALLOC(poARCoutList, CArc *, uiArcOutCount, "Rrealloc fail operator =");
+	MMALLOC(poARCinList, CArc *, uiArcInCount, "Rrealloc fail operator =");
+	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "Rrealloc fail operator =");
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
@@ -166,4 +166,5 @@ void CVertex::operator=(CVertex & oVERvertexParam){
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		poARCoutList[uiIndex] = new CArc(*oVERvertexParam.poARCoutList[uiIndex]);
 
+	return *this;
 }

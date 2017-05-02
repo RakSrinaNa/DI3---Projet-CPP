@@ -40,7 +40,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CVertex(unsigned int uiVertexIndexParam);
+	explicit CVertex(unsigned int uiVertexIndexParam);
 	
 	/**************************************************************
 	 * Destructeur.
@@ -229,7 +229,17 @@ public:
 	 */
 	void VERinvert();
 
-	void operator=(CVertex & oVERvertexParam);
+	/**************************************************************
+	 * Define the operator =
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      oVERvertexParam: The vertex to copy.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
+	CVertex& operator=(CVertex const& oVERvertexParam);
 };
 
 #endif
