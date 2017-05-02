@@ -253,6 +253,7 @@ void CGraph::GRAclear(){
 		if(poVERvertexList[uiIndex] != nullptr)
 			delete poVERvertexList[uiIndex];
 	free(poVERvertexList);
+	poVERvertexList = nullptr;
 }
 
 void CGraph::GRAdisplay(unsigned int uiLevel) const
@@ -289,5 +290,16 @@ CGraph &CGraph::operator-(unsigned int uiVertexIndex)
 }
 
 CGraph & CGraph::operator=(CGraph const& oGRAgraphParam){
+	GRAclear();
+
+	uiVertexCount = oGRAgraphParam.uiVertexCount;
+	uiBiggestVertex = oGRAgraphParam.uiBiggestVertex;
+
+	MMALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "Mmalloc fail");
+	for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
+		if(oGRAgraphParam.GRAhasVertex(uiIndex))
+			poVERvertexList[uiIndex -1] = new CVertex(*oGRAgraphParam.poVERvertexList[uiIndex -1]);
+		else
+			poVERvertexList[uiIndex -1] = nullptr;
 
 }
