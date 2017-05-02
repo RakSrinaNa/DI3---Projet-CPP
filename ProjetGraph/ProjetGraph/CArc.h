@@ -77,6 +77,8 @@ public:
 	{
 		uiVertexIndex = uiVertexIndexParam;
 	};
+
+	void operator=(CArc & oARCarcParam);
 };
 
 #endif

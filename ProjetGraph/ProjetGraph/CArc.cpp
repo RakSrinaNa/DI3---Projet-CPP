@@ -13,3 +13,7 @@ CArc::CArc(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam)
 CArc::~CArc()
 {
 }
+
+void CArc::operator=(CArc & oARCarcParam){
+	uiVertexIndex = oARCarcParam.uiVertexIndex;
+}

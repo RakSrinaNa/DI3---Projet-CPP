@@ -228,6 +228,8 @@ public:
 	 * PostCond:
 	 */
 	void VERinvert();
+
+	void operator=(CVertex & oVERvertexParam);
 };
 
 #endif
