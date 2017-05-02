@@ -19,7 +19,7 @@ void CExceptionUnit::EXUnitTestID()
 	if(poEXexception->EXgetExceptionID() != 30)
 		CUnit::UNITassertError((char *) "CException A2");
 	
-	free(poEXexception);
+	delete poEXexception;
 }
 
 void CExceptionUnit::EXUnitTestMessage()
@@ -28,7 +28,7 @@ void CExceptionUnit::EXUnitTestMessage()
 	if(poEXexception->EXgetExceptionMessage() != nullptr)
 		CUnit::UNITassertError((char *) "CException B1");
 	
-	free(poEXexception);
+	delete poEXexception;
 	
 	poEXexception = new CException(10, (char *) "Test");
 	if(strcmp(poEXexception->EXgetExceptionMessage(), "Test") != 0)
@@ -38,5 +38,5 @@ void CExceptionUnit::EXUnitTestMessage()
 	if(strcmp(poEXexception->EXgetExceptionMessage(), "HAHA") != 0)
 		CUnit::UNITassertError((char *) "CException B3");
 	
-	free(poEXexception);
+	delete poEXexception;
 }
