@@ -59,9 +59,9 @@ public:
 	 *      uiVertexIndex: L'indice du sommet a ajouter.
 	 * Sortie:
 	 * PreCond:
-	 *      L'ID du sommet doit etre superieur ou egal a 1.
 	 * PostCond:
 	 *      Renvoie une CException avec l'ID `DUPLICATE_VERTEX_EXCEPTION` si le sommet existe deja.
+	 *      Renvoie une CException avec l'ID `BAD_INDEX_VERTEX_EXCEPTION` si le sommet a un index inferieur a 1.
 	 */
 	void GRAaddVertex(unsigned int uiVertexIndex);
 	
