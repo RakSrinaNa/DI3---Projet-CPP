@@ -4,27 +4,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define UNUSED(x) (void)(x)
+#define UNUSED(var) (void)(var)
 
 // Malloc utils, to get the memory space and verify it.
-#define MALLOC(t, n) (t *) malloc((n) * sizeof(t))
-#define MCHECK(x, m) if(!x){perror("MALLOC ERROR"); if(m)perror(m); exit(EXIT_FAILURE);}
-#define MMALLOC(p, t, n, m) p = MALLOC(t, n); MCHECK(p, m);
+#define MALLOC(type, count) (type *) malloc((count) * sizeof(type))
+#define MCHECK(pointer, errorMessage) if(!(pointer)){perror("MALLOC ERROR"); if(errorMessage)perror(errorMessage); exit(EXIT_FAILURE);}
+#define MMALLOC(pointer, type, count, errorMessage) pointer = MALLOC(type, count); MCHECK(pointer, errorMessage);
 
 // Realloc utils, to get the memory space and verify it.
-#define REALLOC(t, p, n) (t *) realloc(p, (n) * sizeof(t))
-#define RCHECK(x, m) if(!x){perror("REALLOC ERROR"); if(m)perror(m); exit(EXIT_FAILURE);}
-#define RREALLOC(p, t, n, m) if(n == 0){free(p); p = nullptr;} else{p = REALLOC(t, p, n); RCHECK(p, m)};
+#define REALLOC(type, pointer, count) (type *) realloc(pointer, (count) * sizeof(type))
+#define RCHECK(pointer, errorMessage) if(!(pointer)){perror("REALLOC ERROR"); if(errorMessage)perror(errorMessage); exit(EXIT_FAILURE);}
+#define RREALLOC(pointer, type, count, errorMessage) if((count) == 0){free(pointer); (pointer) = nullptr;} else{(pointer) = REALLOC(type, pointer, count); RCHECK(pointer, errorMessage)};
 
 // Define functions for Visual studio or UNIX (else)
 #ifdef _MSC_VER
-#define STRDUP(t) _strdup(t)
-#define STRCMPI(b, t) _strcmpi(b, t)
-#define FOPEN(v, n, m, e, f) if(fopen_s(&v, n, m) != 0){throw CException(e, (char *) f);}
+#define STRDUP(str) _strdup(str)
+#define STRCMPI(base, test) _strcmpi(base, test)
+#define FOPEN(pointer, filename, mode, exceptionID, exceptionMessage) if(fopen_s(&(pointer), filename, mode) != 0){throw CException(exceptionID, (char *) (exceptionMessage));}
 #else
-#define STRDUP(t) strdup(t)
-#define STRCMPI(b, t) strcasecmp(b, t)
-#define FOPEN(v, n, m, e, f) v = fopen(n, m); if(v == nullptr){throw CException(e, (char *) f);}
+#define STRDUP(str) strdup(str)
+#define STRCMPI(base, test) strcasecmp(base, test)
+#define FOPEN(pointer, filename, mode, exceptionID, exceptionMessage) pointer = fopen(filename, mode); if((pointer) == nullptr){throw CException(exceptionID, (char *) (exceptionMessage));}
 #endif
 
 #endif
