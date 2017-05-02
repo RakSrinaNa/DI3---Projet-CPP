@@ -287,3 +287,7 @@ CGraph &CGraph::operator-(unsigned int uiVertexIndex)
 	GRAremoveVertex(uiVertexIndex);
 	return *this;
 }
+
+CGraph & CGraph::operator=(CGraph const& oGRAgraphParam){
+
+}

@@ -175,6 +175,8 @@ public:
 	 */
 	void GRAinvert();
 	
+	void GRAclear();
+
 	/**************************************************************
 	 * Affiche le graph dans la sortie standard.
 	 **************************************************************
@@ -217,6 +219,8 @@ public:
 	 * PostCond:
 	 */
 	CGraph & operator-(unsigned int uiVertexIndex);
+
+	CGraph & operator=(CGraph const& oGRAgraphParam);
 };
 
 #endif
