@@ -25,6 +25,16 @@ public:
 	 */
 	CArc();
 
+	/**************************************************************
+	 * Copy constructor.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      oARCarcParam: The arc to copy.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	CArc(CArc const& oARCarcParam);
 	
 	/**************************************************************
@@ -37,7 +47,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CArc(unsigned int uiVertexIndexParam);
+	explicit CArc(unsigned int uiVertexIndexParam);
 	
 	/**************************************************************
 	 * Destructeur.
@@ -80,7 +90,17 @@ public:
 		uiVertexIndex = uiVertexIndexParam;
 	};
 
-	void operator=(CArc & oARCarcParam);
+	/**************************************************************
+	 * Define the operator =.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      oARCarcParam: The arc to copy.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
+	CArc& operator=(CArc const& oARCarcParam);
 };
 
 #endif

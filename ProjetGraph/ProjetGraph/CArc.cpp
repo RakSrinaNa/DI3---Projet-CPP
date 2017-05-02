@@ -18,6 +18,7 @@ CArc::~CArc()
 {
 }
 
-void CArc::operator=(CArc & oARCarcParam){
+CArc& CArc::operator=(CArc const& oARCarcParam){
 	uiVertexIndex = oARCarcParam.uiVertexIndex;
+	return *this;
 }
