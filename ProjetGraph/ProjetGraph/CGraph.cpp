@@ -152,6 +152,8 @@ CGraph::~CGraph()
 
 void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 {
+	if(uiVertexIndex == 0)
+		throw CException(BAD_INDEX_VERTEX_EXCEPTION, "This index is impossible");
 	/* If the index of the new vertex is bigger than the biggest, realloc the list for the new size and fill it with nullptr */
 	if(uiVertexIndex > uiBiggestVertex)
 	{
@@ -182,6 +184,13 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 		delete poVERvertexList[uiVertexIndex - 1];
 		poVERvertexList[uiVertexIndex - 1] = nullptr;
 		uiVertexCount--;
+
+		/*If the biggest vertex was deleted, reallocation of the list */
+		unsigned int uiIndex;
+		for(uiIndex = uiBiggestVertex -1; uiIndex >= 0 && poVERvertexList[uiIndex] == nullptr; uiIndex--);
+		uiBiggestVertex = uiIndex +1;
+		RREALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "RREALLOC ERROR GRAremoveVertex");
+
 	}
 }
 
