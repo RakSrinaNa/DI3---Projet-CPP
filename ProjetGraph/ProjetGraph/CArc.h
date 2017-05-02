@@ -24,6 +24,8 @@ public:
 	 *      Renvoie une CException avec l'ID `MISSING_ARC_INDEX_EXCEPTION`.
 	 */
 	CArc();
+
+	CArc(CArc const& oARCarcParam);
 	
 	/**************************************************************
 	 * Constructeur de confort.
