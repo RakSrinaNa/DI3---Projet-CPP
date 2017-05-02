@@ -26,6 +26,20 @@ public:
 	CGraph();
 	
 	/**************************************************************
+	 * Constructeur de confort, initialisant un matrice a partir d'un fichier.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      pcFileName:     Le chemin du fichier a lire.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 *      Renvoie une CException avec l'ID `IO_FILE_EXCEPTION` si une erreur de lecture est survenue.
+	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
+	 */
+	explicit CGraph(char * pcFilename);
+	
+	/**************************************************************
 	 * Destructeur.
 	 **************************************************************
 	 *

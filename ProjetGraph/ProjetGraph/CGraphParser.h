@@ -13,22 +13,6 @@ class CGraphParser
 {
 public:
 	/**************************************************************
-	 * Lis une matrice a partir d'une fichier.
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      pcFileName:     Le chemin du fichier a lire.
-	 * Sortie:
-	 *      CGraph:         Le graph lu.
-	 * PreCond:
-	 * PostCond:
-	 *      Renvoie une CException avec l'ID `IO_FILE_EXCEPTION` si une erreur de lecture est survenue.
-	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
-	 */
-	static CGraph * PGRAreadGraph(char * pcFileName);
-
-private:
-	/**************************************************************
 	 * Renvoi la valeur d'une ligne du ficher (valeur après le =).
 	 **************************************************************
 	 *

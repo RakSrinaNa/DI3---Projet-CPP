@@ -10,7 +10,7 @@ int main(int argc, char * argv[])
 		CUnit::UNITlaunchTests();
 	else if(argc == 2)
 	{
-		CGraph * graph =  CGraphParser::PGRAreadGraph(argv[1]);
+		CGraph * graph =  new CGraph(argv[1]);
 
 		graph->GRAdisplay();
 

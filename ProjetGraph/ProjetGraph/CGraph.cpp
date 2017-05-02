@@ -5,9 +5,144 @@
 #include "CGraph.h"
 #include "CException.h"
 #include "utils.h"
+#include "CGraphParser.h"
 
 CGraph::CGraph() : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0)
 {
+}
+
+CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0)
+{
+	/* Open the file */
+	FILE * poFILEfile;
+	try
+	{
+		FOPEN(poFILEfile, pcFileName, "r", IO_FILE_EXCEPTION, "Error opening graph file");
+	}
+	catch(CException const &poEXexception)
+	{
+		perror(poEXexception.EXgetExceptionMessage());
+		throw poEXexception;
+	}
+	
+	/* Get vertices count */
+	char * pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+	char * pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+	char * pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("NBSommets", pcLineKey) != 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "NBSommets expected, get something else");
+	}
+	unsigned int uiVertexCount = (unsigned int) atoi(pcLineValue);
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* Get arcs count */
+	pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+	pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("NBArcs", pcLineKey) != 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "NBArcs expected, get something else");
+	}
+	unsigned int uiArcCount = (unsigned int) atoi(pcLineValue);
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* Get vertices */
+	pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+	pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("Sommets", pcLineKey) != 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
+	}
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* For each expected vertex */
+	for(unsigned int uiVertexIndex = 0; uiVertexIndex < uiVertexCount; uiVertexIndex++)
+	{
+		pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+		pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+		pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+		if(STRCMPI("Numero", CGraphParser::PGRAtrim(pcLineKey)) != 0)
+		{
+			free(pcLineKey);
+			free(pcLineRead);
+			
+			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
+		}
+		GRAaddVertex((unsigned int) atoi(pcLineValue));
+		free(pcLineKey);
+		free(pcLineRead);
+	}
+	
+	/* Skip line containing ] */
+	free(CGraphParser::PGRAreadLineFromFile(poFILEfile));
+	
+	/* Get arcs */
+	pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+	pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+	pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
+	if(STRCMPI("Arcs", pcLineKey) != 0)
+	{
+		free(pcLineKey);
+		free(pcLineRead);
+		
+		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs expected, get something else");
+	}
+	free(pcLineKey);
+	free(pcLineRead);
+	
+	/* For each expected arc */
+	for(unsigned int uiArcIndex = 0; uiArcIndex < uiArcCount; uiArcIndex++)
+	{
+		pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
+		
+		int iStart = -1;
+		int iEnd = -1;
+		
+		unsigned int uiValuesCount = 0;
+		char ** pcValues = CGraphParser::PGRAsplit((char *) ",", &uiValuesCount, pcLineRead);
+		
+		/* For each key/value */
+		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
+		{
+			char * pcValueValue = CGraphParser::PGRAgetLineValue(pcValues[uiValueIndex]);
+			char * pcValueKey = CGraphParser::PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
+			
+			if(STRCMPI("Debut", CGraphParser::PGRAtrim(pcValueKey)) == 0)
+				iStart = atoi(pcValueValue);
+			else if(STRCMPI("Fin", CGraphParser::PGRAtrim(pcValueKey)) == 0)
+				iEnd = atoi(pcValueValue);
+			
+			free(pcValueKey);
+		}
+		free(pcValues);
+		
+		/* If we don't have the required keys, start and end */
+		if(iStart < 0 || iEnd < 0)
+		{
+			free(pcLineRead);
+			
+			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs malformatted");
+		}
+		
+		GRAaddArc((unsigned int) iStart, (unsigned int) iEnd);
+		free(pcLineRead);
+	}
+	
+	fclose(poFILEfile);
 }
 
 CGraph::~CGraph()
