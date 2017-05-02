@@ -160,7 +160,7 @@ void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
 			poVERvertexList[uiIndex] = nullptr;
 		uiBiggestVertex = uiVertexIndex;
 	}
-
+	
 	if(poVERvertexList[uiVertexIndex - 1] != nullptr)
 		throw CException(DUPLICATE_VERTEX_EXCEPTION, (char *) "Vertex already existing");
 	
@@ -173,7 +173,8 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 	if(GRAhasVertex(uiVertexIndex))
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
-			if(GRAhasVertex(uiIndex)){
+			if(GRAhasVertex(uiIndex))
+			{
 				poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
 				poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
 			}
@@ -202,7 +203,7 @@ void CGraph::GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVerte
 {
 	if(!GRAhasVertex(uiFromVertexIndex) || !GRAhasVertex(uiToVertexIndex))
 		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "One of these vertex doesn't exist");
-
+	
 	poVERvertexList[uiFromVertexIndex - 1]->VERremoveArcOut(uiToVertexIndex);
 	poVERvertexList[uiToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 }
@@ -216,8 +217,8 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "Modifying non existing arc");
 	
 	if(GRAhasArc(uiFromVertexIndex, uiNewToVertexIndex))
-		throw CException (DUPLICATE_ARC_EXCEPTION, (char *) "The new arc already exists");
-
+		throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "The new arc already exists");
+	
 	poVERvertexList[uiLastToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
 	poVERvertexList[uiFromVertexIndex - 1]->VERmodifyArcOut(uiLastToVertexIndex, uiNewToVertexIndex);
 	poVERvertexList[uiNewToVertexIndex - 1]->VERaddArcIn(uiFromVertexIndex);
@@ -247,7 +248,8 @@ void CGraph::GRAinvert()
 			poVERvertexList[uiIndex - 1]->VERinvert();
 }
 
-void CGraph::GRAclear(){
+void CGraph::GRAclear()
+{
 	/* Destroy and free all vertex */
 	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
 		if(poVERvertexList[uiIndex] != nullptr)
@@ -289,17 +291,17 @@ CGraph &CGraph::operator-(unsigned int uiVertexIndex)
 	return *this;
 }
 
-CGraph & CGraph::operator=(CGraph const& oGRAgraphParam){
+CGraph &CGraph::operator=(CGraph const &oGRAgraphParam)
+{
 	GRAclear();
-
+	
 	uiVertexCount = oGRAgraphParam.uiVertexCount;
 	uiBiggestVertex = oGRAgraphParam.uiBiggestVertex;
-
+	
 	MMALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "MMALLOC ERROR OPERATOR= CGRAPH");
 	for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		if(oGRAgraphParam.GRAhasVertex(uiIndex))
-			poVERvertexList[uiIndex -1] = new CVertex(*oGRAgraphParam.poVERvertexList[uiIndex -1]);
+			poVERvertexList[uiIndex - 1] = new CVertex(*oGRAgraphParam.poVERvertexList[uiIndex - 1]);
 		else
-			poVERvertexList[uiIndex -1] = nullptr;
-
+			poVERvertexList[uiIndex - 1] = nullptr;
 }
