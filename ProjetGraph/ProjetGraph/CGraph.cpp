@@ -147,11 +147,7 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 
 CGraph::~CGraph()
 {
-	/* Destroy and free all vertex */
-	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
-		if(poVERvertexList[uiIndex] != nullptr)
-			delete poVERvertexList[uiIndex];
-	free(poVERvertexList);
+	GRAclear();
 }
 
 void CGraph::GRAaddVertex(unsigned int uiVertexIndex)
@@ -249,6 +245,14 @@ void CGraph::GRAinvert()
 	for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
 		if(GRAhasVertex(uiIndex))
 			poVERvertexList[uiIndex - 1]->VERinvert();
+}
+
+void CGraph::GRAclear(){
+	/* Destroy and free all vertex */
+	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
+		if(poVERvertexList[uiIndex] != nullptr)
+			delete poVERvertexList[uiIndex];
+	free(poVERvertexList);
 }
 
 void CGraph::GRAdisplay(unsigned int uiLevel) const

@@ -10,6 +10,17 @@ CVertex::CVertex()
 	throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "Use the constructor : CVertex(unsigned int)");
 }
 
+CVertex::CVertex(CVertex const& oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount){
+	MMALLOC(poARCinList, CArc *, uiArcInCount, "Malloc fail");
+	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "Malloc fail");
+
+	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
+		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
+	
+	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		poARCoutList[uiIndex] = new CArc(*oVERvertexParam.poARCoutList[uiIndex]);
+}
+
 CVertex::CVertex(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam), uiArcInCount(0), uiArcOutCount(0), poARCinList(nullptr), poARCoutList(nullptr)
 {
 }
@@ -157,14 +168,14 @@ CVertex& CVertex::operator=(CVertex const& oVERvertexParam){
 	uiArcInCount = oVERvertexParam.uiArcInCount;
 	uiArcOutCount = oVERvertexParam.uiArcOutCount;
 
-	MMALLOC(poARCinList, CArc *, uiArcInCount, "Rrealloc fail operator =");
-	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "Rrealloc fail operator =");
+	MMALLOC(this->poARCinList, CArc *, uiArcInCount, "Malloc fail operator =");
+	MMALLOC(this->poARCoutList, CArc *, uiArcOutCount, "Malloc fail operator =");
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
-		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
+		poARCinList[uiIndex] = new CArc(*(oVERvertexParam.poARCinList[uiIndex]));
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
-		poARCoutList[uiIndex] = new CArc(*oVERvertexParam.poARCoutList[uiIndex]);
+		poARCoutList[uiIndex] = new CArc(*(oVERvertexParam.poARCoutList[uiIndex]));
 
 	return *this;
 }

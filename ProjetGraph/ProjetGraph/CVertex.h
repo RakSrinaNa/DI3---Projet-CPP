@@ -30,6 +30,8 @@ public:
 	 */
 	CVertex();
 	
+	CVertex(CVertex const& oVERvertexParam);
+
 	/**************************************************************
 	 * Constructeur de confort.
 	 **************************************************************
