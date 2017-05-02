@@ -42,10 +42,10 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 	if(GRAhasVertex(uiVertexIndex))
 	{
 		for(unsigned int uiIndex = 1; uiIndex <= uiBiggestVertex; uiIndex++)
-		{
-			poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
-			poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
-		}
+			if(GRAhasVertex(uiIndex - 1)){
+				poVERvertexList[uiIndex - 1]->VERremoveArcIn(uiVertexIndex);
+				poVERvertexList[uiIndex - 1]->VERremoveArcOut(uiVertexIndex);
+			}
 		
 		delete poVERvertexList[uiVertexIndex - 1];
 		poVERvertexList[uiVertexIndex - 1] = nullptr;
