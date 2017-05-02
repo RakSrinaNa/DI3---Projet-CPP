@@ -84,7 +84,7 @@ void CGraph::GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToV
 	if(!GRAhasArc(uiFromVertexIndex, uiLastToVertexIndex))
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "Modifying non existing arc");
 	
-	if(!GRAhasArc(uiFromVertexIndex, uiNewToVertexIndex))
+	if(GRAhasArc(uiFromVertexIndex, uiNewToVertexIndex))
 		throw CException (DUPLICATE_ARC_EXCEPTION, (char *) "The new arc already exists");
 
 	poVERvertexList[uiLastToVertexIndex - 1]->VERremoveArcIn(uiFromVertexIndex);
