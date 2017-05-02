@@ -30,6 +30,16 @@ public:
 	 */
 	CVertex();
 	
+	/**************************************************************
+	 * Copy constructor.
+	 **************************************************************
+	 *
+	 * Entree:
+	 *      oVERvertexParam: The vertex to copy.
+	 * Sortie:
+	 * PreCond:
+	 * PostCond:
+	 */
 	CVertex(CVertex const& oVERvertexParam);
 
 	/**************************************************************
