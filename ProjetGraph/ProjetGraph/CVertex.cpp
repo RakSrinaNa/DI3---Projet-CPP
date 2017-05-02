@@ -11,8 +11,8 @@ CVertex::CVertex()
 }
 
 CVertex::CVertex(CVertex const& oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount){
-	MMALLOC(poARCinList, CArc *, uiArcInCount, "Malloc fail");
-	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "Malloc fail");
+	MMALLOC(poARCinList, CArc *, uiArcInCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
+	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
@@ -53,7 +53,7 @@ void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
 	
 	uiArcInCount++;
-	RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERaddArcOut");
+	RREALLOC(poARCinList, CArc *, uiArcInCount, "RREALLOC ERROR VERaddArcOut");
 	poARCinList[uiArcInCount - 1] = new CArc(uiFromVertexIndex);
 }
 
@@ -65,7 +65,7 @@ void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 			uiArcInCount--;
 			delete poARCinList[uiIndex];
 			poARCinList[uiIndex] = poARCinList[uiArcInCount];
-			RREALLOC(poARCinList, CArc *, uiArcInCount, "Fail realloc VERremoveArcIn");
+			RREALLOC(poARCinList, CArc *, uiArcInCount, "RREALLOC ERROR VERremoveArcIn");
 			break;
 		}
 }
@@ -77,7 +77,7 @@ void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
 	
 	uiArcOutCount++;
-	RREALLOC(poARCoutList, CArc *, uiArcOutCount, "Fail realloc VERaddArcOut");
+	RREALLOC(poARCoutList, CArc *, uiArcOutCount, "RREALLOC ERROR VERaddArcOut");
 	poARCoutList[uiArcOutCount - 1] = new CArc(uiToVertexIndex);
 }
 
@@ -88,7 +88,7 @@ void CVertex::VERremoveArcOut(unsigned int uiToVertexIndex)
 		{
 			delete poARCoutList[uiIndex];
 			poARCoutList[uiIndex] = poARCoutList[--uiArcOutCount];
-			RREALLOC(poARCoutList, CArc *, uiArcOutCount, "Fail realloc VERremoveArcOut");
+			RREALLOC(poARCoutList, CArc *, uiArcOutCount, "RREALLOC ERROR VERremoveArcOut");
 			break;
 		}
 }
@@ -168,8 +168,8 @@ CVertex& CVertex::operator=(CVertex const& oVERvertexParam){
 	uiArcInCount = oVERvertexParam.uiArcInCount;
 	uiArcOutCount = oVERvertexParam.uiArcOutCount;
 
-	MMALLOC(this->poARCinList, CArc *, uiArcInCount, "Malloc fail operator =");
-	MMALLOC(this->poARCoutList, CArc *, uiArcOutCount, "Malloc fail operator =");
+	MMALLOC(this->poARCinList, CArc *, uiArcInCount, "MMALLOC ERROR OPERATOR= CVERTEX");
+	MMALLOC(this->poARCoutList, CArc *, uiArcOutCount, "MMALLOC ERROR OPERATOR= CVERTEX");
 
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*(oVERvertexParam.poARCinList[uiIndex]));
