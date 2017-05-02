@@ -122,7 +122,8 @@ void CVertexUnit::VERUnitTestOperators()
 	poVERvertex1->VERaddArcIn(14);
 	poVERvertex1->VERaddArcOut(13);
 	
-	CVertex oVERvertex2 = *poVERvertex1;
+	CVertex oVERvertex2 = CVertex(2);
+	oVERvertex2 = *poVERvertex1;
 	if(oVERvertex2.VERgetVertexIndex() != 15 || !oVERvertex2.VERhasIndexIn(13) || !oVERvertex2.VERhasIndexIn(14) || !oVERvertex2.VERhasIndexOut(13))
 		CUnit::UNITassertError("ASSERT VERTEX D6");
 	
