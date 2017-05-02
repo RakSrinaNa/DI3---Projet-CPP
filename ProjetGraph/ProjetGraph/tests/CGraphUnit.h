@@ -9,6 +9,8 @@ public:
 	static void GRAUnitTestVertices();
 	
 	static void GRAUnitTestArcs();
+	
+	static void GRAUnitTestCopy();
 };
 
 #endif //PROJETGRAPH_CGRAPHUNIT_H

@@ -7,6 +7,7 @@ void CGraphUnit::GRAUnitTests()
 {
 	GRAUnitTestVertices();
 	GRAUnitTestArcs();
+	GRAUnitTestCopy();
 }
 
 void CGraphUnit::GRAUnitTestVertices()
@@ -154,4 +155,24 @@ void CGraphUnit::GRAUnitTestArcs()
 	oGraph.GRAremoveVertex(2);
 	if(oGraph.GRAhasArc(1, 2) || oGraph.GRAhasArc(2, 1) || oGraph.GRAhasArc(2, 3) || oGraph.GRAhasArc(3, 2))
 		CUnit::UNITassertError("ASSERT CGRAPH B8");
+}
+
+void CGraphUnit::GRAUnitTestCopy()
+{
+	CGraph oGRAgraph1 = CGraph();
+	oGRAgraph1.GRAaddVertex(1);
+	oGRAgraph1.GRAaddVertex(2);
+	oGRAgraph1.GRAaddVertex(3);
+	oGRAgraph1.GRAaddArc(1, 2);
+	oGRAgraph1.GRAaddArc(2, 3);
+	oGRAgraph1.GRAaddArc(3, 1);
+	
+	CGraph oGRAgraph2 = CGraph(oGRAgraph1);
+	if(!oGRAgraph2.GRAhasVertex(1) || !oGRAgraph2.GRAhasVertex(2) || !oGRAgraph2.GRAhasVertex(3) || !oGRAgraph2.GRAhasArc(1, 2) || !oGRAgraph2.GRAhasArc(2, 3) || !oGRAgraph2.GRAhasArc(3, 1))
+		CUnit::UNITassertError("ASSERT CGRAPH C1");
+	
+	CGraph oGRAgraph3;
+	oGRAgraph3 = oGRAgraph2;
+	if(!oGRAgraph3.GRAhasVertex(1) || !oGRAgraph3.GRAhasVertex(2) || !oGRAgraph3.GRAhasVertex(3) || !oGRAgraph3.GRAhasArc(1, 2) || !oGRAgraph3.GRAhasArc(2, 3) || !oGRAgraph3.GRAhasArc(3, 1))
+		CUnit::UNITassertError("ASSERT CGRAPH C2");
 }
