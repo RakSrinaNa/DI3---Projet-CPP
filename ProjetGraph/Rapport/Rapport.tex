@@ -78,8 +78,7 @@
 			\item L'opérateur d'affectation duplicant un arc.\\
 		\end{itemize}
 		
-		%TODO parser Thomas
-		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
+		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph.
 		
 		\img{../../classDiagram.png}{Diagramme de classes}{0.42}{0}
 		
@@ -87,14 +86,12 @@
 		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
 	
 		Un point important est l'absence d'accesseurs des objets CVertex et CArc depuis un graph. De cette façon, l'utilisateur ne peut pas modifier un sommet ou un arc appartenant à un graph en appelant les méthodes de CVertex ou de CArc directement sur l'objet en question. Il est obligé de passer par les méthodes de CGraph qui appeleront elles-mêmes les sous-méthodes nécessaires.\\
-		Cela évite qu'un sommet (ou un arc) soit ajouté, modifié ou supprimé sans que l'objet graph n'en soit informé.\\
+		Cela évite qu'un sommet (ou un arc) soit ajouté, modifié ou supprimé sans que l'objet graph n'en soit informé ce qui évite un état incohérent du graph..\\
 		
 		Un deuxième choix important est le stockage des sommets dans le graph. Plutôt que d'ajouter à la suite tous les sommets dans un tableau (stockage par ordre d'arrivé), nous posons chaque sommet à la position du tableau égale à l'indice du sommet moins 1. Ainsi le sommet 1 est à la position 0, le 10 à la position 9, etc..
 		
 	
-		%Parser why sMatrixInfo?
-		Dans le parser, nous utilisons une structure SMatrixInfo. Celle-ci contient temporairement les informations d'une matrice. Nous en avons l'utilité lors de la création de nos matrices après lecture. En effet, si nous stockions directement les informations lues dans un objet matrice, nous ne pourrions pas faire la différence entre une matrice quelconque et une matrice carrée. Cela est du au fait que l'objet doit être créé avant la lecture mais que nous avons besoin des informations lues pour définir le type d'objet à créer. La structure sert donc à vérifier si une matrice est carrée ou non pour ensuite instancier l'objet approprié.
-	
+		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre a l'interprétation d'un fichier graph se fait dans le constructeur CGraph.	
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
 		
@@ -159,10 +156,10 @@
 		
 		Enfin les derniers tests sont effectués dans CGraphParser:
 		\begin{itemize}
-			\item %TODO
+			\item %TODO Tests
 		\end{itemize}
 	
-	\chapter{Conseils d'utilisation}
+	\chapter{Conseils d'utilisation}%TODO Chapter
 	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments des fichiers sources de matrice formatés comme défini dans le sujet.
 	
 	Suite à cela, il va exécuter les instructions suivantes :
