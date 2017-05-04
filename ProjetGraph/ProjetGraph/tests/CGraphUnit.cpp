@@ -33,7 +33,9 @@ void CGraphUnit::GRAUnitTestVertices()
 	if(!oGraph.GRAhasVertex(5))
 		CUnit::UNITassertError("ASSERT CGRAPH A3");
 	
-	oGraph.GRAremoveVertex(5);
+	oGraph - 5;
+	if(oGraph.GRAhasVertex(5))
+		CUnit::UNITassertError("ASSERT CGRAPH A4");
 }
 
 void CGraphUnit::GRAUnitTestArcs()
