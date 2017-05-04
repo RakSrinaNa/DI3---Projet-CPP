@@ -205,10 +205,10 @@ char * CGraphParser::PGRAtrim(char * pcString)
  * Cut a string until a delimiter is found.
  **************************************************************
  *
- * Entree:
+ * Input:
  *      ppcNextString:  A pointer to the next string.
  *      pcDelims:       A string containing the delimiters.
- * Sortie:
+ * Output:
  *      char*:          A pointer to the beginning of the string until the delimiter.
  * PreCond:
  * PostCond:
