@@ -81,7 +81,7 @@
 		%TODO parser Thomas
 		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
 		
-		\img{../../classDiagram.png}{Diagramme de classes}{0.55}{90}
+		\img{../../classDiagram.png}{Diagramme de classes}{0.42}{0}
 		
 	\chapter{Choix de codage}
 		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
@@ -98,7 +98,7 @@
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
 		
-		Nous sommes conscients que les tests sont très minimalistes et ne couvrent pas tout, cependant cela est déjà un bon départ pour vérifier un fonctionnement "normal".
+		Nous sommes conscients que les tests sont très minimalistes et ne couvrent pas tout, cependant cela est déjà un bon départ pour vérifier un fonctionnement "normal". De plus chaque test n'est effectué qu'une seule fois ce qui peut mettre en doute l'efficacité de ceux-ci.
 		
 		Commençons par CExceptionUnit:
 		\begin{itemize}
@@ -107,54 +107,59 @@
 		\end{itemize}
 		Ceux-ci sont très généralistes mais couvrent relativement bien les différentes utilisations d'un objet de cette classe.
 		
-		Intéressons-nous maintenant à CMatrixUnit:
+		Intéressons-nous maintenant à CArc:
 		\begin{itemize}
-			\item Tests des différents constructeurs ainsi que des getters concernant le nombre de lignes et le nombre de colonnes.
-			\item Tests des getters et setters sur les valeurs de la matrice.
-			\item Tests des différentes opérations:
-			\begin{itemize}
-				\item[$\bullet$] Transposée d'une matrice.
-				\item[$\bullet$] Multiplication par un coefficient.
-				\item[$\bullet$] Division par un coefficient.
-				\item[$\bullet$] Division par le coefficient 0 renvoyant une exception.
-				\item[$\bullet$] Test d'égalité de matrices.
-				\item[$\bullet$] Test d'affectation de matrices.
-				\item[$\bullet$] Test de l'opérateur $\left(\right)$
-				\item[$\bullet$] Test de l'opérateur $\left(\right)$ avec coordonnées invalides renvoyant une exception.
-				\item[$\bullet$] Test de la somme de deux matrices.
-				\item[$\bullet$] Test de la soustraction de deux matrices.
-				\item[$\bullet$] Test du produit de deux matrices.
-				\item[$\bullet$] Test du produit de deux matrices incompatibles renvoyant une exception.
-				\item[$\bullet$] Test de l'opérateur *= avec un coefficient.
-				\item[$\bullet$] Test de l'opérateur *= avec une matrice.
-				\item[$\bullet$] Test de l'opérateur *= avec une matrice incompatible renvoyant une exception.
-				\item[$\bullet$] Test de l'opérateur /= avec un coefficient.
-				\item[$\bullet$] Test de l'opérateur /= avec un coefficient 0 renvoyant une exception.\\
-			\end{itemize}
+			\item Test de la création d'un arc sans paramètres.
+			\item Test de la création d'un arc avec une destination et vérification de l'accesseur associé.
+			\item Test de la modification de la destination d'un arc.
 		\end{itemize}
 		
-		Ces tests nous semblent assez complets sur les matrices. Cependant chaque test n'est effectué qu'une seule fois ce qui peut mettre en douter l'efficacité de celui-ci.
-		
-		Passons ensuite aux tests contenus dans CSquareMatrixUnit:
+		Passons ensuite aux tests contenus dans CVertex:
 		\begin{itemize}
-			\item Test des différents constructeurs ainsi que des getters concernant la dimension de la matrice.
-			\item Tests des getters et setters sur les valeurs de la matrice.
-			\item Tests des différentes opérations:
-			\begin{itemize}
-				\item[$\bullet$] Test du calcul du déterminant.
-				\item[$\bullet$] Test du calcul d'une comatrice.
-				\item[$\bullet$] Test du calcul d'une matrice inverse.
-				\item[$\bullet$] Test du calcul d'une matrice inverse avec déterminant nul, renvoyant une exception.
-				\item[$\bullet$] Calcul de la puissance d'une matrice.\\
-			\end{itemize}
+			\item Test de la création d'un sommet sans paramètres.
+			\item Test de la création d'un sommet avec un ID et vérification de l'accesseur associé.
+			\item Test de l'ajout d'un arc entrant.
+			\item Test de la fonction indiquant si un arc entrant existe.
+			\item Test de l'ajout d'un arc entrant dupliqué.
+			\item Test de la suppression d'un arc entrant.
+			\item Test de la suppression d'un arc entrant n'existant pas.
+			\item Test de la modification d'un arc entrant.
+			\item Test de la modification d'un arc entrant n'existant pas.
+			\item Test de l'ajout d'un arc sortant.
+			\item Test de la fonction indiquant si un arc sortant existe.
+			\item Test de l'ajout d'un arc sortant dupliqué.
+			\item Test de la suppression d'un arc sortant.
+			\item Test de la suppression d'un arc sortant n'existant pas.
+			\item Test de la modification d'un arc sortant.
+			\item Test de la modification d'un arc sortant n'existant pas.
+			\item Test de l'opérateur =.
+			\item Test du constructeur de recopie.
 		\end{itemize}
 		
-		Enfin les derniers tests sont effectués dans CMatrixParserUnit:
+		Etudions dès à présent CGraph:
 		\begin{itemize}
-			\item Test de la lecture d'un fichier.
-			\item Test de la lecture d'un ficher avec un type non supporté, renvoyant une exception.
-			\item Test de la lecture d'un fichier en tant que matrice carrée.
-			\item Test de la lecture d'un fichier en tant que matrice carrée avec une matrice non carrée, renvoyant une exception.
+			\item Test de l'ajout d'un sommet.
+			\item Test de la fonction indiquant si un sommet existe.
+			\item Test de la suppression d'un sommet.
+			\item Test de la suppression d'un sommet n'existant pas.
+			\item Test de l'opérateur +.
+			\item Test de l'ajout d'un arc.
+			\item Test de la suppression d'un arc.
+			\item Test de l'ajout d'un arc avec une destination inexistante.
+			\item Test de la suppression d'un arc avec une destination inexistante.
+			\item Test de l'ajout d'un arc avec un départ inexistant.
+			\item Test de la suppression d'un arc avec un départ inexistant.
+			\item Test de la modification d'un arc.
+			\item Test de la modification d'un arc avec des sommets inexistants.
+			\item Test de l'ajout d'un lien.
+			\item Test de la suppression d'un sommet contenant des arcs entrants/sortants.
+			\item Test de l'opérateur =.
+			\item Test du constructeur prenant un fichier en paramètre.
+		\end{itemize}
+		
+		Enfin les derniers tests sont effectués dans CGraphParser:
+		\begin{itemize}
+			\item %TODO
 		\end{itemize}
 	
 	\chapter{Conseils d'utilisation}

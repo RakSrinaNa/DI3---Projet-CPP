@@ -4,7 +4,7 @@
 #define MISSING_ARC_INDEX_EXCEPTION 8793
 
 /**************************************************************
- * Classe représentant un arc d'un graph.
+ * Class representing an arc in the graph.
  **************************************************************/
 class CArc
 {
@@ -14,59 +14,59 @@ protected:
 
 public:
 	/**************************************************************
-	 * Constructeur par defaut. A ne pas utiliser. Utiliser CArc(unsigned int)
+	 * Default constructor. Do not use. Prefer CArc(unsigned int).
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MISSING_ARC_INDEX_EXCEPTION`.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION`
 	 */
 	CArc();
-
+	
 	/**************************************************************
 	 * Copy constructor.
 	 **************************************************************
 	 *
-	 * Entree:
+	 * Input:
 	 *      oARCarcParam: The arc to copy.
-	 * Sortie:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CArc(CArc const& oARCarcParam);
+	CArc(CArc const &oARCarcParam);
 	
 	/**************************************************************
-	 * Constructeur de confort.
+	 * Parameterized constructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndexParam: L'ID du noeud cible de notre arc.
-	 * Sortie:
+	 * Input:
+	 *     uiVertexIndexParam: The ID of the target vertex of our arc.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	explicit CArc(unsigned int uiVertexIndexParam);
 	
 	/**************************************************************
-	 * Destructeur.
+	 * Destructor
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	~CArc();
 	
 	/**************************************************************
-	 * Permet d'obtenir l'ID du noeud cible.
+	 * Get the ID of the target vertex.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
-	 *      unsigned int: L'ID du noeud cible.
+	 * Input:
+	 * Output:
+	 *     unsigned int: The ID of the target vertex.
 	 * PreCond:
 	 * PostCond:
 	 */
@@ -76,12 +76,12 @@ public:
 	};
 	
 	/**************************************************************
-	 * Permet de definir l'ID du noeud cible.
+	 * Set the ID of the target vertex.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndexParam: L'ID du noeud cible de notre arc.
-	 * Sortie:
+	 * Input:
+	 *      uiVertexIndexParam: The ID of the target vertex.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
@@ -89,9 +89,9 @@ public:
 	{
 		uiVertexIndex = uiVertexIndexParam;
 	};
-
+	
 	/**************************************************************
-	 * Define the operator =.
+	 * Define the = operator.
 	 **************************************************************
 	 *
 	 * Entree:
@@ -100,7 +100,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CArc& operator=(CArc const& oARCarcParam);
+	CArc &operator=(CArc const &oARCarcParam);
 };
 
 #endif
