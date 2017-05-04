@@ -9,41 +9,77 @@
 	\maketitle
 	\tableofcontents
 	\chapter{Présentation du sujet}
-		L'objectif de ce projet est de réaliser une librairie de classes et de fonctions permettant de manipuler des matrices. Celle-ci devra nous permettre de stocker des matrices en mémoire ainsi que d'effectuer des opérations mathématiques simples sur celles-ci.
+		L'objectif de ce projet est de réaliser une librairie de classes et de fonctions permettant de manipuler des graphs. Celle-ci devra nous permettre de stocker en mémoire des graphs ainsi que leurs composants, à savoir des sommets et des arcs. De plus, il devra être possible d'effectuer des actions basiques telles qu'ajouter ou supprimer des éléments.
 		
-		De plus, il devra être possible d'importer des matrices depuis des fichiers texte externes formatés comme indiqué dans le sujet.
+		Enfin, il devra être possible de générer des graphs en important leur structure depuis des fichiers texte externes formatés comme indiqué dans le sujet.
 	
 	\chapter{Architecture}
-		La classe centrale de notre projet est CMatrix. Celle-ci représente une matrice. Y sont stockées les informations suivantes:
+		La classe centrale de notre projet est CGraph. Celle-ci représente un graph. Y sont stockées les informations suivantes:
 		\begin{itemize}
-			\item La hauteur représentant le nombre de lignes de la matrice.
-			\item La largeur représentant le nombre de colonnes de la matrice.
-			\item Un tableau 2D contenant l'ensemble des valeurs de la matrice.\\
+			\item Le nombre de sommets contenus dans le graph.
+			\item L'indice du plus grand sommet du graph (choix expliqué par la suite).
+			\item Un tableau 1D contenant des pointeurs sur les objets sommets.\\
 		\end{itemize}
 		De plus, cette classe contient l'ensemble des méthodes demandées telles que :
 		\begin{itemize}
-			\item L'opérateur d'addition avec une deuxième matrice en renvoyant une nouvelle.
-			\item L'opérateur de soustraction avec une deuxième matrice en renvoyant une nouvelle.
-			\item L'opérateur de multiplication par un scalaire (à droite et à gauche) renvoyant une nouvelle matrice.
-			\item L'opérateur de division par un scalaire renvoyant une nouvelle matrice.
-			\item L'opérateur de multiplication par une autre matrice en renvoyant une nouvelle.
-			\item L'affichage d'une matrice dans la console.
-			\item Le calcul et la création de la transposée d'une matrice sans changer l'originale.
-			\item L'opérateur d'affection copiant le contenu d'une matrice dans une autre.
-			\item L'opérateur de comparaison.
-			\item Les opérateurs *= et /= avec un scalaire ou une matrice. Ceux-ci modifient la matrice en cours.
-			\item L'opérateur parenthèse prenant deux paramètres et renvoyant la valeur contenue dans la case demandée.\\
+			\item L'ajout d'un sommet au graph.
+			\item La suppression d'un sommet du graph.
+			\item La vérification de l'existance d'un sommet dans le graph.
+			\item L'ajout d'un arc (orienté) entre deux sommets existants.
+			\item La suppression d'un arc entre deux sommets.
+			\item La modification d'un arc par redirection de son sommet d'arrivé.
+			\item La vérification de l'existance d'un arc dans le graph.
+			\item L'ajout d'un lien (arc dans les deux sens) entre deux sommets.
+			\item L'inversion du graph (invertion de tous les arcs).
+			\item Le nettoyage du graph.
+			\item L'affichage du graph.
+			\item L'opérateur d'addition ajoutant un sommet.
+			\item L'opérateur de soustraction supprimant un sommet.
+			\item L'opérateur d'affectation duplicant un graph dans un autre.\\
 		\end{itemize}
 		
-		Nous avons ensuite fait hériter à cette classe une autre classe appelée CSquareMatrix représentant elle aussi une matrice mais carrée. Celle-ci contient les mêmes informations que sa classe mère mais propose des méthodes supplémentaires spécifiques aux calculs mathématiques réservés aux matrices carrées:
+		Deux autres classes se distinguent par leur importance : CVertex (un sommet) et CArc (un arc).\\
+		
+		La classe CVertex contient les informations suivantes.
 		\begin{itemize}
-			\item Calcul du déterminant.
-			\item Calcul de l'inverse.
-			\item Calcul de la comatrice.
-			\item Calcul des puissances d'une matrice.\\
+			\item L'indice du sommet.
+			\item Le nombre d'arcs entrants.
+			\item Un tableau 1D de pointeurs sur les arcs entrants.
+			\item Le nombre d'arcs sortants.
+			\item Un tableau 1D de pointeurs sur les arcs sortants.\\
+		\end{itemize}
+		Cette classe contient des méthodes servants principalement à modifier les arcs contenus.
+		\begin{itemize}
+			\item L'accesseur à l'indice du sommet.
+			\item L'accesseur au nombre d'arcs entrants.
+			\item L'accesseur au nombre d'arcs sortants.
+			\item L'ajout (par la création) d'un arc entrant.
+			\item La suppression d'un arc entrant.
+			\item La modification d'un arc entrant.
+			\item L'ajout (par la création) d'un arc sortant.
+			\item La suppression d'un arc sortant.
+			\item La modification d'un arc sortant.
+			\item La vérification de l'existance d'un arc entrant.
+			\item La vérification de l'existance d'un arc sortant.
+			\item L'affichage des arcs entrants.
+			\item L'affichage des arcs sortants.
+			\item L'invertion des arcs.
+			\item L'opérateur d'affectation duplicant le contenu d'un sommet dans un autre.\\
 		\end{itemize}
 		
-		Afin de pouvoir lire des matrices externes au programme, nous avons implémentée une classe statique CMatrixParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
+		La classe CArc ne contient que peu d'informations.
+		\begin{itemize}
+			\item L'indice du sommet pointé par l'arc.\\
+		\end{itemize}
+		Elle contient les méthodes suivantes :
+		\begin{itemize}
+			\item L'accesseur à l'indice de l'arc.
+			\item Le mutateur de l'indice de l'arc.
+			\item L'opérateur d'affectation duplicant un arc.\\
+		\end{itemize}
+		
+		%TODO parser Thomas
+		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière lira un fichier texte du format indiqué et renverra au choix, une matrice ou une matrice carrée. Pour réaliser cela, cette dernière s'appuie sur une énumération et une structure. L'énumération eMatrixType permet de faire la transition entre le type de la matrice écrite dans le fichier et le type du language. La structure sMatrixInfo stocke de manière temporaire les informations de la matrice lues dans le fichier. 
 		
 		\img{../../classDiagram.png}{Diagramme de classes}{0.55}{90}
 		
