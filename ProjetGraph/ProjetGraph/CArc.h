@@ -94,9 +94,10 @@ public:
 	 * Define the = operator.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      oARCarcParam: The arc to copy.
-	 * Sortie:
+	 * Input:
+	 *      oARCarcParam:   The arc to copy.
+	 * Output:
+	 *      Carc&:          This arc modified.
 	 * PreCond:
 	 * PostCond:
 	 */
