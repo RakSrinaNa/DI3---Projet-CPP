@@ -490,6 +490,7 @@ CGraph &CGraph::operator-(unsigned int uiVertexIndex)
  * Entree:
  *      oGRAgraphParam: The graph to copy.
  * Sortie:
+ *      CGraph&:        This graph modified.
  * PreCond:
  * PostCond:
  */
@@ -506,6 +507,6 @@ CGraph &CGraph::operator=(CGraph const &oGRAgraphParam)
 			poVERvertexList[uiIndex - 1] = new CVertex(*oGRAgraphParam.poVERvertexList[uiIndex - 1]);
 		else
 			poVERvertexList[uiIndex - 1] = nullptr;
-
+	
 	return *this;
 }

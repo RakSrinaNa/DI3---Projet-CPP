@@ -236,6 +236,7 @@ public:
 	 * Entree:
 	 *      oGRAgraphParam: The graph to copy.
 	 * Sortie:
+	 *      CGraph&:        This graph modified.
 	 * PreCond:
 	 * PostCond:
 	 */
