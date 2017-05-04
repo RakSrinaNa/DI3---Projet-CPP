@@ -2,21 +2,29 @@
 #include "tests/CUnit.h"
 
 #include "CGraph.h"
-#include "CGraphParser.h"
 
 int main(int argc, char * argv[])
 {
 	if(argc == 1)
+	{
 		CUnit::UNITlaunchTests();
+	}
 	else if(argc == 2)
 	{
-		CGraph * graph =  new CGraph(argv[1]);
-
-		graph->GRAdisplay();
-
-		graph->GRAinvert();
-
-		graph->GRAdisplay();
+		CGraph * poGRAgraph1 = new CGraph(argv[1]);
+		
+		poGRAgraph1->GRAdisplay();
+		
+		CGraph oGRAgraph2;
+		oGRAgraph2 = *poGRAgraph1;
+		
+		oGRAgraph2.GRAinvert();
+		
+		oGRAgraph2.GRAdisplay();
+	}
+	else
+	{
+		std::cout << "Plusieurs parametres sont presents. Seulement UN nom de fichier est attendu." << std::endl;
 	}
 #ifdef _MSC_VER
 	std::cout << "Appuyez sur une touche pour continuer...";
