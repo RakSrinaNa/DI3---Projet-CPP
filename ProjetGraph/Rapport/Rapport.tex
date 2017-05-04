@@ -84,11 +84,12 @@
 		\img{../../classDiagram.png}{Diagramme de classes}{0.55}{90}
 		
 	\chapter{Choix de codage}
-		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.
+		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
 	
-		Le choix de créer une classe CSquareMatrix héritée de CMatrix vient des nombreuses opérations mathématiques propres aux matrices carrées. Nous aurions put implémenter celles-ci directement dans la classe des matrices quelconques mais nous aurions alors du vérifier à chaque appel si la matrice avait le même nombre de lignes et de colonnes et lever une exception en cas d'échec.
-		Grâce à ce choix, nous évitons un grand nombre de vérifications sans pour autant géner les calculs normaux puisque des matrices carrées sont aussi des matrices simples et peuvent donc être multipliées, transposées, etc..
+		Un point important est l'absence d'accesseurs des objets CVertex et CArc depuis un graph. De cette façon, l'utilisateur ne peut pas modifier un sommet ou un arc appartenant à un graph en appelant les méthodes de CVertex ou de CArc directement sur l'objet en question. Il est obligé de passer par les méthodes de CGraph qui appeleront elles-mêmes les sous-méthodes nécessaires.\\
+		Cela évite qu'un sommet (ou un arc) soit ajouté, modifié ou supprimé sans que l'objet graph n'en soit informé.\\
 		
+		Un deuxième choix important est le stockage des sommets dans le graph. Plutôt que d'ajouter à la suite tous les sommets dans un tableau (stockage par ordre d'arrivé), nous posons chaque sommet à la position du tableau égale à l'indice du sommet moins 1. Ainsi le sommet 1 est à la position 0, le 10 à la position 9, etc..
 		
 	
 		%Parser why sMatrixInfo?
