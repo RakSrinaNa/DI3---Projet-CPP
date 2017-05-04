@@ -146,22 +146,23 @@ char * CGraphParser::PGRAreadLineFromFile(FILE * poFILEfile)
 }
 
 /**************************************************************
- * Return an array of key/value.
+ * Return an array of string split by some delimiters.
  **************************************************************
  *
  * Input:
- *      pcSeparators:   A string which represent a list of the different separators.
- *      puiSize:        A pointer to an int that will contain the array size.
- *      pcString:       The string to split.
+ *      pcSeparators:       A string which represent a list of the different separators.
+ *      puiSize:            A pointer to an int that will contain the array size.
+ *      pcStartingString:   The string to split.
  * Output:
- *      char**:         An array containing the key/value.
+ *      char**:             An array containing the split strings.
  * PreCond:
  * PostCond:
  *      puiSize contains the size of the returned array.
  */
-char ** CGraphParser::PGRAsplit(char * pcSeparators, unsigned int * puiSize, char * pcString)
+char ** CGraphParser::PGRAsplit(char * pcSeparators, unsigned int * puiSize, char * pcStartingString)
 {
 	char ** ppcValues = nullptr;
+	char * pcString = pcStartingString;
 	*puiSize = 0;
 	
 	/* While there is something to read, get the next token */
@@ -186,16 +187,17 @@ char ** CGraphParser::PGRAsplit(char * pcSeparators, unsigned int * puiSize, cha
  * PreCond:
  *      pcString not null.
  * PostCond:
+ *      The value pointed by pcString is modified.
  */
 char * CGraphParser::PGRAtrim(char * pcString)
 {
 	char * start = pcString;
 	char * end = start + strlen(pcString);
 	/* Trim beginning of string */
-	while(*start == '\t' || *start == '\n' || *start == ' ')
+	while(*start == '\t' || *start == '\r' || *start == '\n' || *start == ' ')
 		start++;
 	/* Trim end of string */
-	while(*end == '\t' || *end == '\n' || *end == ' ' || *end == '\0')
+	while(*end == '\t' || *end == '\r' || *end == '\n' || *end == ' ' || *end == '\0')
 		end--;
 	*(end + 1) = '\0'; //Set the end of the string
 	return start;

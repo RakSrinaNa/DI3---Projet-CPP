@@ -78,11 +78,11 @@ public:
 	 **************************************************************
 	 *
 	 * Input:
-	 *      pcSeparators:   A string which represent a list of the different separators.
-	 *      puiSize:        A pointer to an int that will contain the array size.
-	 *      pcString:       The string to split.
+	 *      pcSeparators:       A string which represent a list of the different separators.
+	 *      puiSize:            A pointer to an int that will contain the array size.
+	 *      pcStartingString:   The string to split.
 	 * Output:
-	 *      char**:         An array containing the key/value.
+	 *      char**:             An array containing the key/value.
 	 * PreCond:
 	 * PostCond:
 	 *      puiSize contains the size of the returned array.
@@ -100,6 +100,7 @@ public:
 	 * PreCond:
 	 *      pcString not null.
 	 * PostCond:
+	 *      The value pointed by pcString is modified.
 	 */
 	static char * PGRAtrim(char * pcString);
 	
