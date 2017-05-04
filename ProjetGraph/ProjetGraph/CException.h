@@ -134,10 +134,11 @@ public:
 	 * Input:
 	 *      oEXexception: The CException to copy.
 	 * Output:
+	 *      CException&:    This exception modified.
 	 * PreCond:
 	 * PostCond:
 	 */
-	void operator=(CException const &oEXexception);
+	CException &operator=(CException const &oEXexception);
 };
 
 #endif

@@ -104,14 +104,17 @@ void CException::EXsetExceptionMessage(char * pcEXmessageParam)
  **************************************************************
  *
  * Input:
- *      oEXexception: The CException to copy.
+ *      oEXexception:   The CException to copy.
  * Output:
+ *      CException&:    This exception modified.
  * PreCond:
  * PostCond:
  */
-void CException::operator=(CException const &oEXexception)
+CException &CException::operator=(CException const &oEXexception)
 {
 	uiEXID = oEXexception.uiEXID;
 	free(pcEXmessage);
 	pcEXmessage = STRDUP(oEXexception.pcEXmessage);
+	
+	return *this;
 }
