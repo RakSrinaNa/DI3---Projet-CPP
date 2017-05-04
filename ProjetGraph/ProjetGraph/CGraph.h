@@ -14,162 +14,162 @@ protected:
 
 public:
 	/**************************************************************
-	 * Constructeur par defaut.
+	 * Default constructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Graph initialise sans sommets ni arcs.
+	 *      The graph have no vertices nor arcs.
 	 */
 	CGraph();
 	
 	/**************************************************************
-	 * Constructeur de confort, initialisant un matrice a partir d'un fichier.
+	 * Parameterized constructor with a file.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcFileName:     Le chemin du fichier a lire.
-	 * Sortie:
+	 * Input:
+	 *      pcFilename: The path to the file to read.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `IO_FILE_EXCEPTION` si une erreur de lecture est survenue.
-	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
+	 *      Throws a CException with the ID `IO_FILE_EXCEPTION` if a reading error happened.
+	 *      Throws a CException with the ID `MALFORMATTED_FILE_EXCEPTION` if the file is malformatted.
 	 */
 	explicit CGraph(char * pcFilename);
 	
 	/**************************************************************
-	 * Destructeur.
+	 * Destructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Libere le graph ainsi que tout les arcs et sommets.
+	 *      Delete the graph with its vertices and arcs.
 	 */
 	~CGraph();
 	
 	/**************************************************************
-	 * Ajoute un sommet au graph.
+	 * Add a vertex to the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndex: L'indice du sommet a ajouter.
-	 * Sortie:
+	 * Input:
+	 *      uiVertexIndex: The ID of the vertex to add.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `DUPLICATE_VERTEX_EXCEPTION` si le sommet existe deja.
-	 *      Renvoie une CException avec l'ID `BAD_INDEX_VERTEX_EXCEPTION` si le sommet a un index inferieur a 1.
+	 *      Throws a CException with the ID `DUPLICATE_VERTEX_EXCEPTION` if the vertex already exists.
+	 *      Throws a CException with the ID `BAD_INDEX_VERTEX_EXCEPTION` if the ID of the vertex is less than 1.
 	 */
 	void GRAaddVertex(unsigned int uiVertexIndex);
 	
 	/**************************************************************
-	 * Retire un sommet du graph.
+	 * Remove a vertex from the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndex: L'indice du sommet a retirer.
-	 * Sortie:
+	 * Input:
+	 *      uiVertexIndex: The ID of the vertex to remove.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	void GRAremoveVertex(unsigned int uiVertexIndex);
 	
 	/**************************************************************
-	 * Verifie si un sommet est present dans le graph.
+	 * Verify if a vertex is in the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndex:  L'indice du sommet a tester.
-	 * Sortie:
-	 *      bool:           True si le sommet est present dans le graph, False sinon.
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex to find.
+	 * Output:
+	 *      bool:           True if the vertex exists, false else.
 	 * PreCond:
 	 * PostCond:
 	 */
 	bool GRAhasVertex(unsigned int uiVertexIndex) const;
 	
 	/**************************************************************
-	 * Ajoute un arc au graph.
+	 * Add an arc to the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiFromVertexIndex:  ID du sommet de depart.
-	 *      uiToVertexIndex:    ID du sommet d'arrivee.
-	 * Sortie:
+	 * Input:
+	 *      uiFromVertexIndex:  The ID of the starting vertex.
+	 *      uiToVertexIndex:    The ID of the ending vertex.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MISSING_VERTEX_INDEX_EXCEPTION` si l'un des deux sommets n'existe pas.
-	 *      Renvoie une CException avec l'ID `DUPLICATE_ARC_EXCEPTION` si l'arc existe deja.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the vertices doesn't exist.
+	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
 	 */
 	void GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
 	
 	/**************************************************************
-	 * Retire un arc du graph.
+	 * Remove an arc from the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiFromVertexIndex:  ID du sommet de depart.
-	 *      uiToVertexIndex:    ID du sommet d'arrivee.
-	 * Sortie:
+	 * Input:
+	 *      uiFromVertexIndex:  The ID of the starting vertex.
+	 *      uiToVertexIndex:    The ID of the ending vertex.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MISSING_VERTEX_INDEX_EXCEPTION` si l'un des deux sommets n'existe pas.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the vertices doesn't exist.
 	 */
 	void GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
 	
 	/**************************************************************
-	 * Modifie le sommet d'arrivee d'un arc existant.
+	 * Modify the ending vertex of an existing arc.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiFromVertexIndex:  ID du sommet de depart.
-	 *      uiLastToVertexIndex:ID de l'ancien sommet d'arrivee.
-	 *      uiNewToVertexIndex: ID du nouveau sommet d'arrivee.
-	 * Sortie:
+	 * Input:
+	 *      uiFromVertexIndex:  The ID of the starting vertex.
+	 *      uiLastToVertexIndex:The ID of the old ending vertex.
+	 *      uiNewToVertexIndex: The ID of the new ending vertex.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MISSING_VERTEX_INDEX_EXCEPTION` si l'un des deux sommets n'existe pas.
-	 *      Renvoie une CException avec l'ID `MISSING_ARC_INDEX_EXCEPTION` si l'arc n'existe pas.
-	 *      Renvoie une CException avec l'ID `DUPLICATE_ARC_EXCEPTION` si le nouvel arc existe deja.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the vertices doesn't exist.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the new arc already exists.
 	 */
 	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
 	
 	/**************************************************************
-	 * Verifie si le graph contient un arc.
+	 * Verify if the arc contains an arc.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiFromVertexIndex:  ID du sommet de depart.
-	 *      uiToVertexIndex:    ID du sommet d'arrivee.
-	 * Sortie:
-	 *      bool:               True si l'arc est present dans le graph, False sinon.
+	 * Input:
+	 *      uiFromVertexIndex:  The ID of the starting vertex.
+	 *      uiToVertexIndex:    The ID of the ending vertex.
+	 * Output:
+	 *      bool:               True if the arc exists, false else.
 	 * PreCond:
 	 * PostCond:
 	 */
 	bool GRAhasArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex) const;
 	
 	/**************************************************************
-	 * Ajoute un lien etre deux sommets (arc dans les deux sens).
+	 * Add a link (arcs in the two directions) between two vertices.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndex1: L'ID de l'un des sommets.
-	 *      uiVertexIndex2: L'ID de l'autre sommet.
-	 * Sortie:
+	 * Input:
+	 *      uiVertexIndex1: The ID of the first vertex.
+	 *      uiVertexIndex2: The ID of the second vertex.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MISSING_VERTEX_INDEX_EXCEPTION` si l'un des deux sommets n'existe pas.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the two vertices doesn't exist.
 	 */
 	void GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2);
 	
 	/**************************************************************
-	 * Inverse le sens de tous les arcs du grpah.
+	 * Invert the graph (every arc is inverted).
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
@@ -179,56 +179,56 @@ public:
 	 * Resets the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	void GRAclear();
-
+	
 	/**************************************************************
-	 * Affiche le graph dans la sortie standard.
+	 * Display the graph in the standard output.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiLevel: Le niveau de precision de l'affichage:
-	 *                  0 : Affiche le nombre de sommets du graph.
-	 *                  1 : Niveau 0 + Affiche la liste des indices des sommets.
-	 *                  2 : Niveau 1 + Affiche la liste des arcs sortant de chaque sommet.
-	 *                  3 : Niveau 1 + Affiche la liste des arcs entrant de chaque sommet.
-	 *                  4+: Niveau 2 & 3.
-	 * Sortie:
+	 * Input:
+	 *      uiLevel: The level of detail of the output (default value is 4):
+	 *                  0 : Show the number of vertices in the graph.
+	 *                  1 : Level 0 + Show the list of the IDs of the vertices.
+	 *                  2 : Level 1 + Show the list of the outgoing arcs of every vertex.
+	 *                  3 : Level 1 + Show the list of the incoming arcs of every vertex.
+	 *                  4+: Level 2 & 3.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	void GRAdisplay(unsigned int uiLevel = 4) const;
-
-	/**************************************************************
-	 * Definit l'operateur d'addition permettant d'ajouer un sommet au graph.
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      uiVertexIndex: L'indice du sommet a ajouter.
-	 * Sortie:
-	 * PreCond:
-	 *      L'ID du sommet doit etre superieur ou egal a 1.
-	 * PostCond:
-	 *      Renvoie une CException avec l'ID `DUPLICATE_VERTEX_EXCEPTION` si le sommet existe deja.
-	 */
-	CGraph & operator+(unsigned int uiVertexIndex);
 	
 	/**************************************************************
-	 * Definit l'operateur de soustraction permettant de retirer un sommet du graph.
+	 * Define the + operator adding a vertex to the graph.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiVertexIndex: L'indice du sommet a retirer.
-	 * Sortie:
+	 * Input:
+	 *      uiVertexIndex: The ID of the vertex to add.
+	 * Output:
+	 * PreCond:
+	 *      The ID of the vertex must be greater or equal to 1.
+	 * PostCond:
+	 *      Throws a CException with the ID `DUPLICATE_VERTEX_EXCEPTION` if the vertex already exists.
+	 */
+	CGraph &operator+(unsigned int uiVertexIndex);
+	
+	/**************************************************************
+	 * Define the - operator removing a vertex from the graph.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex: The ID of the vertex to remove.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CGraph & operator-(unsigned int uiVertexIndex);
-
+	CGraph &operator-(unsigned int uiVertexIndex);
+	
 	/**************************************************************
 	 * Defines the operator =.
 	 **************************************************************
@@ -239,7 +239,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CGraph & operator=(CGraph const& oGRAgraphParam);
+	CGraph &operator=(CGraph const &oGRAgraphParam);
 };
 
 #endif
