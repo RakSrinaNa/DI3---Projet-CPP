@@ -2,86 +2,81 @@
 #define TP1_CEXCEPTION_H
 
 /**************************************************************
- * Classe représentant une exception, utilisee pour les throw.
+ * Class representing an exception.
  **************************************************************/
 class CException
 {
 private:
-	/**************************************************************
-	* ID de l'exception.
-	**************************************************************/
 	unsigned int uiEXID;
-	/**************************************************************
-	* Message de l'exception.
-	**************************************************************/
 	char * pcEXmessage;
 
 public:
 	/**************************************************************
-	 * Constructeur par defaut.
+	 * Default constructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Input:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	CException();
 	
 	/**************************************************************
-	 * Constructeur de recopie.
+	 * Copy constructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      oEXexception: Une référence sur un objet Cexception
-	 * Sortie:
+	 * Input:
+	 *      oEXexception: The exception to copy.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	CException(CException const &oEXexception);
 	
 	/**************************************************************
-	 * Constructeur de confort erreurID.
+	 * Parameterized constructor with exception ID.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiEXIDParam: Le numero de l'erreur.
-	 * Sortie:
+	 * Input:
+	 *      uiEXIDParam: The exception ID.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	CException(unsigned int uiEXIDParam);
 	
 	/**************************************************************
-	 * Constructeur de confort erreurID & message.
+	 * Parameterized constructor with exception ID & error message.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      uiEXIDParam:        Le numero de l'erreur.
-	 *      pcEXmessageParam:   Un message decrivant l'erreur
-	 * Sortie:
+	 * Input:
+	 *      uiEXIDParam:        The exception ID.
+	 *      pcEXmessageParam:   The error message.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	CException(unsigned int uiEXIDParam, char * pcEXmessageParam);
 	
 	/**************************************************************
-	 * Destructeur.
+	 * Destructor.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie:
+	 * Inout:
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	~CException();
 	
 	/**************************************************************
-	 * Permet d'obtenir le numero de l'erreur.
+	 * Get the exception ID.
 	 **************************************************************
 	 *
-	 * Entree:
-	 * Sortie: unsigned int etant le numero d'erreur.
+	 * Input:
+	 * Output:
+	 *      unsigned int: The exception ID.
 	 * PreCond:
 	 * PostCond:
 	 */
@@ -91,56 +86,56 @@ public:
 	}
 	
 	/**************************************************************
-	* Permet d'obtenir le message d'erreur.
-	**************************************************************
-	*
-	* Entree:
-	* Sortie: char * etant le message d'erreur.
-	* PreCond:
-	* PostCond:
-	*/
+	 * Get the error message.
+	 **************************************************************
+	 *
+	 * Input:
+	 * Output:
+	 *      char *: The error message.
+	 * PreCond:
+	 * PostCond:
+	 */
 	char * EXgetExceptionMessage() const
 	{
 		return pcEXmessage;
 	}
 	
 	/**************************************************************
-	* Permet de definir le numero de l'erreur.
-	**************************************************************
-	*
-	* Entree:
-	*       uiEXIDParam: Le numero d'erreur.
-	* Sortie:
-	* PreCond:
-	* PostCond:
-	*/
+	 * Set the exception ID.
+	 **************************************************************
+	 *
+	 * Input:
+	 *       uiEXIDParam: The exception ID.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
 	void EXsetExceptionID(unsigned int uiEXIDParam)
 	{
 		uiEXID = uiEXIDParam;
 	}
 	
 	/**************************************************************
-	 * Permet de definir le message d'erreur.
+	 * Set the error message.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcEXmessageParam: Le message d'erreur. Une copie en sera faite.
-	 * Sortie:
+	 * Input:
+	 *      pcEXmessageParam: The error message. A copy of it will be done.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
 	void EXsetExceptionMessage(char * pcEXmessageParam);
 	
 	/**************************************************************
-	 * Redefinition de l'operateur egal.
+	 * Define the = operator.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      oEXexception: Une référence sur un objet Cexception
-	 * Sortie:
+	 * Input:
+	 *      oEXexception: The CException to copy.
+	 * Output:
 	 * PreCond:
 	 * PostCond:
-	 *      Objet actuel ayant des attributs identiques a celui passe en parametre.
 	 */
 	void operator=(CException const &oEXexception);
 };
