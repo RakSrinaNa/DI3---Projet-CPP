@@ -11,6 +11,8 @@ public:
 	static void GRAUnitTestArcs();
 	
 	static void GRAUnitTestCopy();
+	
+	static void GRAUnitTestReadFromFile();
 };
 
-#endif //PROJETGRAPH_CGRAPHUNIT_H
+#endif
