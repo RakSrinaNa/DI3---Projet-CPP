@@ -1,8 +1,9 @@
 #ifndef UTILS
 #define UTILS
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdlib>
+#include <cstdio>
 
 #define UNUSED(var) (void)(var)
 

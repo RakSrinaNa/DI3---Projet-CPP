@@ -3,6 +3,7 @@
 #include "../CGraphParser.h"
 #include "CUnit.h"
 #include "../CException.h"
+#include "../utils.h"
 
 void CGraphParserUnit::PGRAUnitTests()
 {
@@ -27,7 +28,7 @@ void CGraphParserUnit::PGRAUnitTests()
 		CUnit::UNITassertError("CGraphParser 3");
 	free(pcKey);
 	
-	char * pcDelimTestsOrigin = strdup("AAA:BBB=CCC");
+	char * pcDelimTestsOrigin = STRDUP("AAA:BBB=CCC");
 	
 	char * pcDelimTests = pcDelimTestsOrigin;
 	char ** pcHeadSplit = &pcDelimTests;
@@ -45,7 +46,7 @@ void CGraphParserUnit::PGRAUnitTests()
 		CUnit::UNITassertError("CGraphParser 6");
 	
 	free(pcDelimTestsOrigin);
-	pcDelimTestsOrigin = strdup("AAA:BBB=CCC");
+	pcDelimTestsOrigin = STRDUP("AAA:BBB=CCC");
 	
 	unsigned int uiPartsCount = 0;
 	char ** pcParts = CGraphParser::PGRAsplit((char *) ":=", &uiPartsCount, pcDelimTestsOrigin);
@@ -54,7 +55,7 @@ void CGraphParserUnit::PGRAUnitTests()
 	
 	free(pcDelimTestsOrigin);
 	
-	char * pcTrimTest = strdup("  \t AAA BBB CCC \t\n\t \r ");
+	char * pcTrimTest = STRDUP("  \t AAA BBB CCC \t\n\t \r ");
 	char * pcTrimmed = CGraphParser::PGRAtrim(pcTrimTest);
 	if(pcTrimmed != (pcTrimTest + 4) || strcmp("AAA BBB CCC", pcTrimmed) != 0)
 		CUnit::UNITassertError("CGraphParser 8");
