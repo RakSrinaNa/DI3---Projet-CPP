@@ -65,7 +65,7 @@ CException::CException(unsigned int uiEXIDParam)
 CException::CException(unsigned int uiEXIDParam, char * pcEXmessageParam)
 {
 	uiEXID = uiEXIDParam;
-	EXsetExceptionMessage(pcEXmessageParam);
+	pcEXmessage = STRDUP(pcEXmessageParam);
 }
 
 /**************************************************************
@@ -94,7 +94,7 @@ CException::~CException()
  */
 void CException::EXsetExceptionMessage(char * pcEXmessageParam)
 {
-	if(pcEXmessage == nullptr)
+	if(pcEXmessage != nullptr)
 		free(pcEXmessage);
 	pcEXmessage = STRDUP(pcEXmessageParam);
 }
