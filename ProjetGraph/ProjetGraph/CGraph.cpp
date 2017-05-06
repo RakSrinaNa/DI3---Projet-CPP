@@ -240,9 +240,9 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 		uiVertexCount--;
 		
 		/*If the biggest vertex was deleted, reallocation of the list */
-		unsigned int uiIndex;
-		for(uiIndex = uiBiggestVertex - 1; uiIndex >= 0 && poVERvertexList[uiIndex] == nullptr; uiIndex--);
-		uiBiggestVertex = uiIndex + 1;
+		int uiIndex;
+		for(uiIndex = uiBiggestVertex - 1; uiIndex >= 0u && poVERvertexList[uiIndex] == nullptr; uiIndex--);
+		uiBiggestVertex = (unsigned int) (uiIndex + 1);
 		RREALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "RREALLOC ERROR GRAremoveVertex");
 	}
 }

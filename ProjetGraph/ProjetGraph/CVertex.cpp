@@ -5,15 +5,36 @@
 #include "CException.h"
 #include "utils.h"
 
+/**************************************************************
+ * Default constructor. Do not use. Prefer CVertex(unsigned int).
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION`.
+ */
 CVertex::CVertex()
 {
 	throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "Use the constructor : CVertex(unsigned int)");
 }
 
-CVertex::CVertex(CVertex const& oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount){
+/**************************************************************
+ * Copy constructor.
+ **************************************************************
+ *
+ * Input:
+ *      oVERvertexParam: The vertex to copy.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+CVertex::CVertex(CVertex const &oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount)
+{
 	MMALLOC(poARCinList, CArc *, uiArcInCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
 	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
-
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
 	
@@ -21,10 +42,29 @@ CVertex::CVertex(CVertex const& oVERvertexParam) : uiVertexIndex(oVERvertexParam
 		poARCoutList[uiIndex] = new CArc(*oVERvertexParam.poARCoutList[uiIndex]);
 }
 
+/**************************************************************
+ * Parameterized constructor with the vertex ID.
+ **************************************************************
+ *
+ * Input:
+ *      uiVertexIndexParam: The ID of the vertex.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 CVertex::CVertex(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam), uiArcInCount(0), uiArcOutCount(0), poARCinList(nullptr), poARCoutList(nullptr)
 {
 }
 
+/**************************************************************
+ * Destructor.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 CVertex::~CVertex()
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
@@ -36,16 +76,17 @@ CVertex::~CVertex()
 	free(poARCoutList);
 }
 
-unsigned int CVertex::VERgetArcInCount() const
-{
-	return uiArcInCount;
-}
-
-unsigned int CVertex::VERgetArcOutCount() const
-{
-	return uiArcOutCount;
-}
-
+/**************************************************************
+ * Add an incoming arc to the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiFromVertexIndex: The ID of the vertex pointing on the current vertex.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
+ */
 void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
@@ -57,6 +98,16 @@ void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 	poARCinList[uiArcInCount - 1] = new CArc(uiFromVertexIndex);
 }
 
+/**************************************************************
+ * Remove an incoming arc to the node.
+ **************************************************************
+ *
+ * Input:
+ *      uiFromVertexIndex: The ID of the vertex pointing on the current vertex.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
@@ -70,6 +121,17 @@ void CVertex::VERremoveArcIn(unsigned int uiFromVertexIndex)
 		}
 }
 
+/**************************************************************
+ * Add an outgoing arc to the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiToVertexIndex: The ID of the vertex the current vertex is pointing to.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
+ */
 void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
@@ -81,6 +143,16 @@ void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 	poARCoutList[uiArcOutCount - 1] = new CArc(uiToVertexIndex);
 }
 
+/**************************************************************
+ * Remove an outgoing arc to the node.
+ **************************************************************
+ *
+ * Input:
+ *      uiToVertexIndex: The ID of the vertex the current vertex is pointing to.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 void CVertex::VERremoveArcOut(unsigned int uiToVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
@@ -93,6 +165,18 @@ void CVertex::VERremoveArcOut(unsigned int uiToVertexIndex)
 		}
 }
 
+/**************************************************************
+ * Modify an incoming arc to the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiLastFromVertexIndex:  The ID of the vertex that is pointing to the current vertex.
+ *      uiNewFromVertexIndex:   The ID of the new vertex that will point to the current vertex.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      If uiLastFromVertexIndex doesn't exists, nothing is changed.
+ */
 void CVertex::VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int uiNewFromVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
@@ -103,6 +187,18 @@ void CVertex::VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int ui
 		}
 }
 
+/**************************************************************
+ * Modify an outgoing arc to the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiLastToVertexIndex:  The ID of the vertex that is pointed by the current vertex.
+ *      uiNewToVertexIndex:   The ID of the new vertex that will be pointed by the current vertex.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      If uiLastToVertexIndex doesn't exists, nothing is changed.
+ */
 void CVertex::VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex)
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
@@ -113,6 +209,17 @@ void CVertex::VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiN
 		}
 }
 
+/**************************************************************
+ * Verify if the node has an incoming arc from a specific arc.
+ **************************************************************
+ *
+ * Input:
+ *      uiFromVertexIndex:  The ID of the source vertex.
+ * Output:
+ *      bool:               True if the arc exists, false else.
+ * PreCond:
+ * PostCond:
+ */
 bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex) const
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
@@ -121,6 +228,17 @@ bool CVertex::VERhasIndexIn(unsigned int uiFromVertexIndex) const
 	return false;
 }
 
+/**************************************************************
+ * Verify if the node has an outgoing arc from a specific arc.
+ **************************************************************
+ *
+ * Input:
+ *      uiToVertexIndex:  The ID of the destination vertex.
+ * Output:
+ *      bool:               True if the arc exists, false else.
+ * PreCond:
+ * PostCond:
+ */
 bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex) const
 {
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
@@ -129,6 +247,15 @@ bool CVertex::VERhasIndexOut(unsigned int uiToVertexIndex) const
 	return false;
 }
 
+/**************************************************************
+ * Display the list of the incoming arcs.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 void CVertex::VERdisplayArcIn() const
 {
 	std::cout << std::endl;
@@ -136,6 +263,15 @@ void CVertex::VERdisplayArcIn() const
 		std::cout << "\t" << "<- " << poARCinList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }
 
+/**************************************************************
+ * Display the list of the outgoing arcs.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 void CVertex::VERdisplayArcOut() const
 {
 	std::cout << std::endl;
@@ -143,6 +279,15 @@ void CVertex::VERdisplayArcOut() const
 		std::cout << "\t" << "-> " << poARCoutList[uiIndex]->ARCgetVertexIndex() << std::endl;
 }
 
+/**************************************************************
+ * Invert the orientation of every arcs.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
 void CVertex::VERinvert()
 {
 	unsigned int uiInTempo = uiArcInCount;
@@ -154,8 +299,19 @@ void CVertex::VERinvert()
 	poARCoutList = poARCInTempo;
 }
 
-CVertex& CVertex::operator=(CVertex const& oVERvertexParam){
-
+/**************************************************************
+ * Define the operator =.
+ **************************************************************
+ *
+ * Input:
+ *      oVERvertexParam: The vertex to copy.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+CVertex &CVertex::operator=(CVertex const &oVERvertexParam)
+{
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		delete poARCinList[uiIndex];
 	free(poARCinList);
@@ -163,19 +319,19 @@ CVertex& CVertex::operator=(CVertex const& oVERvertexParam){
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		delete poARCoutList[uiIndex];
 	free(poARCoutList);
-
+	
 	uiVertexIndex = oVERvertexParam.uiVertexIndex;
 	uiArcInCount = oVERvertexParam.uiArcInCount;
 	uiArcOutCount = oVERvertexParam.uiArcOutCount;
-
+	
 	MMALLOC(this->poARCinList, CArc *, uiArcInCount, "MMALLOC ERROR OPERATOR= CVERTEX");
 	MMALLOC(this->poARCoutList, CArc *, uiArcOutCount, "MMALLOC ERROR OPERATOR= CVERTEX");
-
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*(oVERvertexParam.poARCinList[uiIndex]));
-
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		poARCoutList[uiIndex] = new CArc(*(oVERvertexParam.poARCoutList[uiIndex]));
-
+	
 	return *this;
 }
