@@ -707,11 +707,31 @@ void CGraph::GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDe
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
+/**************************************************************
+ * Get the number of vertices in the graph.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ *      unsigned int: The number of vertices.
+ * PreCond:
+ * PostCond:
+ */
 unsigned int CGraph::GRAgetVertexCount()
 {
 	return uiVertexCount;
 }
 
+/**************************************************************
+ * Get the list of the vertex indices.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ *      unsigned int *: The list of the different vertex indices.
+ * PreCond:
+ * PostCond:
+ */
 unsigned int * CGraph::GRAgetVertexIndices()
 {
 	unsigned int * puiIndices;

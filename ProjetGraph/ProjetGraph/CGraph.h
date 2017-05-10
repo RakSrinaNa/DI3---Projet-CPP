@@ -369,10 +369,30 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey);
-
+	
+	/**************************************************************
+     * Get the number of vertices in the graph.
+     **************************************************************
+     *
+	 * Input:
+	 * Output:
+	 *      unsigned int: The number of vertices.
+	 * PreCond:
+     * PostCond:
+	 */
 	unsigned int GRAgetVertexCount();
-
-	unsigned int * GRAgetVertexIndices()
+	
+	/**************************************************************
+	 * Get the list of the vertex indices.
+	 **************************************************************
+	 *
+	 * Input:
+	 * Output:
+	 *      unsigned int *: The list of the different vertex indices.
+	 * PreCond:
+	 * PostCond:
+	 */
+	unsigned int * GRAgetVertexIndices();
 };
 
 #endif
