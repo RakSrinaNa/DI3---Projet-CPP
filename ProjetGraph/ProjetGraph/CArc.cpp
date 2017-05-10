@@ -26,7 +26,7 @@ CArc::CArc()
  * PreCond:
  * PostCond:
  */
-CArc::CArc(CArc const &oARCarcParam) : uiVertexIndex(oARCarcParam.uiVertexIndex)
+CArc::CArc(CArc const &oARCarcParam) : uiVertexIndex(oARCarcParam.uiVertexIndex), oHMPproperties(oARCarcParam.oHMPproperties)
 {
 }
 
@@ -40,7 +40,7 @@ CArc::CArc(CArc const &oARCarcParam) : uiVertexIndex(oARCarcParam.uiVertexIndex)
  * PreCond:
  * PostCond:
  */
-CArc::CArc(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam)
+CArc::CArc(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam), oHMPproperties()
 {
 }
 
@@ -71,6 +71,7 @@ CArc::~CArc()
 CArc &CArc::operator=(CArc const &oARCarcParam)
 {
 	uiVertexIndex = oARCarcParam.uiVertexIndex;
+	oHMPproperties = oARCarcParam.oHMPproperties;
 	return *this;
 }
 
@@ -88,7 +89,7 @@ CArc &CArc::operator=(CArc const &oARCarcParam)
  */
 void CArc::ARCaddProperty(char * pcKey, double dValue)
 {
-	//TODO Victor
+	oHMPproperties.CHMPaddValue(pcKey, dValue);
 }
 
 /**************************************************************
@@ -105,7 +106,7 @@ void CArc::ARCaddProperty(char * pcKey, double dValue)
  */
 void CArc::ARCmodifyProperty(char * pcKey, double dValue)
 {
-	//TODO Victor
+	oHMPproperties.CHMPmodifyValue(pcKey, dValue);
 }
 
 /**************************************************************
@@ -122,7 +123,7 @@ void CArc::ARCmodifyProperty(char * pcKey, double dValue)
  */
 double CArc::ARCgetProperty(char * pcKey) const
 {
-	//TODO Victor
+	return oHMPproperties.CHMPgetValue(pcKey);
 }
 
 /**************************************************************
@@ -137,5 +138,5 @@ double CArc::ARCgetProperty(char * pcKey) const
  */
 void CArc::ARCdeleteProperty(char * pcKey)
 {
-	//TODO Victor
+	oHMPproperties.CHMPdeleteValue(pcKey);
 }

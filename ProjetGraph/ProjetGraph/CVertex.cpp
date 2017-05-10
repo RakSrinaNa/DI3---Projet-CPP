@@ -30,7 +30,7 @@ CVertex::CVertex()
  * PreCond:
  * PostCond:
  */
-CVertex::CVertex(CVertex const &oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount)
+CVertex::CVertex(CVertex const &oVERvertexParam) : uiVertexIndex(oVERvertexParam.uiVertexIndex), uiArcInCount(oVERvertexParam.uiArcInCount), uiArcOutCount(oVERvertexParam.uiArcOutCount), oHMPproperties(oVERvertexParam.oHMPproperties)
 {
 	MMALLOC(poARCinList, CArc *, uiArcInCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
 	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
@@ -52,7 +52,7 @@ CVertex::CVertex(CVertex const &oVERvertexParam) : uiVertexIndex(oVERvertexParam
  * PreCond:
  * PostCond:
  */
-CVertex::CVertex(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam), uiArcInCount(0), uiArcOutCount(0), poARCinList(nullptr), poARCoutList(nullptr)
+CVertex::CVertex(unsigned int uiVertexIndexParam) : uiVertexIndex(uiVertexIndexParam), uiArcInCount(0), uiArcOutCount(0), poARCinList(nullptr), poARCoutList(nullptr), oHMPproperties()
 {
 }
 
@@ -350,7 +350,7 @@ CVertex &CVertex::operator=(CVertex const &oVERvertexParam)
  */
 void CVertex::VERaddProperty(char * pcKey, double dValue)
 {
-	//TODO Victor
+	oHMPproperties.CHMPaddValue(pcKey, dValue);
 }
 
 /**************************************************************
@@ -367,7 +367,7 @@ void CVertex::VERaddProperty(char * pcKey, double dValue)
  */
 void CVertex::VERmodifyProperty(char * pcKey, double dValue)
 {
-	//TODO Victor
+	oHMPproperties.CHMPmodifyValue(pcKey, dValue);
 }
 
 /**************************************************************
@@ -384,7 +384,7 @@ void CVertex::VERmodifyProperty(char * pcKey, double dValue)
  */
 double CVertex::VERgetProperty(char * pcKey) const
 {
-	//TODO Victor
+	return oHMPproperties.CHMPgetValue(pcKey);
 }
 
 /**************************************************************
@@ -399,7 +399,7 @@ double CVertex::VERgetProperty(char * pcKey) const
  */
 void CVertex::VERdeleteProperty(char * pcKey)
 {
-	//TODO Victor
+	oHMPproperties.CHMPdeleteValue(pcKey);
 }
 
 /**************************************************************
@@ -418,7 +418,17 @@ void CVertex::VERdeleteProperty(char * pcKey)
  */
 void CVertex::VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(VERhasIndexOut(uiArcDestination))
+	{
+		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
+			{
+				poARCoutList[uiIndex]->ARCaddProperty(pcKey, dValue);
+				break;
+			}
+	}
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -437,7 +447,17 @@ void CVertex::VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, dou
  */
 void CVertex::VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(VERhasIndexOut(uiArcDestination))
+	{
+		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
+			{
+				poARCoutList[uiIndex]->ARCmodifyProperty(pcKey, dValue);
+				break;
+			}
+	}
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -456,7 +476,13 @@ void CVertex::VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, 
  */
 double CVertex::VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) const
 {
-	//TODO Victor
+	if(VERhasIndexOut(uiArcDestination))
+	{
+		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
+				return poARCoutList[uiIndex]->ARCgetProperty(pcKey);
+	}
+	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -473,5 +499,15 @@ double CVertex::VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) c
  */
 void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
 {
-	//TODO Victor
+	if(VERhasIndexOut(uiArcDestination))
+	{
+		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
+			{
+				poARCoutList[uiIndex]->ARCdeleteProperty(pcKey);
+				break;
+			}
+	}
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }

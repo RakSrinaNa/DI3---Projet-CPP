@@ -2,6 +2,7 @@
 #define CVERTEX
 
 #include "CArc.h"
+#include "CHashMap.h"
 
 #define MISSING_VERTEX_INDEX_EXCEPTION 8792
 #define DUPLICATE_ARC_EXCEPTION 8794
@@ -17,6 +18,7 @@ protected:
 	unsigned int uiArcOutCount;
 	CArc ** poARCinList;
 	CArc ** poARCoutList;
+	CHashMap oHMPproperties;
 
 public:
 	/**************************************************************

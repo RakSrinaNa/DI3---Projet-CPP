@@ -14,6 +14,23 @@
 		Enfin, il devra être possible de générer des graphs en important leur structure depuis des fichiers texte externes formatés comme indiqué dans le sujet.
 	
 	\chapter{Architecture}
+		Avant toute chose, il est à noter la présence d'une classe CHashMap. Celle-ci fonctionne sur le principe d'une liste clé-valeur et nous permet principalement de stocker des informations pouvant avoir des noms différents d'un graph à l'autre.
+		
+		\begin{itemize}
+			\item Le nombre de propriétés stockées.
+			\item La liste des clés (chaines de caractères).
+			\item La liste des valeurs (double).
+		\end{itemize}
+		
+		Elle contient les méthodes suivantes :
+		\begin{itemize}
+			\item L'ajout d'une clé et de sa valeur.
+			\item Modifier la valeur d'une clé donnée.
+			\item Supprimer une clé.
+			\item Nettoyage de toutes les clé et valeur.
+			\item L'opérateur d'affectation duplicant l'ensemble des clé-valeur dans un autre HashMap.
+		\end{itemize}
+	
 		La classe centrale de notre projet est CGraph. Celle-ci représente un graph. Y sont stockées les informations suivantes:
 		\begin{itemize}
 			\item Le nombre de sommets contenus dans le graph.
@@ -30,6 +47,14 @@
 			\item La modification d'un arc par redirection de son sommet d'arrivé.
 			\item La vérification de l'existance d'un arc dans le graph.
 			\item L'ajout d'un lien (arc dans les deux sens) entre deux sommets.
+			\item L'ajout d'une propriété (et sa valeur) pour un sommet donné.
+			\item La modification de la valeur d'une propriété pour un sommet donné.
+			\item La lecture de la valeur d'une propriété donnée pour un sommet donné.
+			\item La suppression d'une propriété pour un sommet donné.
+			\item L'ajout d'une propriété (et de sa valeur) d'un arc entre deux sommets donnés.
+			\item La modification de la valeur d'une propriété d'un arc entre deux sommets donnés.
+			\item La lecture de la valeur d'une propriété d'un arc entre deux sommets donnés.
+			\item La suppression d'une propriété d'un arc entre deux sommets donnés.
 			\item L'inversion du graph (invertion de tous les arcs).
 			\item Le nettoyage du graph.
 			\item L'affichage du graph.
@@ -46,7 +71,8 @@
 			\item Le nombre d'arcs entrants.
 			\item Un tableau 1D de pointeurs sur les arcs entrants.
 			\item Le nombre d'arcs sortants.
-			\item Un tableau 1D de pointeurs sur les arcs sortants.\\
+			\item Un tableau 1D de pointeurs sur les arcs sortants.
+			\item Un CHashMap de ces propriétés.\\
 		\end{itemize}
 		Cette classe contient des méthodes servants principalement à modifier les arcs contenus.
 		\begin{itemize}
@@ -61,6 +87,14 @@
 			\item La modification d'un arc sortant.
 			\item La vérification de l'existance d'un arc entrant.
 			\item La vérification de l'existance d'un arc sortant.
+			\item L'ajout d'une propriété (et de sa valeur).
+			\item La modification de la valeur d'une propriété.
+			\item La lecture de la valeur d'une propriété.
+			\item La suppression d'une propriété.
+			\item L'ajout d'une propriété (et de sa valeur) d'un un arc sortant vers un sommet donné.
+			\item La modification de la valeur d'une propriété d'un arc sortant vers un sommet donné.
+			\item La lecture de la valeur d'une propriété d'un arc sortant vers un sommet donné.
+			\item La suppression d'une propriété d'un arc sortant vers un sommet donné.
 			\item L'affichage des arcs entrants.
 			\item L'affichage des arcs sortants.
 			\item L'invertion des arcs.
@@ -69,20 +103,24 @@
 		
 		La classe CArc ne contient que peu d'informations.
 		\begin{itemize}
-			\item L'indice du sommet pointé par l'arc.\\
+			\item L'indice du sommet pointé par l'arc.
+			\item Un HashMap de ces prorpiétés.\\
 		\end{itemize}
 		Elle contient les méthodes suivantes :
 		\begin{itemize}
 			\item L'accesseur à l'indice de l'arc.
 			\item Le mutateur de l'indice de l'arc.
+			\item L'ajout d'une propriété (et de sa valeur).
+			\item La modification de la valeur d'une propriété.
+			\item La lecture de la valeur d'une propriété.
+			\item La suppression d'une propriété.
 			\item L'opérateur d'affectation duplicant un arc.\\
 		\end{itemize}
 		
-		%TODO CHashMap + Completion des autres
+		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Si des prorpiétés sont attendues, celles-ci devront de situer après les ID correspondants (ID du sommet pour une propriété d'une sommet ou après les ID des deux sommets pour une propriété d'un arc).
 		
-		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Les propriétés qui seront lues doivent être après les information sur l'ID du sommet ou de la source et destination de l'arc.
 		
-		\img{../../classDiagram.png}{Diagramme de classes}{0.42}{0}
+		\img{../../classDiagram.png}{Diagramme de classes}{0.34}{0}
 		
 	\chapter{Choix de codage}
 		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
@@ -97,7 +135,7 @@
 		
 		Une classe CHashMap est disponible afin de pouvoir stocker les différentes propriétés que peuvent avoir les sommets ou arcs. Par manque de temps, celle-ci ne gère que des doubles.
 		
-		Nous avons choisi de stocker les propriétés des chemins uniquement dans les arcs sortants de chaque sommet. En effet le dupliquer dans les arcs entrants entraine un redondance des données et est plus contraignant à garder cohérent.
+		Nous avons choisi de stocker les propriétés des chemins uniquement dans les arcs sortants de chaque sommet. En effet, dupliquer cette information dans les arcs entrants entraine un redondance des données et est plus contraignant à garder cohérent.
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
 		
@@ -155,6 +193,9 @@
 			\item Test de la suppression d'un sommet.
 			\item Test de la suppression d'un sommet n'existant pas.
 			\item Test de l'opérateur +.
+			\item Test de l'opérateur -.
+			\item Test de la fonction renvoyant le nombre de sommets du graph.
+			\item Test de la fonction renvoyant la liste des ID de tous les sommets.
 			\item Test de l'ajout d'un arc.
 			\item Test de la suppression d'un arc.
 			\item Test de l'ajout d'un arc avec une destination inexistante.

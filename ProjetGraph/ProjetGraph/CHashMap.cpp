@@ -32,8 +32,8 @@ CHashMap::CHashMap()
 CHashMap::CHashMap(CHashMap const &oHMPmap)
 {
 	uiCount = oHMPmap.uiCount;
-	RREALLOC(ppcKeys, char *, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
-	RREALLOC(pdValues, double, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	MMALLOC(ppcKeys, char *, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	MMALLOC(pdValues, double, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
 	for(unsigned int uiIndex = 0; uiIndex < uiCount; uiIndex++)
 	{
 		ppcKeys[uiIndex] = oHMPmap.ppcKeys[uiIndex] == nullptr ? nullptr : STRDUP(oHMPmap.ppcKeys[uiIndex]);
@@ -202,4 +202,5 @@ CHashMap & CHashMap::operator=(CHashMap const& oHMPmap)
 		ppcKeys[uiIndex] = oHMPmap.ppcKeys[uiIndex] == nullptr ? nullptr : STRDUP(oHMPmap.ppcKeys[uiIndex]);
 		pdValues[uiIndex] = oHMPmap.pdValues[uiIndex];
 	}
+	return *this;
 }
