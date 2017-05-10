@@ -79,7 +79,21 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	bool isConnex();
+	bool GRTisConnex();
+	
+	/**************************************************************
+	 * Tell if a path between two vertices exists.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiStartIndex:   The starting vertex.
+	 *      uiEndIndex:     The ending vertex.
+	 * Output:
+	 *      bool:           True if a path exists between the two, false else.
+	 * PreCond:
+	 * PostCond:
+	 */
+	bool GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex);
 };
 
 #endif

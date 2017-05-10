@@ -83,8 +83,34 @@ void CGraphToolbox::GRTtransformNonOriented()
  * PreCond:
  * PostCond:
  */
-bool CGraphToolbox::isConnex()
+bool CGraphToolbox::GRTisConnex()
 {
 	GRTtransformNonOriented();
+	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
+	for(unsigned int uiVertexStartIndex = 0; uiVertexStartIndex < oGRAgraph.GRAgetVertexCount(); uiVertexStartIndex++)
+	{
+		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
+		{
+			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
+				return false;
+		}
+	}
+	return true;
+}
+
+/**************************************************************
+ * Tell if a path between two vertices exists.
+ **************************************************************
+ *
+ * Input:
+ *      uiStartIndex:   The starting vertex.
+ *      uiEndIndex:     The ending vertex.
+ * Output:
+ *      bool:           True if a path exists between the two, false else.
+ * PreCond:
+ * PostCond:
+ */
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
+{
 	return false; //TODO
 }
