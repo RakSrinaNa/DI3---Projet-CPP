@@ -96,6 +96,8 @@
 		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre a l'interprétation d'un fichier graph se fait dans le constructeur CGraph.
 		
 		Une classe CHashMap est disponible afin de pouvoir stocker les différentes propriétés que peuvent avoir les sommets ou arcs. Par manque de temps, celle-ci ne gère que des doubles.
+		
+		Nous avons choisi de stocker les propriétés des chemins uniquement dans les arcs sortants de chaque sommet. En effet le dupliquer dans les arcs entrants entraine un redondance des données et est plus contraignant à garder cohérent.
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
 		
@@ -176,7 +178,7 @@
 			\item Test de la fonction permettant de raccourcir un string en retirant les caractères non utiles en début et fin de string.
 		\end{itemize}
 	
-	\chapter{Conseils d'utilisation}%TODO Chapter
+	\chapter{Conseils d'utilisation}
 	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments un fichier source de graph formaté comme défini dans le sujet.
 	
 	Suite à cela, il va exécuter les instructions suivantes :
