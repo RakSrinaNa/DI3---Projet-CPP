@@ -369,6 +369,10 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey);
+
+	unsigned int GRAgetVertexCount();
+
+	unsigned int * GRAgetVertexIndices()
 };
 
 #endif

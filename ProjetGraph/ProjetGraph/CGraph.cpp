@@ -547,7 +547,10 @@ CGraph &CGraph::operator=(CGraph const &oGRAgraphParam)
  */
 void CGraph::GRAaddVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(GRAhasVertex(uiVertexIndex))
+		poVERvertexList[uiVertexIndex -1]->VERaddProperty(pcKey, dValue);
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -566,7 +569,10 @@ void CGraph::GRAaddVertexProperty(unsigned int uiVertexIndex, char * pcKey, doub
  */
 void CGraph::GRAmodifyVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(GRAhasVertex(uiVertexIndex))
+		poVERvertexList[uiVertexIndex -1]->VERmodifyProperty(pcKey, dValue);
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -585,7 +591,10 @@ void CGraph::GRAmodifyVertexProperty(unsigned int uiVertexIndex, char * pcKey, d
  */
 double CGraph::GRAgetVertexProperty(unsigned int uiVertexIndex, char * pcKey) const
 {
-	//TODO Victor
+	if(GRAhasVertex(uiVertexIndex))
+		poVERvertexList[uiVertexIndex -1]->VERgetProperty(pcKey);
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -602,7 +611,10 @@ double CGraph::GRAgetVertexProperty(unsigned int uiVertexIndex, char * pcKey) co
  */
 void CGraph::GRAdeleteVertexProperty(unsigned int uiVertexIndex, char * pcKey)
 {
-	//TODO Victor
+	if(GRAhasVertex(uiVertexIndex))
+		poVERvertexList[uiVertexIndex -1]->VERdeleteProperty(pcKey);
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -622,7 +634,10 @@ void CGraph::GRAdeleteVertexProperty(unsigned int uiVertexIndex, char * pcKey)
  */
 void CGraph::GRAaddArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(GRAhasArc(uiArcSource, uiArcDestination))
+		poVERvertexList[uiArcSource -1]->VERaddArcProperty(uiArcDestination, pcKey, dValue);
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -642,7 +657,10 @@ void CGraph::GRAaddArcProperty(unsigned int uiArcSource, unsigned int uiArcDesti
  */
 void CGraph::GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue)
 {
-	//TODO Victor
+	if(GRAhasArc(uiArcSource, uiArcDestination))
+		poVERvertexList[uiArcSource -1]->VERmodifyArcProperty(uiArcDestination, pcKey, dValue);
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -662,7 +680,10 @@ void CGraph::GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDe
  */
 double CGraph::GRAgetArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey) const
 {
-	//TODO Victor
+	if(GRAhasArc(uiArcSource, uiArcDestination))
+		poVERvertexList[uiArcSource -1]->VERgetArcProperty(uiArcDestination, pcKey);
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -680,5 +701,24 @@ double CGraph::GRAgetArcProperty(unsigned int uiArcSource, unsigned int uiArcDes
  */
 void CGraph::GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey)
 {
-	//TODO Victor
+	if(GRAhasArc(uiArcSource, uiArcDestination))
+		poVERvertexList[uiArcSource -1]->VERdeleteArcProperty(uiArcDestination, pcKey);
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This vertex isn't in the graph.");
+}
+
+unsigned int CGraph::GRAgetVertexCount()
+{
+	return uiVertexCount;
+}
+
+unsigned int * CGraph::GRAgetVertexIndices()
+{
+	unsigned int * puiIndices;
+	MMALLOC(puiIndices, unsigned int, uiVertexCount, "GRAgetVertexIndices");
+	unsigned int uiFound = 0;
+	for(unsigned int uiIndex = 0; uiIndex < uiBiggestVertex; uiIndex++)
+		if(poVERvertexList[uiIndex] != nullptr)
+			puiIndices[uiFound++] = uiIndex +1;
+	return puiIndices;
 }
