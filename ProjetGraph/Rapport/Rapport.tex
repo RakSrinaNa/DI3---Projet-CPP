@@ -164,24 +164,17 @@
 		\end{itemize}
 	
 	\chapter{Conseils d'utilisation}%TODO Chapter
-	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments des fichiers sources de matrice formatés comme défini dans le sujet.
+	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments un fichier source de graph formaté comme défini dans le sujet.
 	
 	Suite à cela, il va exécuter les instructions suivantes :
 	\begin{itemize}
-		\item Demander à l'utilisateur un coefficient.
-		\item Calculer et afficher les résultats de la multiplication de chaque matrice par le coefficient précédent.
-		\item Calculer et afficher les résultats de la division de chaque matrice par le coefficient précédent.
-		\item Calculer et afficher le résultat de la somme de toutes les matrices.
-		\item Calculer et afficher le résultat de la somme alternée de toutes les matrices.
-		\item Calculer et afficher le résultat du produit de toutes les matrices. \\
+		\item Affichage du graph.
+		\item Création d'un nouveau graph étant l'inverse du premier.
+		\item Affichage de ce dernier. \\
 	\end{itemize}
-	Si une exception est levée pour n'importe lequel de ces points, le message d'erreur est affiché et le programme s'arrête instantanément.\\
+	Pour une utilisation en tant que librairie, tout se fait a partir d'un objet CGraph. Bien que des sommets et arcs peuvent être instanciés hors d'un graph, ceux-ci ne pourront être inclus dans le graph. Tout objet interne au graph devra et sera construit par les méthodes appropriées du graph.
 	
-	Pour toute autre utilisation, la classe Main devra être modifier par l'utilisateur, deux choix sont possibles.
-	
-	Une matrice peut être lue d'un fichier grâce aux fonctions statiques "PMTXreadMatrix" et "PMTXreadSquareMatrix" prenant chacune en paramètre le chemin relatif d'un fichier source de matrice. La première renverra un objet de la classe CMatrix quelles que soient les réelles dimensions de la matrice lue alors que la seconde créera une matrice carrée (ou lèvera une exception si la matrice lue n'est pas carrée). Les deux lèveront des exceptions si un problème survient lors de la lecture.
-	
-	D'une seconde manière, une matrice peut être créée directement depuis son constructeur mais celle-ci sera remplie de 0. Nous pouvons par la suite utiliser le setter adéquat pour modifier chaque valeur de la matrice a sa guise. A savoir qu'un constructeur identité est disponible pour les matrices carrées.
+	Il est de plus possible d'ajouter des propriétés sur un arc ou un sommet afin de pouvoir étendre les capacités d'une simple visualisation de notre simple librairie.
 
 	Pour toute information supplémentaire sur les méthodes, se référer aux cartouches d'entête présents dans les fichiers .h.
 \end{document}
