@@ -123,7 +123,7 @@ void CArc::ARCmodifyProperty(char * pcKey, double dValue)
  */
 double CArc::ARCgetProperty(char * pcKey) const
 {
-	oHMPproperties.CHMPgetValue(pcKey);
+	return oHMPproperties.CHMPgetValue(pcKey);
 }
 
 /**************************************************************

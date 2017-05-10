@@ -1,7 +1,7 @@
 #ifndef CARC
 #define CARC
 
-#include "CHashMap.h";
+#include "CHashMap.h"
 
 #define MISSING_ARC_INDEX_EXCEPTION 8793
 

@@ -36,6 +36,21 @@ void CGraphUnit::GRAUnitTestVertices()
 	oGraph - 5;
 	if(oGraph.GRAhasVertex(5))
 		CUnit::UNITassertError("ASSERT CGRAPH A4");
+	
+	oGraph + 1;
+	oGraph + 2;
+	oGraph + 3;
+	oGraph + 5;
+	if(oGraph.GRAgetVertexCount() != 4)
+		CUnit::UNITassertError("ASSERT CGRAPH A5");
+	
+	unsigned int puiCorrectValues[] = {1, 2, 3, 5};
+	unsigned int * puiVertexIndices = oGraph.GRAgetVertexIndices();
+	for(unsigned int uiIndex = 0; uiIndex < 4; uiIndex++)
+		if(puiCorrectValues[uiIndex] != puiVertexIndices[uiIndex])
+			CUnit::UNITassertError("ASSERT CGRAPH A6");
+	
+	free(puiVertexIndices);
 }
 
 void CGraphUnit::GRAUnitTestArcs()

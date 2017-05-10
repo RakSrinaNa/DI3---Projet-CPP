@@ -384,7 +384,7 @@ void CVertex::VERmodifyProperty(char * pcKey, double dValue)
  */
 double CVertex::VERgetProperty(char * pcKey) const
 {
-	oHMPproperties.CHMPgetValue(pcKey);
+	return oHMPproperties.CHMPgetValue(pcKey);
 }
 
 /**************************************************************
@@ -428,7 +428,7 @@ void CVertex::VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, dou
 			}
 	}
 	else
-		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This arc doesn't exist");
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -457,7 +457,7 @@ void CVertex::VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, 
 			}
 	}
 	else
-		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This arc doesn't exist");
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -480,13 +480,9 @@ double CVertex::VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) c
 	{
 		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
-			{
-				poARCoutList[uiIndex]->ARCgetProperty(pcKey);
-				break;
-			}
+				return poARCoutList[uiIndex]->ARCgetProperty(pcKey);
 	}
-	else
-		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This arc doesn't exist");
+	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }
 
 /**************************************************************
@@ -513,5 +509,5 @@ void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
 			}
 	}
 	else
-		throw CException(MISSING_ARC_INDEX_EXCEPTION, "This arc doesn't exist");
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
 }

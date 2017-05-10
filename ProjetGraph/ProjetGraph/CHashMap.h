@@ -133,7 +133,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CHashMap & CHashMap::operator=(CHashMap const& oHMPmap);
+	CHashMap & operator=(CHashMap const& oHMPmap);
 };
 
 #endif
