@@ -78,7 +78,9 @@
 			\item L'opérateur d'affectation duplicant un arc.\\
 		\end{itemize}
 		
-		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph.
+		%TODO CHashMap + Completion des autres
+		
+		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Les propriétés qui seront lues doivent être après les information sur l'ID du sommet ou de la source et destination de l'arc.
 		
 		\img{../../classDiagram.png}{Diagramme de classes}{0.42}{0}
 		
@@ -91,7 +93,9 @@
 		Un deuxième choix important est le stockage des sommets dans le graph. Plutôt que d'ajouter à la suite tous les sommets dans un tableau (stockage par ordre d'arrivé), nous posons chaque sommet à la position du tableau égale à l'indice du sommet moins 1. Ainsi le sommet 1 est à la position 0, le 10 à la position 9, etc..
 		
 	
-		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre a l'interprétation d'un fichier graph se fait dans le constructeur CGraph.	
+		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre a l'interprétation d'un fichier graph se fait dans le constructeur CGraph.
+		
+		Une classe CHashMap est disponible afin de pouvoir stocker les différentes propriétés que peuvent avoir les sommets ou arcs. Par manque de temps, celle-ci ne gère que des doubles.
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
 		
@@ -103,6 +107,15 @@
 			\item Tests des différents constructeur impliquant le message de l'exception ainsi que des getters et setters de celui-ci.\\
 		\end{itemize}
 		Ceux-ci sont très généralistes mais couvrent relativement bien les différentes utilisations d'un objet de cette classe.
+		
+		Les tests de CHashMap sont les suivants:
+		\begin{itemize}
+			\item Test de récupération d'une valeur non existante.
+			\item Test de modification d'une valeur non existante.
+			\item Test de l'ajout et récupération d'une valeur.
+			\item Test d'ajout une valeur dupliquée.
+			\item Test de la suppression d'une valeur.
+		\end{itemize}
 		
 		Intéressons-nous maintenant à CArc:
 		\begin{itemize}
