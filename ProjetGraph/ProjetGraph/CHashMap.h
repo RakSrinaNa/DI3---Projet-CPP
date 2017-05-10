@@ -36,6 +36,18 @@ public:
 	CHashMap();
 	
 	/**************************************************************
+	 * Copy constructor.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      oHMPmap: The hashmap to copy.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	CHashMap(CHashMap const& oHMPmap);
+	
+	/**************************************************************
 	 * Destructor.
 	 **************************************************************
 	 *
@@ -99,6 +111,29 @@ public:
 	 * PostCond:
 	 */
 	void CHMPdeleteValue(char * pcKeyParam);
+	
+	/**************************************************************
+	 * Clear the hashmap by deleting every values.
+	 **************************************************************
+	 *
+	 * Input:
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	void HMPclear();
+	
+	/**************************************************************
+	 * Define the = operator.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      oHMPmap: The map to copy.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	CHashMap & CHashMap::operator=(CHashMap const& oHMPmap);
 };
 
 #endif

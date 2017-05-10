@@ -20,6 +20,28 @@ CHashMap::CHashMap()
 }
 
 /**************************************************************
+ * Copy constructor.
+ **************************************************************
+ *
+ * Input:
+ *      oHMPmap: The hashmap to copy.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+CHashMap::CHashMap(CHashMap const &oHMPmap)
+{
+	uiCount = oHMPmap.uiCount;
+	RREALLOC(ppcKeys, char *, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	RREALLOC(pdValues, double, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	for(unsigned int uiIndex = 0; uiIndex < uiCount; uiIndex++)
+	{
+		ppcKeys[uiIndex] = oHMPmap.ppcKeys[uiIndex] == nullptr ? nullptr : STRDUP(oHMPmap.ppcKeys[uiIndex]);
+		pdValues[uiIndex] = oHMPmap.pdValues[uiIndex];
+	}
+}
+
+/**************************************************************
  * Destructor.
  **************************************************************
  *
@@ -30,10 +52,9 @@ CHashMap::CHashMap()
  */
 CHashMap::~CHashMap()
 {
-	for(unsigned int uiIndex = 0; uiIndex < uiCount; uiIndex++)
-		free(ppcKeys[uiIndex]);
-	free(ppcKeys);
-	free(pdValues);
+	HMPclear();
+	ppcKeys = nullptr;
+	pdValues = nullptr;
 }
 
 /**************************************************************
@@ -140,4 +161,45 @@ void CHashMap::CHMPdeleteValue(char * pcKeyParam)
 	int iIndex = CHMPgetKeyIndex(pcKeyParam);
 	if(iIndex >= 0)
 		ppcKeys[iIndex] = nullptr;
+}
+
+/**************************************************************
+ * Clear the hashmap by deleting every values.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+void CHashMap::HMPclear()
+{
+	for(unsigned int uiIndex = 0; uiIndex < uiCount; uiIndex++)
+		free(ppcKeys[uiIndex]);
+	uiCount = 0;
+	free(ppcKeys);
+	free(pdValues);
+}
+
+/**************************************************************
+ * Define the = operator.
+ **************************************************************
+ *
+ * Input:
+ *      oHMPmap: The map to copy.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+CHashMap & CHashMap::operator=(CHashMap const& oHMPmap)
+{
+	HMPclear();
+	uiCount = oHMPmap.uiCount;
+	RREALLOC(ppcKeys, char *, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	RREALLOC(pdValues, double, uiCount, "REALLOC ERROR CHashMap Copy Constructor");
+	for(unsigned int uiIndex = 0; uiIndex < uiCount; uiIndex++)
+	{
+		ppcKeys[uiIndex] = oHMPmap.ppcKeys[uiIndex] == nullptr ? nullptr : STRDUP(oHMPmap.ppcKeys[uiIndex]);
+		pdValues[uiIndex] = oHMPmap.pdValues[uiIndex];
+	}
 }
