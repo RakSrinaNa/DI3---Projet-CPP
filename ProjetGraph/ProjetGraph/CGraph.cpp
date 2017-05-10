@@ -95,16 +95,34 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	for(unsigned int uiVertexIndex = 0; uiVertexIndex < uiVertexCount; uiVertexIndex++)
 	{
 		pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
-		pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
+		
+		int iVertexIndex = -1;
+		unsigned int uiValuesCount = 0;
+		char ** pcValues = CGraphParser::PGRAsplit((char *) ",", &uiValuesCount, pcLineRead);
+		
+		/* For each key/value */
+		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
+		{
+			char * pcValueValue = CGraphParser::PGRAgetLineValue(pcValues[uiValueIndex]);
+			char * pcValueKey = CGraphParser::PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
+			
+			if(STRCMPI("Numero", CGraphParser::PGRAtrim(pcValueKey)) == 0)
+				iVertexIndex = atoi(pcValueValue);
+			else if(iVertexIndex > 0)
+				GRAaddVertexProperty((unsigned int) iVertexIndex, CGraphParser::PGRAtrim(pcValueKey), atof(pcValueValue));
+			
+			free(pcValueKey);
+		}
+		free(pcValues);
 		pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-		if(STRCMPI("Numero", CGraphParser::PGRAtrim(pcLineKey)) != 0)
+		if(iVertexIndex <= 0)
 		{
 			free(pcLineKey);
 			free(pcLineRead);
 			
 			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
 		}
-		GRAaddVertex((unsigned int) atoi(pcLineValue));
+		GRAaddVertex((unsigned int) iVertexIndex);
 		free(pcLineKey);
 		free(pcLineRead);
 	}
@@ -147,13 +165,15 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 				iStart = atoi(pcValueValue);
 			else if(STRCMPI("Fin", CGraphParser::PGRAtrim(pcValueKey)) == 0)
 				iEnd = atoi(pcValueValue);
+			else if(iStart >= 0 && iEnd >= 0)
+				GRAaddArcProperty((unsigned int) iStart, (unsigned int) iEnd, CGraphParser::PGRAtrim(pcValueKey), atof(pcValueValue));
 			
 			free(pcValueKey);
 		}
 		free(pcValues);
 		
 		/* If we don't have the required keys, start and end */
-		if(iStart < 0 || iEnd < 0)
+		if(iStart <= 0 || iEnd <= 0)
 		{
 			free(pcLineRead);
 			
