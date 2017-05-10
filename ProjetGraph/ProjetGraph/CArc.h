@@ -102,6 +102,60 @@ public:
 	 * PostCond:
 	 */
 	CArc &operator=(CArc const &oARCarcParam);
+	
+	/**************************************************************
+	 * Add a property to the arc.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 *      dValue: The value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 */
+	void ARCaddProperty(char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Modify a property of the arc.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 *      dValue: The new value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 */
+	void ARCmodifyProperty(char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a property of the arc.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 * Output:
+	 *      double: The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 */
+	double ARCgetProperty(char * pcKey) const;
+	
+	/**************************************************************
+	 * Delete a property from the arc.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	void ARCdeleteProperty(char * pcKey);
 };
 
 #endif

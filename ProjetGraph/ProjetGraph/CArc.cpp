@@ -73,3 +73,69 @@ CArc &CArc::operator=(CArc const &oARCarcParam)
 	uiVertexIndex = oARCarcParam.uiVertexIndex;
 	return *this;
 }
+
+/**************************************************************
+ * Add a property to the arc.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ *      dValue: The value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+ */
+void CArc::ARCaddProperty(char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Modify a property of the arc.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ *      dValue: The new value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ */
+void CArc::ARCmodifyProperty(char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Get the value of a property of the arc.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ * Output:
+ *      double: The value of the key.
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ */
+double CArc::ARCgetProperty(char * pcKey) const
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Delete a property from the arc.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+void CArc::ARCdeleteProperty(char * pcKey)
+{
+	//TODO Victor
+}

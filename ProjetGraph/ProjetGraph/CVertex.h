@@ -259,6 +259,122 @@ public:
 	 * PostCond:
 	 */
 	CVertex &operator=(CVertex const &oVERvertexParam);
+	
+	/**************************************************************
+	 * Add a property to the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 *      dValue: The value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 */
+	void VERaddProperty(char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Modify a property of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 *      dValue: The new value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 */
+	void VERmodifyProperty(char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a property of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 * Output:
+	 *      double: The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 */
+	double VERgetProperty(char * pcKey) const;
+	
+	/**************************************************************
+	 * Delete a property from the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKey:  The key associated with the value.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	void VERdeleteProperty(char * pcKey);
+	
+	/**************************************************************
+	 * Add a property to an arc of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcDestination:   The arc concerned.
+	 *      pcKey:              The key associated with the value.
+	 *      dValue:             The value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Modify a property of an arc of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcDestination:   The arc concerned.
+	 *      pcKey:              The key associated with the value.
+	 *      dValue:             The new value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a property of an arc of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcDestination:   The arc concerned.
+	 *      pcKey:              The key associated with the value.
+	 * Output:
+	 *      double: The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	double VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) const;
+	
+	/**************************************************************
+	 * Delete a property from an arc of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcDestination:   The arc concerned.
+	 *      pcKey:              The key associated with the value.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey);
 };
 
 #endif

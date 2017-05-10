@@ -241,6 +241,134 @@ public:
 	 * PostCond:
 	 */
 	CGraph &operator=(CGraph const &oGRAgraphParam);
+	
+	/**************************************************************
+	 * Add a property to a vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex.
+	 *      pcKey:          The key associated with the value.
+	 *      dValue:         The value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
+	 */
+	void GRAaddVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Modify a property of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex.
+	 *      pcKey:          The key associated with the value.
+	 *      dValue:         The new value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
+	 */
+	void GRAmodifyVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a property of the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex.
+	 *      pcKey:          The key associated with the value.
+	 * Output:
+	 *      double: The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
+	 */
+	double GRAgetVertexProperty(unsigned int uiVertexIndex, char * pcKey) const;
+	
+	/**************************************************************
+	 * Delete a property from the vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex.
+	 *      pcKey:          The key associated with the value.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
+	 */
+	void GRAdeleteVertexProperty(unsigned int uiVertexIndex, char * pcKey);
+	
+	/**************************************************************
+	 * Add a property to an arc of the graph.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcSource:        The source of the arc.
+	 *      uiArcDestination:   The destination of the arc.
+	 *      pcKey:              The key associated with the value.
+	 *      dValue:             The value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void GRAaddArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Modify a property of an arc of the graph.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcSource:        The source of the arc.
+	 *      uiArcDestination:   The destination of the arc.
+	 *      pcKey:              The key associated with the value.
+	 *      dValue:             The new value to set for the key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a property of an arc of the graph.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcSource:        The source of the arc.
+	 *      uiArcDestination:   The destination of the arc.
+	 *      pcKey:              The key associated with the value.
+	 * Output:
+	 *      double: The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	double GRAgetArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey) const;
+	
+	/**************************************************************
+	 * Delete a property from an arc of the graph.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiArcSource:        The source of the arc.
+	 *      uiArcDestination:   The destination of the arc.
+	 *      pcKey:              The key associated with the value.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+	 */
+	void GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey);
 };
 
 #endif

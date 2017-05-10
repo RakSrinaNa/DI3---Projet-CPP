@@ -335,3 +335,143 @@ CVertex &CVertex::operator=(CVertex const &oVERvertexParam)
 	
 	return *this;
 }
+
+/**************************************************************
+ * Add a property to the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ *      dValue: The value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+ */
+void CVertex::VERaddProperty(char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Modify a property of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ *      dValue: The new value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ */
+void CVertex::VERmodifyProperty(char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Get the value of a property of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ * Output:
+ *      double: The value of the key.
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ */
+double CVertex::VERgetProperty(char * pcKey) const
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Delete a property from the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      pcKey:  The key associated with the value.
+ * Output:
+ * PreCond:
+ * PostCond:
+ */
+void CVertex::VERdeleteProperty(char * pcKey)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Add a property to an arc of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiArcDestination:   The arc concerned.
+ *      pcKey:              The key associated with the value.
+ *      dValue:             The value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+ *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+ */
+void CVertex::VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Modify a property of an arc of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiArcDestination:   The arc concerned.
+ *      pcKey:              The key associated with the value.
+ *      dValue:             The new value to set for the key.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+ */
+void CVertex::VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue)
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Get the value of a property of an arc of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiArcDestination:   The arc concerned.
+ *      pcKey:              The key associated with the value.
+ * Output:
+ *      double: The value of the key.
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
+ *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+ */
+double CVertex::VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) const
+{
+	//TODO Victor
+}
+
+/**************************************************************
+ * Delete a property from an arc of the vertex.
+ **************************************************************
+ *
+ * Input:
+ *      uiArcDestination:   The arc concerned.
+ *      pcKey:              The key associated with the value.
+ * Output:
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
+ */
+void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
+{
+	//TODO Victor
+}

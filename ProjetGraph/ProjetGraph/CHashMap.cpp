@@ -95,7 +95,7 @@ void CHashMap::CHMPmodifyValue(char * pcKeyParam, double dValue)
  * PreCond:
  * PostCond:
  */
-int CHashMap::CHMPgetKeyIndex(char * pcKeyParam)
+int CHashMap::CHMPgetKeyIndex(char * pcKeyParam) const
 {
 	if(pcKeyParam == nullptr)
 		return -1;
@@ -117,7 +117,7 @@ int CHashMap::CHMPgetKeyIndex(char * pcKeyParam)
  * PostCond:
  *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exists.
  */
-double CHashMap::CHMPgetValue(char * pcKeyParam)
+double CHashMap::CHMPgetValue(char * pcKeyParam) const
 {
 	int iIndex = CHMPgetKeyIndex(pcKeyParam);
 	if(iIndex < 0)

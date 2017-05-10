@@ -22,7 +22,7 @@ private:
 	 * PreCond:
 	 * PostCond:
 	 */
-	int CHMPgetKeyIndex(char * pcKeyParam);
+	int CHMPgetKeyIndex(char * pcKeyParam) const;
 public:
 	/**************************************************************
 	 * Default constructor.
@@ -86,7 +86,7 @@ public:
 	 * PostCond:
 	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exists.
 	 */
-	double CHMPgetValue(char * pcKeyParam);
+	double CHMPgetValue(char * pcKeyParam) const;
 	
 	/**************************************************************
 	 * Delete a key and it's value from the map.
