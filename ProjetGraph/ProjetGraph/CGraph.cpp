@@ -602,7 +602,7 @@ void CGraph::GRAmodifyVertexProperty(unsigned int uiVertexIndex, char * pcKey, d
 double CGraph::GRAgetVertexProperty(unsigned int uiVertexIndex, char * pcKey) const
 {
 	if(GRAhasVertex(uiVertexIndex))
-		poVERvertexList[uiVertexIndex - 1]->VERgetProperty(pcKey);
+		return poVERvertexList[uiVertexIndex - 1]->VERgetProperty(pcKey);
 	throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
@@ -622,7 +622,8 @@ void CGraph::GRAdeleteVertexProperty(unsigned int uiVertexIndex, char * pcKey)
 {
 	if(GRAhasVertex(uiVertexIndex))
 		poVERvertexList[uiVertexIndex - 1]->VERdeleteProperty(pcKey);
-	throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
+	else
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -644,7 +645,8 @@ void CGraph::GRAaddArcProperty(unsigned int uiArcSource, unsigned int uiArcDesti
 {
 	if(GRAhasArc(uiArcSource, uiArcDestination))
 		poVERvertexList[uiArcSource - 1]->VERaddArcProperty(uiArcDestination, pcKey, dValue);
-	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -666,7 +668,8 @@ void CGraph::GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDe
 {
 	if(GRAhasArc(uiArcSource, uiArcDestination))
 		poVERvertexList[uiArcSource - 1]->VERmodifyArcProperty(uiArcDestination, pcKey, dValue);
-	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
 /**************************************************************
@@ -687,7 +690,7 @@ void CGraph::GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDe
 double CGraph::GRAgetArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey) const
 {
 	if(GRAhasArc(uiArcSource, uiArcDestination))
-		poVERvertexList[uiArcSource - 1]->VERgetArcProperty(uiArcDestination, pcKey);
+		return poVERvertexList[uiArcSource - 1]->VERgetArcProperty(uiArcDestination, pcKey);
 	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
@@ -708,7 +711,8 @@ void CGraph::GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDe
 {
 	if(GRAhasArc(uiArcSource, uiArcDestination))
 		poVERvertexList[uiArcSource - 1]->VERdeleteArcProperty(uiArcDestination, pcKey);
-	throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
+	else
+		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }
 
 /**************************************************************
