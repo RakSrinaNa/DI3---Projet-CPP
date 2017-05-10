@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "CGraphToolbox.h"
 #include "CException.h"
 
@@ -92,9 +93,13 @@ bool CGraphToolbox::GRTisConnex()
 		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
 		{
 			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
+			{
+				free(puiVertexIndices);
 				return false;
+			}
 		}
 	}
+	free(puiVertexIndices);
 	return true;
 }
 
