@@ -2,7 +2,7 @@ language: c++
 compiler: g++
 install:
 - sudo apt-get install valgrind
-script: make test
+script: cd ProjetGraph && make test
 notifications:
   email: true
   on_failure: always
