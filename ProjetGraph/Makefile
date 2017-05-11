@@ -1,4 +1,4 @@
-export CPPFLAGS=-std=c++11 -Wall -Werror -W -pedantic -static -g
+export CPPFLAGS=-std=c++0x -Wall -Werror -W -pedantic -static -g
 export LDFLAGS=-lm
 export EXEC=Graph
 SRC_DIR=ProjetGraph
