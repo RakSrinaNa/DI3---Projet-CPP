@@ -84,6 +84,7 @@ void CGraphToolbox::GRTtransformNonOriented()
                 {
                 }
             }
+    free(puiVertexIndices);
 }
 
 /**************************************************************
