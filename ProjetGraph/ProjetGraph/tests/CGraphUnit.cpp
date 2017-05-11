@@ -5,10 +5,15 @@
 
 void CGraphUnit::GRAUnitTests()
 {
+	printf("A\n");
 	GRAUnitTestVertices();
+	printf("B\n");
 	GRAUnitTestArcs();
+	printf("C\n");
 	GRAUnitTestCopy();
+	printf("D\n");
 	GRAUnitTestReadFromFile();
+	printf("E\n");
 }
 
 void CGraphUnit::GRAUnitTestVertices()
