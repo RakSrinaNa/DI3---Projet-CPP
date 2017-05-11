@@ -35,6 +35,8 @@ CGraph::CGraph() : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0
  */
 CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), uiBiggestVertex(0)
 {
+	printf("A\n");
+	
 	/* Open the file */
 	FILE * poFILEfile;
 	try
@@ -46,7 +48,9 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 		perror(poEXexception.EXgetExceptionMessage());
 		throw poEXexception;
 	}
-
+	
+	printf("B\n");
+	
 	/* Get vertices count */
 	char * pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
 	char * pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
@@ -61,7 +65,9 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	unsigned int uiVertexCount = (unsigned int) atoi(pcLineValue);
 	free(pcLineKey);
 	free(pcLineRead);
-
+	
+	printf("C\n");
+	
 	/* Get arcs count */
 	pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
 	pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
@@ -76,7 +82,9 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	unsigned int uiArcCount = (unsigned int) atoi(pcLineValue);
 	free(pcLineKey);
 	free(pcLineRead);
-
+	
+	printf("D\n");
+	
 	/* Get vertices */
 	pcLineRead = CGraphParser::PGRAreadLineFromFile(poFILEfile);
 	pcLineValue = CGraphParser::PGRAgetLineValue(pcLineRead);
@@ -90,7 +98,9 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	}
 	free(pcLineKey);
 	free(pcLineRead);
-
+	
+	printf("E\n");
+	
 	/* For each expected vertex */
 	for(unsigned int uiVertexIndex = 0; uiVertexIndex < uiVertexCount; uiVertexIndex++)
 	{
@@ -130,6 +140,8 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 		free(pcLineKey);
 		free(pcLineRead);
 	}
+	
+	printf("F\n");
 
 	/* Skip line containing ] */
 	free(CGraphParser::PGRAreadLineFromFile(poFILEfile));
@@ -147,6 +159,8 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	}
 	free(pcLineKey);
 	free(pcLineRead);
+	
+	printf("G\n");
 
 	/* For each expected arc */
 	for(unsigned int uiArcIndex = 0; uiArcIndex < uiArcCount; uiArcIndex++)
@@ -193,6 +207,8 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 
 		free(pcLineRead);
 	}
+	
+	printf("H\n");
 
 	fclose(poFILEfile);
 }
