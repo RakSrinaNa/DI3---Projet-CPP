@@ -119,16 +119,10 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 			free(pcValueKey);
 		}
 		free(pcValues);
-		pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
-		if(!bVertexAdded)
-		{
-			free(pcLineKey);
-			free(pcLineRead);
-			
-			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
-		}
-		free(pcLineKey);
 		free(pcLineRead);
+		
+		if(!bVertexAdded)
+			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
 	}
 	
 	/* Skip line containing ] */
@@ -182,16 +176,11 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 			free(pcValueKey);
 		}
 		free(pcValues);
+		free(pcLineRead);
 		
 		/* If we don't have the required keys, start and end */
 		if(!bArcAdded)
-		{
-			free(pcLineRead);
-			
 			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs malformatted");
-		}
-		
-		free(pcLineRead);
 	}
 	
 	fclose(poFILEfile);
@@ -270,9 +259,9 @@ void CGraph::GRAremoveVertex(unsigned int uiVertexIndex)
 		uiVertexCount--;
 		
 		/*If the biggest vertex was deleted, reallocation of the list */
-		int uiIndex;
-		for(uiIndex = uiBiggestVertex - 1; uiIndex >= 0u && poVERvertexList[uiIndex] == nullptr; uiIndex--);
-		uiBiggestVertex = (unsigned int) (uiIndex + 1);
+		int iIndex;
+		for(iIndex = uiBiggestVertex - 1; iIndex >= 0 && poVERvertexList[iIndex] == nullptr; iIndex--);
+		uiBiggestVertex = (unsigned int) (iIndex + 1);
 		RREALLOC(poVERvertexList, CVertex *, uiBiggestVertex, "RREALLOC ERROR GRAremoveVertex");
 	}
 }
