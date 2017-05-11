@@ -110,10 +110,13 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 		unsigned int iVertexIndex = 0;
 		unsigned int uiValuesCount = 0;
 		char ** pcValues = CGraphParser::PGRAsplit((char *) ",", &uiValuesCount, pcLineRead);
-
+		
+		printf("EE\n");
+		
 		/* For each key/value */
 		for(unsigned int uiValueIndex = 0; uiValueIndex < uiValuesCount; uiValueIndex++)
 		{
+			printf("E-\n");
 			char * pcValueValue = CGraphParser::PGRAgetLineValue(pcValues[uiValueIndex]);
 			char * pcValueKey = CGraphParser::PGRAgetLineKey(pcValues[uiValueIndex], pcValueValue - 1);
 
@@ -129,6 +132,8 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 			free(pcValueKey);
 		}
 		free(pcValues);
+		printf("EE2\n");
+		
 		pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
 		if(!bVertexAdded)
 		{
