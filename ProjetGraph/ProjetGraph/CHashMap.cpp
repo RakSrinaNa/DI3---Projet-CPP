@@ -53,8 +53,6 @@ CHashMap::CHashMap(CHashMap const &oHMPmap)
 CHashMap::~CHashMap()
 {
 	HMPclear();
-	ppcKeys = nullptr;
-	pdValues = nullptr;
 }
 
 /**************************************************************
@@ -160,7 +158,10 @@ void CHashMap::CHMPdeleteValue(char * pcKeyParam)
 {
 	int iIndex = CHMPgetKeyIndex(pcKeyParam);
 	if(iIndex >= 0)
+	{
+		free(ppcKeys[iIndex]);
 		ppcKeys[iIndex] = nullptr;
+	}
 }
 
 /**************************************************************
