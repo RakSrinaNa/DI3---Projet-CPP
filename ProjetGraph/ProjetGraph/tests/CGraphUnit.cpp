@@ -5,15 +5,10 @@
 
 void CGraphUnit::GRAUnitTests()
 {
-	printf("A\n");
 	GRAUnitTestVertices();
-	printf("B\n");
 	GRAUnitTestArcs();
-	printf("C\n");
 	GRAUnitTestCopy();
-	printf("D\n");
 	GRAUnitTestReadFromFile();
-	printf("E\n");
 }
 
 void CGraphUnit::GRAUnitTestVertices()
@@ -198,6 +193,7 @@ void CGraphUnit::GRAUnitTestCopy()
 
 void CGraphUnit::GRAUnitTestReadFromFile()
 {
+	printf("A\n");
 	CGraph * graph = new CGraph((char *) "g1.txt");
 	if(!graph->GRAhasVertex(1) || !graph->GRAhasVertex(2) || !graph->GRAhasVertex(3) || !graph->GRAhasVertex(4) || !graph->GRAhasVertex(5))
 		CUnit::UNITassertError("ASSERT CGRAPH D1");
@@ -205,6 +201,7 @@ void CGraphUnit::GRAUnitTestReadFromFile()
 		CUnit::UNITassertError("ASSERT CGRAPH D2");
 	delete graph;
 	
+	printf("B\n");
 	graph = new CGraph((char *) "g2.txt");
 	if(!graph->GRAhasVertex(1) || !graph->GRAhasVertex(2) || !graph->GRAhasVertex(3) || !graph->GRAhasVertex(4) || !graph->GRAhasVertex(5) || !graph->GRAhasVertex(6) || !graph->GRAhasVertex(7) || !graph->GRAhasVertex(8) || !graph->GRAhasVertex(9) || !graph->GRAhasVertex(10) || !graph->GRAhasVertex(11) || !graph->GRAhasVertex(12) || !graph->GRAhasVertex(13) || graph->GRAhasVertex(14) || !graph->GRAhasVertex(15) || graph->GRAhasVertex(16) || !graph->GRAhasVertex(17))
 		CUnit::UNITassertError("ASSERT CGRAPH D3");
