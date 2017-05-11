@@ -137,6 +137,11 @@ bool CGraphToolbox::GRTisConnex()
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored)
 {
     unsigned int * puiReachableIndices = oGRAgraph.GRAgetReachableIndices(uiStartIndex);
+
+    puiAlreadyExplored[0]++;
+    RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] +1, "GRThasPath");
+    puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
+
 	for(unsigned int uiIndex = 0; uiIndex < puiReachableIndices[0]; uiIndex++)
     {
         //If the end is directly reachable
@@ -158,10 +163,6 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
             continue;
 
         //In any other case, explore the next vertex
-        puiAlreadyExplored[0]++;
-        RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] +1, "GRThasPath");
-        puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
-
         bool bHasPath = GRThasPath(puiReachableIndices[uiIndex +1], uiEndIndex, puiAlreadyExplored);
         if(bHasPath)
         {
