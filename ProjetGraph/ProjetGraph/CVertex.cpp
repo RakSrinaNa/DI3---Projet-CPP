@@ -420,7 +420,7 @@ void CVertex::VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, dou
 {
 	if(VERhasIndexOut(uiArcDestination))
 	{
-		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			{
 				poARCoutList[uiIndex]->ARCaddProperty(pcKey, dValue);
@@ -449,7 +449,7 @@ void CVertex::VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, 
 {
 	if(VERhasIndexOut(uiArcDestination))
 	{
-		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			{
 				poARCoutList[uiIndex]->ARCmodifyProperty(pcKey, dValue);
@@ -478,7 +478,7 @@ double CVertex::VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) c
 {
 	if(VERhasIndexOut(uiArcDestination))
 	{
-		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
 				return poARCoutList[uiIndex]->ARCgetProperty(pcKey);
 	}
@@ -501,7 +501,7 @@ void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
 {
 	if(VERhasIndexOut(uiArcDestination))
 	{
-		for(int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+		for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 			if(uiArcDestination == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			{
 				poARCoutList[uiIndex]->ARCdeleteProperty(pcKey);

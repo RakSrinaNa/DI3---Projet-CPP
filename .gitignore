@@ -19,3 +19,4 @@ targetver.h
 */Release/*.txt
 *vcxproj.user
 *.bak
+Graph
