@@ -132,18 +132,11 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 			free(pcValueKey);
 		}
 		free(pcValues);
+		free(pcLineRead);
 		printf("EE2\n");
 		
-		pcLineKey = CGraphParser::PGRAgetLineKey(pcLineRead, pcLineValue - 1);
 		if(!bVertexAdded)
-		{
-			free(pcLineKey);
-			free(pcLineRead);
-
 			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Sommets expected, get something else");
-		}
-		free(pcLineKey);
-		free(pcLineRead);
 	}
 	
 	printf("F\n");
@@ -159,7 +152,6 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 	{
 		free(pcLineKey);
 		free(pcLineRead);
-
 		throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs expected, get something else");
 	}
 	free(pcLineKey);
@@ -201,16 +193,12 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 			free(pcValueKey);
 		}
 		free(pcValues);
+		free(pcLineRead);
 
 		/* If we don't have the required keys, start and end */
 		if(!bArcAdded)
-		{
-			free(pcLineRead);
-
 			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs malformatted");
-		}
 
-		free(pcLineRead);
 	}
 	
 	printf("H\n");
