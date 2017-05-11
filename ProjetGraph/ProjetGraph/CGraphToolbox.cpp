@@ -129,7 +129,41 @@ bool CGraphToolbox::GRTisConnex()
  * PreCond:
  * PostCond:
  */
-bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored, unsigned int uiSize)
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored)
 {
+    unsigned int * puiReachableIndices = oGRAgraph.GRAgetReachableIndices(uiStartIndex);
+	for(unsigned int uiIndex = 0; uiIndex < puiReachableIndices[0]; uiIndex++)
+    {
+        //If the end is directly reachable
+        if(puiReachableIndices[uiIndex +1] == uiEndIndex)
+        {
+            free(puiReachableIndices);
+            return true;
+        }
+
+        //Verify if the next vertex hasn't already been explored
+        bool bIsExplored = false;
+        for(unsigned int uiIndex2 = 0; uiIndex2 < puiAlreadyExplored[0]; uiIndex2++)
+            if(puiReachableIndices[uiIndex +1] == puiAlreadyExplored[uiIndex2 +1])
+            {
+                bIsExplored = true;
+                break;
+            }
+        if(bIsExplored)
+            continue;
+
+        //In any other case, explore the next vertex
+        puiAlreadyExplored[0]++;
+        RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] +1, "GRThasPath");
+        puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
+
+        bool bHasPath = GRThasPath(puiReachableIndices[uiIndex +1], uiEndIndex, puiAlreadyExplored);
+        if(bHasPath)
+        {
+            free(puiReachableIndices);
+            return true;
+        }
+    }
+    free(puiReachableIndices);
 	return false; //TODO
 }

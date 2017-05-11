@@ -34,10 +34,10 @@ CVertex::CVertex(CVertex const &oVERvertexParam) : uiVertexIndex(oVERvertexParam
 {
 	MMALLOC(poARCinList, CArc *, uiArcInCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
 	MMALLOC(poARCoutList, CArc *, uiArcOutCount, "MALLOC ERROR CVERTEX CONSTRUCTOR");
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*oVERvertexParam.poARCinList[uiIndex]);
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		poARCoutList[uiIndex] = new CArc(*oVERvertexParam.poARCoutList[uiIndex]);
 }
@@ -70,7 +70,7 @@ CVertex::~CVertex()
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		delete poARCinList[uiIndex];
 	free(poARCinList);
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		delete poARCoutList[uiIndex];
 	free(poARCoutList);
@@ -92,7 +92,7 @@ void CVertex::VERaddArcIn(unsigned int uiFromVertexIndex)
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		if(uiFromVertexIndex == poARCinList[uiIndex]->ARCgetVertexIndex())
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
-	
+
 	uiArcInCount++;
 	RREALLOC(poARCinList, CArc *, uiArcInCount, "RREALLOC ERROR VERaddArcOut");
 	poARCinList[uiArcInCount - 1] = new CArc(uiFromVertexIndex);
@@ -137,7 +137,7 @@ void CVertex::VERaddArcOut(unsigned int uiToVertexIndex)
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		if(uiToVertexIndex == poARCoutList[uiIndex]->ARCgetVertexIndex())
 			throw CException(DUPLICATE_ARC_EXCEPTION, (char *) "This arc is already existing");
-	
+
 	uiArcOutCount++;
 	RREALLOC(poARCoutList, CArc *, uiArcOutCount, "RREALLOC ERROR VERaddArcOut");
 	poARCoutList[uiArcOutCount - 1] = new CArc(uiToVertexIndex);
@@ -293,7 +293,7 @@ void CVertex::VERinvert()
 	unsigned int uiInTempo = uiArcInCount;
 	uiArcInCount = uiArcOutCount;
 	uiArcOutCount = uiInTempo;
-	
+
 	CArc ** poARCInTempo = poARCinList;
 	poARCinList = poARCoutList;
 	poARCoutList = poARCInTempo;
@@ -311,28 +311,28 @@ void CVertex::VERinvert()
  */
 CVertex &CVertex::operator=(CVertex const &oVERvertexParam)
 {
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		delete poARCinList[uiIndex];
 	free(poARCinList);
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		delete poARCoutList[uiIndex];
 	free(poARCoutList);
-	
+
 	uiVertexIndex = oVERvertexParam.uiVertexIndex;
 	uiArcInCount = oVERvertexParam.uiArcInCount;
 	uiArcOutCount = oVERvertexParam.uiArcOutCount;
-	
+
 	MMALLOC(this->poARCinList, CArc *, uiArcInCount, "MMALLOC ERROR OPERATOR= CVERTEX");
 	MMALLOC(this->poARCoutList, CArc *, uiArcOutCount, "MMALLOC ERROR OPERATOR= CVERTEX");
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcInCount; uiIndex++)
 		poARCinList[uiIndex] = new CArc(*(oVERvertexParam.poARCinList[uiIndex]));
-	
+
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		poARCoutList[uiIndex] = new CArc(*(oVERvertexParam.poARCoutList[uiIndex]));
-	
+
 	return *this;
 }
 
@@ -510,4 +510,24 @@ void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
 	}
 	else
 		throw CException(MISSING_ARC_INDEX_EXCEPTION, (char *) "This arc doesn't exist");
+}
+
+/**************************************************************
+ * Get the list of the reachable vertex indices.
+ **************************************************************
+ *
+ * Input:
+ * Output:
+ *      unsigned int *: The list of the reachable indices.
+ * PreCond:
+ * PostCond:
+ */
+unsigned int * CVertex::VERgetReachableIndices()
+{
+    unsigned int * puiReachableIndices;
+    MMALLOC(puiReachableIndices, unsigned int, uiArcOutCount +1, "VERgetReachableIndices");
+    puiReachableIndices[0] = uiArcOutCount;
+    for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
+        puiReachableIndices[uiIndex +1] = poARCoutList[uiIndex]->ARCgetVertexIndex();
+    return puiReachableIndices;
 }
