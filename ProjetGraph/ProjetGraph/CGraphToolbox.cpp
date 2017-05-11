@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include "CGraphToolbox.h"
 #include "CException.h"
+#include "utils.h"
 
 /**************************************************************
  * Default constructor. Do not use. Prefer CGraphToolbox(CGraph *).
@@ -72,8 +73,8 @@ CGraph const &CGraphToolbox::GRTgetGraph() const
 void CGraphToolbox::GRTtransformNonOriented()
 {
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
-	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.uiVertexCount; uiVertexIndex1++)
-        for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.uiVertexCount; uiVertexIndex2++)
+	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex1++)
+        for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex2++)
             if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
             {
                 try
@@ -140,7 +141,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
     unsigned int * puiReachableIndices = oGRAgraph.GRAgetReachableIndices(uiStartIndex);
 
     puiAlreadyExplored[0]++;
-    RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] +1, "GRThasPath");
+    RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] + 1, "GRThasPath");
     puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
 
 	for(unsigned int uiIndex = 0; uiIndex < puiReachableIndices[0]; uiIndex++)

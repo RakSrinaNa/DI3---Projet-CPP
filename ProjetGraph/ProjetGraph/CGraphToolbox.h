@@ -94,7 +94,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	bool GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex);
+	bool GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored);
 };
 
 #endif
