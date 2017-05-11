@@ -89,7 +89,6 @@ public:
 	 *      uiStartIndex:           The starting vertex.
 	 *      uiEndIndex:             The ending vertex.
      *      puiAlreadyExplored :    The table of the already explored vertices.
-     *      puiSize :               The size of the previous table.
 	 * Output:
 	 *      bool:           True if a path exists between the two, false else.
 	 * PreCond:

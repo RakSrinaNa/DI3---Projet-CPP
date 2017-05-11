@@ -104,11 +104,17 @@ bool CGraphToolbox::GRTisConnex()
 	{
 		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
 		{
-			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
+		    unsigned int * puiAlreadyExplored;
+		    MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
+		    puiAlreadyExplored[0] = 0;
+
+			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex], puiAlreadyExplored))
 			{
 				free(puiVertexIndices);
+				free(puiAlreadyExplored);
 				return false;
 			}
+            free(puiAlreadyExplored);
 		}
 	}
 	free(puiVertexIndices);
@@ -123,7 +129,6 @@ bool CGraphToolbox::GRTisConnex()
  *      uiStartIndex:           The starting vertex.
  *      uiEndIndex:             The ending vertex.
  *      puiAlreadyExplored :    The table of the already explored vertices.
- *      puiSize :               The size of the previous table.
  * Output:
  *      bool:           True if a path exists between the two, false else.
  * PreCond:
