@@ -71,7 +71,19 @@ CGraph const &CGraphToolbox::GRTgetGraph() const
  */
 void CGraphToolbox::GRTtransformNonOriented()
 {
-	//TODO
+	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.uiBiggestVertex; uiVertexIndex1++)
+        if(oGRAgraph.GRAhasVertex(uiVertexIndex1))
+            for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.uiBiggestVertex; uiVertexIndex2++)
+                if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
+                {
+                    try
+                    {
+                        oGRAgraph.GRAaddArc(uiVertexIndex2, uiVertexIndex1);
+                    }
+                    catch(CException const &oEXexception)
+                    {
+                    }
+                }
 }
 
 /**************************************************************
@@ -108,14 +120,16 @@ bool CGraphToolbox::GRTisConnex()
  **************************************************************
  *
  * Input:
- *      uiStartIndex:   The starting vertex.
- *      uiEndIndex:     The ending vertex.
+ *      uiStartIndex:           The starting vertex.
+ *      uiEndIndex:             The ending vertex.
+ *      puiAlreadyExplored :    The table of the already explored vertices.
+ *      puiSize :               The size of the previous table.
  * Output:
  *      bool:           True if a path exists between the two, false else.
  * PreCond:
  * PostCond:
  */
-bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored, unsigned int uiSize)
 {
 	return false; //TODO
 }

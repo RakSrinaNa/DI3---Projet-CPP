@@ -22,7 +22,7 @@ public:
 	 *      Throws a CException with the ID `NO_GRAPH_EXCEPTION`.
 	 */
 	CGraphToolbox();
-	
+
 	/**************************************************************
 	 * Confort constructor taking a graph.
 	 **************************************************************
@@ -33,8 +33,8 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	explicit CGraphToolbox(CGraph const &graph);
-	
+	CGraphToolbox(CGraph const &graph);
+
 	/**************************************************************
 	 * Destructor.
 	 **************************************************************
@@ -45,7 +45,7 @@ public:
 	 * PostCond:
 	 */
 	~CGraphToolbox();
-	
+
 	/**************************************************************
 	 * Get the current graph.
 	 **************************************************************
@@ -57,7 +57,7 @@ public:
 	 * PostCond:
 	 */
 	CGraph const& GRTgetGraph() const;
-	
+
 	/**************************************************************
 	 * Transform the current graph into a non oriented one.
 	 **************************************************************
@@ -68,7 +68,7 @@ public:
 	 * PostCond:
 	 */
 	void GRTtransformNonOriented();
-	
+
 	/**************************************************************
 	 * Tell if the graph is connected.
 	 **************************************************************
@@ -80,14 +80,16 @@ public:
 	 * PostCond:
 	 */
 	bool GRTisConnex();
-	
+
 	/**************************************************************
 	 * Tell if a path between two vertices exists.
 	 **************************************************************
 	 *
 	 * Input:
-	 *      uiStartIndex:   The starting vertex.
-	 *      uiEndIndex:     The ending vertex.
+	 *      uiStartIndex:           The starting vertex.
+	 *      uiEndIndex:             The ending vertex.
+     *      puiAlreadyExplored :    The table of the already explored vertices.
+     *      puiSize :               The size of the previous table.
 	 * Output:
 	 *      bool:           True if a path exists between the two, false else.
 	 * PreCond:
