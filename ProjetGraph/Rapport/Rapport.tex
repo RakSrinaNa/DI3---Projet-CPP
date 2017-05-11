@@ -123,7 +123,7 @@
 		\img{../../classDiagram.png}{Diagramme de classes}{0.34}{0}
 		
 	\chapter{Choix de codage}
-		Avant tout chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
+		Avant toute chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
 	
 		Un point important est l'absence d'accesseurs des objets CVertex et CArc depuis un graph. De cette façon, l'utilisateur ne peut pas modifier un sommet ou un arc appartenant à un graph en appelant les méthodes de CVertex ou de CArc directement sur l'objet en question. Il est obligé de passer par les méthodes de CGraph qui appeleront elles-mêmes les sous-méthodes nécessaires.\\
 		Cela évite qu'un sommet (ou un arc) soit ajouté, modifié ou supprimé sans que l'objet graph n'en soit informé ce qui évite un état incohérent du graph..\\
