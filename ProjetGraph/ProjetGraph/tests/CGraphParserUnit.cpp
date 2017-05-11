@@ -59,4 +59,5 @@ void CGraphParserUnit::PGRAUnitTests()
 	char * pcTrimmed = CGraphParser::PGRAtrim(pcTrimTest);
 	if(pcTrimmed != (pcTrimTest + 4) || strcmp("AAA BBB CCC", pcTrimmed) != 0)
 		CUnit::UNITassertError("CGraphParser 8");
+	free(pcTrimTest);
 }
