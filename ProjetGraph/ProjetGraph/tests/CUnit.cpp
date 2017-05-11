@@ -5,6 +5,7 @@
 #include "CVertexUnit.h"
 #include "CGraphUnit.h"
 #include "CGraphParserUnit.h"
+#include "CHashMapUnit.h"
 #include "../CException.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
@@ -24,6 +25,10 @@ void CUnit::UNITlaunchTests()
 	std::cout << "Starting CException tests..." << std::endl;
 	CExceptionUnit::EXUnitTests();
 	std::cout << "CException OK" << std::endl << std::endl;
+	
+	std::cout << "Starting CHashMap tests..." << std::endl;
+	CHashMapUnit::HMPUnitTest();
+	std::cout << "CHashMap OK" << std::endl << std::endl;
 	
 	std::cout << "Starting CArc tests..." << std::endl;
 	CArcUnit::ARCUnitTests();

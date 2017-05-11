@@ -13,126 +13,111 @@ class CGraphParser
 {
 public:
 	/**************************************************************
-	 * Lis une matrice a partir d'une fichier.
+	 * Return the value of a line from the file (value after the =).
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcFileName:     Le chemin du fichier a lire.
-	 * Sortie:
-	 *      CGraph:         Le graph lu.
+	 * Input:
+	 *      pcLine:     The line to process.
+	 * Output:
+	 *      char *:     A pointer on the character after the =.
 	 * PreCond:
 	 * PostCond:
-	 *      Renvoie une CException avec l'ID `IO_FILE_EXCEPTION` si une erreur de lecture est survenue.
-	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si le fichier est mal formatte.
-	 */
-	static CGraph * PGRAreadGraph(char * pcFileName);
-
-private:
-	/**************************************************************
-	 * Renvoi la valeur d'une ligne du ficher (valeur après le =).
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      pcLine:     La ligne concernée.
-	 * Sortie:
-	 *      char *:     Un pointeur sur le premier caractère après le =.
-	 * PreCond:
-	 * PostCond:
-	 *      Renvoie une CException avec l'ID `MALFORMATTED_FILE_EXCEPTION` si aucun = n'est trouve.
+	 *      Throws a CException with the ID `MALFORMATTED_FILE_EXCEPTION` if no = were found.
 	 */
 	static char * PGRAgetLineValue(char * pcLine);
 	
 	/**************************************************************
-	 * Renvoi la clef d'une ligne du ficher (valeur avant le =) dupliquee sur le tas.
+	 * Return the key of a line from the file (value before the =) duplicated on the heap.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcStart:    Le debut de la ligne.
-	 *      pcEnd:      La position du signe =;
-	 * Sortie:
-	 *      char *:     Un string sur le tas representant la clef.
+	 * Input:
+	 *      pcStart:    Le beginning of the line.
+	 *      pcEnd:      The position of the =.
+	 * Output:
+	 *      char*:      A new string on the heap representing the key.
 	 * PreCond:
 	 * PostCond:
 	 */
 	static char * PGRAgetLineKey(char * pcStart, char * pcEnd);
 	
 	/**************************************************************
-	 * Lis une ligne du fichier.
+	 * Read a line from the file.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcLinePtr:      Un pointeur qui pointera sur la destination du string lu.
-	 *      pcLineSize:     Un pointeur qui pointera sur la taille allouée.
-	 *      poFILEfile:     Le fichier a lire.
-	 * Sortie:
-	 *      int:            La longeur de la chaine lue, sans compter le '\0'.
+	 * Input:
+	 *      pcLinePtr:      A pointer that will point on the read string.
+	 *      pcLineSize:     A pointer that will point on the allocated size.
+	 *      poFILEfile:     The file to read.
+	 * Output:
+	 *      int:            The size of the string read, without taking into account the '\0'.
 	 * PreCond:
 	 * PostCond:
-	 *      pcLinePtr:      Pointe sur la ligne lue.
-	 *      pcLineSize:     Pointe sur la tailel allouée pour pcLinePtr.
+	 *      pcLinePtr:      Point on the read string.
+	 *      pcLineSize:     Point on the size allocated for pcLinePtr.
 	 *
-	 *      Si aucune ligne n'a pu être lue, -1 est renvoyé.
+	 *      If no line has been read, -1 is returned.
 	 */
 	static int PGRAgetLine(char ** pcLinePtr, size_t * pcLineSize, FILE * poFILEfile);
 	
 	/**************************************************************
-	 * Lis une ligne non vide du fichier.
+	 * Read a line from the line until a non empty one is found.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      poFILEfile:     Le fichier a lire.
-	 * Sortie:
-	 *      char *:         La ligne lue.
+	 * Input:
+	 *      poFILEfile:     The file to read.
+	 * Output:
+	 *      char *:         The read line.
 	 * PreCond:
 	 * PostCond:
-	 *      Si aucune ligne n'a pu être lue, NULL est renvoyé.
+	 *      If no line could have been read, NULL is returned.
 	 */
 	static char * PGRAreadLineFromFile(FILE * poFILEfile);
 	
 	/**************************************************************
-	 * Renvoie un tableau de clef/valeur.
+	 * Return an array of key/value.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcSeparators:   Un string representant une liste des separateurs.
-	 *      puiSize:        Un pointeur sur un entier qui contiendra la taille du tableau.
-	 *      pcString:       Le string a decouper.
-	 * Sortie:
-	 *      char**:         Un tableau de string contenant les clefs/valeurs.
+	 * Input:
+	 *      pcSeparators:       A string which represent a list of the different separators.
+	 *      puiSize:            A pointer to an int that will contain the array size.
+	 *      pcStartingString:   The string to split.
+	 * Output:
+	 *      char**:             An array containing the key/value.
 	 * PreCond:
 	 * PostCond:
-	 *      puiSize contient la taille du tableau retourne.
+	 *      puiSize contains the size of the returned array.
 	 */
 	static char ** PGRAsplit(char * pcSeparators, unsigned int * puiSize, char * pcString);
 	
 	/**************************************************************
-	 * Rogne le string.
+	 * Trim a string.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      pcString:   Le string a rogner.
-	 * Sortie:
-	 *      char*:      Le string rogne.
+	 * Input:
+	 *      pcString:   The string to trim.
+	 * Output:
+	 *      char*:      The trimmed string.
 	 * PreCond:
-	 *      pcString non null.
+	 *      pcString not null.
 	 * PostCond:
+	 *      The value pointed by pcString is modified.
 	 */
 	static char * PGRAtrim(char * pcString);
 	
 	/**************************************************************
-	 * Decoupe une portion d'un string jusqu'a un delimiteur.
+	 * Cut a string until a delimiter is found.
 	 **************************************************************
 	 *
-	 * Entree:
-	 *      ppcNextString:  Un pointeur sur le string a decouper.
-	 *      pcDelims:       Un string contenant les delimiteurs.
-	 * Sortie:
-	 *      char*:          Un pointeur sur le debut du string jusqu'au prochain delimiteur.
+	 * Input:
+	 *      ppcNextString:  A pointer to the next string.
+	 *      pcDelims:       A string containing the delimiters.
+	 * Output:
+	 *      char*:          A pointer to the beginning of the string until the delimiter.
 	 * PreCond:
 	 * PostCond:
-	 *      ppcNextString contient un pointeur sur le string apres le delimiteur, ou null si le string ne contenait pas de delimiteur.
-	 *      La valeur pointee par ppcNextString est modifiee.
-	 *      Le retour pointe sur une partie du string contenu dans ppcNextString, a ne pas desalouer.
+	 *      ppcNextString contains a pointer on the string after the delimiter, or null if the string doesn't contain any delimiter.
+	 *      The value pointed by ppcNextString is modified.
+	 *      What is pointed by the returned value is a part of ppcNextString, do not free it until you want to use the extracted value.
 	 */
 	static char * PGRAstrsep(char ** ppcNextString, const char * pcDelims);
 };

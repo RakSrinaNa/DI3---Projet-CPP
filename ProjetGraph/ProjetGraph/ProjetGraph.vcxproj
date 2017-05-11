@@ -85,12 +85,14 @@
     <ClCompile Include="CException.cpp" />
     <ClCompile Include="CGraph.cpp" />
     <ClCompile Include="CGraphParser.cpp" />
+    <ClCompile Include="CHashMap.cpp" />
     <ClCompile Include="CVertex.cpp" />
     <ClCompile Include="ProjetGraph.cpp" />
     <ClCompile Include="tests\CArcUnit.cpp" />
     <ClCompile Include="tests\CExceptionUnit.cpp" />
     <ClCompile Include="tests\CGraphParserUnit.cpp" />
     <ClCompile Include="tests\CGraphUnit.cpp" />
+    <ClCompile Include="tests\CHashMapUnit.cpp" />
     <ClCompile Include="tests\CUnit.cpp" />
     <ClCompile Include="tests\CVertexUnit.cpp" />
   </ItemGroup>
@@ -99,11 +101,13 @@
     <ClInclude Include="CException.h" />
     <ClInclude Include="CGraph.h" />
     <ClInclude Include="CGraphParser.h" />
+    <ClInclude Include="CHashMap.h" />
     <ClInclude Include="CVertex.h" />
     <ClInclude Include="tests\CArcUnit.h" />
     <ClInclude Include="tests\CExceptionUnit.h" />
     <ClInclude Include="tests\CGraphParserUnit.h" />
     <ClInclude Include="tests\CGraphUnit.h" />
+    <ClInclude Include="tests\CHashMapUnit.h" />
     <ClInclude Include="tests\CUnit.h" />
     <ClInclude Include="tests\CVertexUnit.h" />
     <ClInclude Include="utils.h" />

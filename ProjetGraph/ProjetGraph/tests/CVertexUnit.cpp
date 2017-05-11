@@ -8,6 +8,7 @@ void CVertexUnit::VERUnitTest()
 	VERUnitTestConstructorGetSet();
 	VERUnitTestArcIn();
 	VERUnitTestArcOut();
+	VERUnitTestOperators();
 }
 
 void CVertexUnit::VERUnitTestConstructorGetSet()
@@ -112,4 +113,29 @@ void CVertexUnit::VERUnitTestArcOut()
 	oVERvertex.VERmodifyArcOut(15, 20);
 	if(oVERvertex.VERhasIndexOut(15) || oVERvertex.VERhasIndexOut(20))
 		CUnit::UNITassertError("ASSERT VERTEX C6");
+}
+
+void CVertexUnit::VERUnitTestOperators()
+{
+	CVertex * poVERvertex1 = new CVertex(15);
+	poVERvertex1->VERaddArcIn(13);
+	poVERvertex1->VERaddArcIn(14);
+	poVERvertex1->VERaddArcOut(13);
+	
+	CVertex oVERvertex2 = CVertex(2);
+	oVERvertex2 = *poVERvertex1;
+	if(oVERvertex2.VERgetVertexIndex() != 15 || !oVERvertex2.VERhasIndexIn(13) || !oVERvertex2.VERhasIndexIn(14) || !oVERvertex2.VERhasIndexOut(13))
+		CUnit::UNITassertError("ASSERT VERTEX D1");
+	
+	delete poVERvertex1;
+	
+	oVERvertex2.VERaddArcIn(16);
+	oVERvertex2.VERaddArcOut(17);
+	
+	oVERvertex2.VERremoveArcIn(16);
+	oVERvertex2.VERremoveArcIn(17);
+	
+	CVertex oVERvertex3 = CVertex(oVERvertex2);
+	if(oVERvertex3.VERgetVertexIndex() != 15 || !oVERvertex3.VERhasIndexIn(13) || !oVERvertex3.VERhasIndexIn(14) || !oVERvertex3.VERhasIndexOut(13))
+		CUnit::UNITassertError("ASSERT VERTEX D2");
 }

@@ -1,15 +1,28 @@
-#ifndef TP1_CEXCEPTION_H
-#define TP1_CEXCEPTION_H
+#ifndef PROJETGRAPH_CHASHMAP_H
+#define PROJETGRAPH_CHASHMAP_H
 
-/**************************************************************
- * Class representing an exception.
- **************************************************************/
-class CException
+#define KEY_ALREADY_DEFINED_EXCEPTION 3947
+#define KEY_NOT_FOUND_EXCEPTION 3948
+
+class CHashMap
 {
 private:
-	unsigned int uiEXID;
-	char * pcEXmessage;
-
+	unsigned int uiCount;
+	char ** ppcKeys;
+	double * pdValues;
+	
+	/**************************************************************
+	 * Get the index in the array of the value.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKeyParam: The key to look for.
+	 * Output:
+	 *      int:        The index of the key, or a negative number if it was not found.
+	 * PreCond:
+	 * PostCond:
+	 */
+	int CHMPgetKeyIndex(char * pcKeyParam) const;
 public:
 	/**************************************************************
 	 * Default constructor.
@@ -20,125 +33,107 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CException();
+	CHashMap();
 	
 	/**************************************************************
 	 * Copy constructor.
 	 **************************************************************
 	 *
 	 * Input:
-	 *      oEXexception: The exception to copy.
+	 *      oHMPmap: The hashmap to copy.
 	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CException(CException const &oEXexception);
-	
-	/**************************************************************
-	 * Parameterized constructor with exception ID.
-	 **************************************************************
-	 *
-	 * Input:
-	 *      uiEXIDParam: The exception ID.
-	 * Output:
-	 * PreCond:
-	 * PostCond:
-	 */
-	CException(unsigned int uiEXIDParam);
-	
-	/**************************************************************
-	 * Parameterized constructor with exception ID & error message.
-	 **************************************************************
-	 *
-	 * Input:
-	 *      uiEXIDParam:        The exception ID.
-	 *      pcEXmessageParam:   The error message.
-	 * Output:
-	 * PreCond:
-	 * PostCond:
-	 */
-	CException(unsigned int uiEXIDParam, char * pcEXmessageParam);
+	CHashMap(CHashMap const& oHMPmap);
 	
 	/**************************************************************
 	 * Destructor.
 	 **************************************************************
 	 *
-	 * Inout:
+	 * Input:
 	 * Output:
 	 * PreCond:
 	 * PostCond:
 	 */
-	~CException();
+	~CHashMap();
 	
 	/**************************************************************
-	 * Get the exception ID.
+	 * Add a key/value to the map.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKeyParam: The key associate to the value.
+	 *      dValue:     The value to set for this key.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
+	 */
+	void CHMPaddValue(char * pcKeyParam, double dValue);
+	
+	/**************************************************************
+	 * Modify the value of a key.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKeyParam: The key in which the value will be modified.
+	 *      dValue:     The new value to set.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exists.
+	 */
+	void CHMPmodifyValue(char * pcKeyParam, double dValue);
+	
+	/**************************************************************
+	 * Get the value of a key.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKeyParam: The key to get the value from.
+	 * Output:
+	 *      double:     The value of the key.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exists.
+	 */
+	double CHMPgetValue(char * pcKeyParam) const;
+	
+	/**************************************************************
+	 * Delete a key and it's value from the map.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      pcKeyParam: The key to remove.
+	 * Output:
+	 * PreCond:
+	 * PostCond:
+	 */
+	void CHMPdeleteValue(char * pcKeyParam);
+	
+	/**************************************************************
+	 * Clear the hashmap by deleting every values.
 	 **************************************************************
 	 *
 	 * Input:
 	 * Output:
-	 *      unsigned int: The exception ID.
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int EXgetExceptionID() const
-	{
-		return uiEXID;
-	}
-	
-	/**************************************************************
-	 * Get the error message.
-	 **************************************************************
-	 *
-	 * Input:
-	 * Output:
-	 *      char *: The error message.
-	 * PreCond:
-	 * PostCond:
-	 */
-	char * EXgetExceptionMessage() const
-	{
-		return pcEXmessage;
-	}
-	
-	/**************************************************************
-	 * Set the exception ID.
-	 **************************************************************
-	 *
-	 * Input:
-	 *       uiEXIDParam: The exception ID.
-	 * Output:
-	 * PreCond:
-	 * PostCond:
-	 */
-	void EXsetExceptionID(unsigned int uiEXIDParam)
-	{
-		uiEXID = uiEXIDParam;
-	}
-	
-	/**************************************************************
-	 * Set the error message.
-	 **************************************************************
-	 *
-	 * Input:
-	 *      pcEXmessageParam: The error message. A copy of it will be done.
-	 * Output:
-	 * PreCond:
-	 * PostCond:
-	 */
-	void EXsetExceptionMessage(char * pcEXmessageParam);
+	void HMPclear();
 	
 	/**************************************************************
 	 * Define the = operator.
 	 **************************************************************
 	 *
 	 * Input:
-	 *      oEXexception: The CException to copy.
+	 *      oHMPmap: The map to copy.
 	 * Output:
-	 *      CException&:    This exception modified.
 	 * PreCond:
 	 * PostCond:
 	 */
-	CException &operator=(CException const &oEXexception);
+	CHashMap & operator=(CHashMap const& oHMPmap);
 };
 
 #endif
