@@ -1,4 +1,3 @@
-export CXX=g++
 export CPPFLAGS=-std=c++11 -Wall -Werror -W -pedantic -static -g
 export LDFLAGS=-lm
 export EXEC=Graph

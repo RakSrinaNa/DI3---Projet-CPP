@@ -1,5 +1,5 @@
-language: c++
-compiler: g++
+language: cpp
+compiler: gcc
 install:
 - sudo apt-get install valgrind
 script: cd ProjetGraph && make test
