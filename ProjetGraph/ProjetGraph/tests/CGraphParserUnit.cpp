@@ -53,6 +53,7 @@ void CGraphParserUnit::PGRAUnitTests()
 	if(uiPartsCount != 3 || strcmp("AAA", pcParts[0]) != 0 || strcmp("BBB", pcParts[1]) != 0 || strcmp("CCC", pcParts[2]) != 0)
 		CUnit::UNITassertError("CGraphParser 7");
 	
+	free(pcParts);
 	free(pcDelimTestsOrigin);
 	
 	char * pcTrimTest = STRDUP("  \t AAA BBB CCC \t\n\t \r ");
