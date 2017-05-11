@@ -71,19 +71,19 @@ CGraph const &CGraphToolbox::GRTgetGraph() const
  */
 void CGraphToolbox::GRTtransformNonOriented()
 {
-	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.uiBiggestVertex; uiVertexIndex1++)
-        if(oGRAgraph.GRAhasVertex(uiVertexIndex1))
-            for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.uiBiggestVertex; uiVertexIndex2++)
-                if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
+	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
+	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.uiVertexCount; uiVertexIndex1++)
+        for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.uiVertexCount; uiVertexIndex2++)
+            if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
+            {
+                try
                 {
-                    try
-                    {
-                        oGRAgraph.GRAaddArc(uiVertexIndex2, uiVertexIndex1);
-                    }
-                    catch(CException const &oEXexception)
-                    {
-                    }
+                    oGRAgraph.GRAaddArc(uiVertexIndex2, uiVertexIndex1);
                 }
+                catch(CException const &oEXexception)
+                {
+                }
+            }
 }
 
 /**************************************************************
