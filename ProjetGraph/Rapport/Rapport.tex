@@ -28,7 +28,7 @@
 			\item Modifier la valeur d'une clé donnée.
 			\item Supprimer une clé.
 			\item Nettoyage de toutes les clé et valeur.
-			\item L'opérateur d'affectation duplicant l'ensemble des clé-valeur dans un autre HashMap.
+			\item L'opérateur d'affectation duplicant l'ensemble des clé-valeur dans un autre HashMap.\\
 		\end{itemize}
 	
 		La classe centrale de notre projet est CGraph. Celle-ci représente un graph. Y sont stockées les informations suivantes:
@@ -117,7 +117,7 @@
 			\item L'opérateur d'affectation duplicant un arc.\\
 		\end{itemize}
 		
-		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Si des prorpiétés sont attendues, celles-ci devront de situer après les ID correspondants (ID du sommet pour une propriété d'une sommet ou après les ID des deux sommets pour une propriété d'un arc).
+		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Si des prorpiétés sont attendues, celles-ci devront se situer après les ID correspondants (ID du sommet pour une propriété d'une sommet ou après les ID des deux sommets pour une propriété d'un arc).
 		
 		
 		\img{../../classDiagram.png}{Diagramme de classes}{0.34}{0}
@@ -132,7 +132,7 @@
 		Un deuxième choix important est le stockage des sommets dans le graph. Plutôt que d'ajouter à la suite tous les sommets dans un tableau (stockage par ordre d'arrivé), nous posons chaque sommet à la position du tableau égale à l'indice du sommet moins 1. Ainsi le sommet 1 est à la position 0, le 10 à la position 9, etc..\\
 		
 	
-		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre a l'interprétation d'un fichier graph se fait dans le constructeur CGraph.\\
+		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre à l'interprétation d'un fichier graph se fait dans le constructeur CGraph.\\
 		
 		Une classe CHashMap est disponible afin de pouvoir stocker les différentes propriétés que peuvent avoir les sommets ou arcs. Par manque de temps, celle-ci ne gère que des doubles.\\
 		
@@ -229,9 +229,9 @@
 		\item Création d'un nouveau graph étant l'inverse du premier.
 		\item Affichage de ce dernier. \\
 	\end{itemize}
-	Pour une utilisation en tant que librairie, tout se fait a partir d'un objet CGraph. Bien que des sommets et arcs peuvent être instanciés hors d'un graph, ceux-ci ne pourront être inclus dans le graph. Tout objet interne au graph devra et sera construit par les méthodes appropriées du graph.
+	Pour une utilisation en tant que librairie, tout se fait à partir d'un objet CGraph. Bien que des sommets et arcs peuvent être instanciés hors d'un graph, ceux-ci ne pourront être inclus dans le graph. Tout objet interne au graph devra et sera construit (et modifié) par les méthodes appropriées du graph.
 	
-	Il est de plus possible d'ajouter des propriétés sur un arc ou un sommet afin de pouvoir étendre les capacités d'une simple visualisation de notre simple librairie.
+	Il est de plus possible d'ajouter des propriétés sur un arc ou un sommet afin de pouvoir étendre les capacités de notre librairie au delà de la simple visualisation de graph.
 
 	Pour toute information supplémentaire sur les méthodes, se référer aux cartouches d'entête présents dans les fichiers .h.
 \end{document}
