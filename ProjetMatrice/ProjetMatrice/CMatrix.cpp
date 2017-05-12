@@ -198,29 +198,12 @@ bool CMatrix<T>::operator==(CMatrix<T> const& oMTXmatrixParam)
 }
 
 template <class T>
-const T* const CMatrix<T>::operator[](unsigned int uiRow)
-{
-	if(uiRow >= uiHeight)
-		throw CException(OUT_OF_RANGE_EXCEPTION, (char *) "Coordinate is out of matrix");
-
-	return ptValues[uiRow]; //Renvoie la ligne demandée
-}
-
-template <class T>
 CMatrix<T>& CMatrix<T>::operator*=(double dCoefficient)
 {
 	for(unsigned int uiRow = 0; uiRow < uiHeight; uiRow++)
 		for(unsigned int uiColumn = 0; uiColumn < uiWidth; uiColumn++)
 			MTXsetValue(uiRow, uiColumn, ptValues[uiRow][uiColumn] * dCoefficient); //Affecte à chaque case sa valeur d'origine multipliée par le coefficient passé en paramètre
 	return *this;
-}
-
-template <class T>
-CMatrix<T>& CMatrix<T>::operator*=(CMatrix<T> const& oMTXmatrixParam)
-{
-	CMatrix<T> oMTXmatrix = CMatrix<T>((*this) * oMTXmatrixParam); //Multiplication des matrices par appel au constructeur
-	(*this) = oMTXmatrix; //Affection du produit précèdement calculé dans la matrice en cours
-	return *this;	
 }
 
 template <class T>

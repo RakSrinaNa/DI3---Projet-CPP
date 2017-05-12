@@ -37,6 +37,9 @@ typedef struct{
 	EMatrixType eMTTtype;
 } SMatrixInfos;
 
+/**************************************************************
+ * Classe permettant de lire un fichier matrice.
+ **************************************************************/
 class CMatrixParser
 {
 public:

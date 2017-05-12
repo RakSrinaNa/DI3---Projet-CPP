@@ -180,7 +180,6 @@ CGraph::CGraph(char * pcFileName) : uiVertexCount(0), poVERvertexList(nullptr), 
 		/* If we don't have the required keys, start and end */
 		if(!bArcAdded)
 			throw CException(MALFORMATTED_FILE_EXCEPTION, (char *) "Arcs malformatted");
-
 	}
 	
 	fclose(poFILEfile);

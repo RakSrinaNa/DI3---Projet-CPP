@@ -101,9 +101,9 @@ int main(int argc, char* argv[])
 
 	}
 
-#ifdef _MSC_VER
-	getchar();
-#endif
+	#ifdef _MSC_VER
+		getchar();
+	#endif
 
 	return 0;
 }

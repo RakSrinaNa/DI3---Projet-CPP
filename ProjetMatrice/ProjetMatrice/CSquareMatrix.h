@@ -5,6 +5,9 @@
 
 #define NOT_INVERSIBLE_EXCEPTION 99717
 
+/**************************************************************
+ * Classe représentant une matrice carree.
+ **************************************************************/
 template <class T>
 class CSquareMatrix : public CMatrix<T>
 {

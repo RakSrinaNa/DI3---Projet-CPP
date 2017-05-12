@@ -11,6 +11,9 @@
 #define INCOMPATIBLE_MATRIX_EXCEPTION 89716
 #define IMPOSSIBLE_MATRIX_SIZE_EXCEPTION 89717
 
+/**************************************************************
+ * Classe représentant une matrice.
+ **************************************************************/
 template <class T>
 class CMatrix
 {
@@ -254,22 +257,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	bool operator==(CMatrix<T> const& oMTXmatrixParam);
-	
-	/**************************************************************
-	 * Permet d'obtenier une ligne de la matrice.
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      uiRow:  La ligne a récupérer.
-	 * Sortie:
-	 *      T*:     Un tableau de uiWidth éléments T.
-	 * PreCond:
-	 * PostCond:
-	 *      Renvoie une CException avec l'ID `OUT_OF_RANGE_EXCEPTION` si la ligne n'existe pas.
-	 */
-	const T* const operator[](unsigned int uiRow);
-	
+	bool operator==(CMatrix<T> const& oMTXmatrixParam);	
 	
 	/**************************************************************
 	 * Multiplie la matrice actuelle par un coefficient.
@@ -283,19 +271,6 @@ public:
 	 * PostCond:
 	 */
 	CMatrix<T>& operator*=(double dCoefficient);
-	
-	/**************************************************************
-	 * Multiplie la matrice actuelle par un coefficient.
-	 **************************************************************
-	 *
-	 * Entree:
-	 *      dCoefficient:   Le coefficient de multiplication.
-	 * Sortie:
-	 *      CMatrix:        Notre matrice multipliee.
-	 * PreCond:
-	 * PostCond:
-	 */
-	CMatrix<T>& operator*=(CMatrix<T> const& oMTXmatrixParam);
 	
 	/**************************************************************
 	 * Divise la matrice actuelle par un coefficient.

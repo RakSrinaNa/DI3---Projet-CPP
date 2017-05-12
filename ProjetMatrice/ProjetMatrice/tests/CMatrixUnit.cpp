@@ -162,33 +162,18 @@ void CMatrixUnit::MTXUnitTestOperations()
 	if(oMTXmatrix2.MTXgetValue(0, 0) != 28 || oMTXmatrix2.MTXgetValue(0, 1) != 40 || oMTXmatrix2.MTXgetValue(1, 0) != 60 || oMTXmatrix2.MTXgetValue(1, 1) != 88)
 		CUnit::UNITassertError("CMatrix C10");
 	
-	oMTXmatrix2 *= oMTXmatrix4;
-	if(oMTXmatrix2.MTXgetValue(0, 0) != 148 || oMTXmatrix2.MTXgetValue(0, 1) != 216 || oMTXmatrix2.MTXgetValue(1, 0) != 324 || oMTXmatrix2.MTXgetValue(1, 1) != 472)
+	oMTXmatrix2 /= 4;
+	if(oMTXmatrix2.MTXgetValue(0, 0) != 7 || oMTXmatrix2.MTXgetValue(0, 1) != 10 || oMTXmatrix2.MTXgetValue(1, 0) != 15 || oMTXmatrix2.MTXgetValue(1, 1) != 22)
 		CUnit::UNITassertError("CMatrix C11");
 	
 	try
 	{
-		oMTXmatrix4 *= CMatrix<double>(10, 20);
+		oMTXmatrix4 /= 0;
 		CUnit::UNITassertError("CMatrix C11.1");
 	}
 	catch(CException const& oEXexception)
 	{
-		if(oEXexception.EXgetExceptionID() != INCOMPATIBLE_MATRIX_EXCEPTION)
-			CUnit::UNITassertError("CMatrix C11.2");
-	}
-	
-	oMTXmatrix2 /= 4;
-	if(oMTXmatrix2.MTXgetValue(0, 0) != 37 || oMTXmatrix2.MTXgetValue(0, 1) != 54 || oMTXmatrix2.MTXgetValue(1, 0) != 81 || oMTXmatrix2.MTXgetValue(1, 1) != 118)
-		CUnit::UNITassertError("CMatrix C12");
-	
-	try
-	{
-		oMTXmatrix4 /= 0;
-		CUnit::UNITassertError("CMatrix C12.1");
-	}
-	catch(CException const& oEXexception)
-	{
 		if(oEXexception.EXgetExceptionID() != DIVISION_BY_ZERO_EXCEPTION)
-			CUnit::UNITassertError("CMatrix C12.2");
+			CUnit::UNITassertError("CMatrix C11.2");
 	}
 }
