@@ -100,7 +100,6 @@ void CGraphToolbox::GRTtransformNonOriented()
  */
 bool CGraphToolbox::GRTisConnex()
 {
-	GRTtransformNonOriented();
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
 	for(unsigned int uiVertexStartIndex = 0; uiVertexStartIndex < oGRAgraph.GRAgetVertexCount(); uiVertexStartIndex++)
 	{
