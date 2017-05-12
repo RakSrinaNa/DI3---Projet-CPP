@@ -7,6 +7,7 @@
 #include "CGraphParserUnit.h"
 #include "CHashMapUnit.h"
 #include "../CException.h"
+#include "CGraphToolboxUnit.h"
 
 void CUnit::UNITassertError(const char * pcMessage)
 {
@@ -38,11 +39,15 @@ void CUnit::UNITlaunchTests()
 	CVertexUnit::VERUnitTest();
 	std::cout << "CVertex OK" << std::endl << std::endl;
 	
+	std::cout << "Starting CGraphParser tests..." << std::endl;
+	CGraphParserUnit::PGRAUnitTests();
+	std::cout << "CGraphParser OK" << std::endl << std::endl;
+	
 	std::cout << "Starting CGraph tests..." << std::endl;
 	CGraphUnit::GRAUnitTests();
 	std::cout << "CGraph OK" << std::endl << std::endl;
 	
-	std::cout << "Starting CGraphParser tests..." << std::endl;
-	CGraphParserUnit::PGRAUnitTests();
-	std::cout << "CGraphParser OK" << std::endl << std::endl;
+	std::cout << "Starting CGraphToolbox tests..." << std::endl;
+	CGraphToolboxUnit::GRTUnitTests();
+	std::cout << "CGraphToolbox OK" << std::endl << std::endl;
 }

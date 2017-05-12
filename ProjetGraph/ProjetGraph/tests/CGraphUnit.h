@@ -5,7 +5,8 @@ class CGraphUnit
 {
 public:
 	static void GRAUnitTests();
-	
+
+private:
 	static void GRAUnitTestVertices();
 	
 	static void GRAUnitTestArcs();

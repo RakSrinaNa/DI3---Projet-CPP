@@ -24,7 +24,7 @@ public:
 	 *      The graph have no vertices nor arcs.
 	 */
 	CGraph();
-
+	
 	/**************************************************************
 	 * Parameterized constructor with a file.
 	 **************************************************************
@@ -38,7 +38,7 @@ public:
 	 *      Throws a CException with the ID `MALFORMATTED_FILE_EXCEPTION` if the file is malformatted.
 	 */
 	explicit CGraph(char * pcFilename);
-
+	
 	/**************************************************************
 	 * Destructor.
 	 **************************************************************
@@ -50,7 +50,7 @@ public:
 	 *      Delete the graph with its vertices and arcs.
 	 */
 	~CGraph();
-
+	
 	/**************************************************************
 	 * Add a vertex to the graph.
 	 **************************************************************
@@ -64,7 +64,7 @@ public:
 	 *      Throws a CException with the ID `BAD_INDEX_VERTEX_EXCEPTION` if the ID of the vertex is less than 1.
 	 */
 	void GRAaddVertex(unsigned int uiVertexIndex);
-
+	
 	/**************************************************************
 	 * Remove a vertex from the graph.
 	 **************************************************************
@@ -76,7 +76,7 @@ public:
 	 * PostCond:
 	 */
 	void GRAremoveVertex(unsigned int uiVertexIndex);
-
+	
 	/**************************************************************
 	 * Verify if a vertex is in the graph.
 	 **************************************************************
@@ -89,7 +89,7 @@ public:
 	 * PostCond:
 	 */
 	bool GRAhasVertex(unsigned int uiVertexIndex) const;
-
+	
 	/**************************************************************
 	 * Add an arc to the graph.
 	 **************************************************************
@@ -104,7 +104,7 @@ public:
 	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
 	 */
 	void GRAaddArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
-
+	
 	/**************************************************************
 	 * Remove an arc from the graph.
 	 **************************************************************
@@ -118,7 +118,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the vertices doesn't exist.
 	 */
 	void GRAremoveArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex);
-
+	
 	/**************************************************************
 	 * Modify the ending vertex of an existing arc.
 	 **************************************************************
@@ -135,7 +135,7 @@ public:
 	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the new arc already exists.
 	 */
 	void GRAmodifyArc(unsigned int uiFromVertexIndex, unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
-
+	
 	/**************************************************************
 	 * Verify if the arc contains an arc.
 	 **************************************************************
@@ -149,7 +149,7 @@ public:
 	 * PostCond:
 	 */
 	bool GRAhasArc(unsigned int uiFromVertexIndex, unsigned int uiToVertexIndex) const;
-
+	
 	/**************************************************************
 	 * Add a link (arcs in the two directions) between two vertices.
 	 **************************************************************
@@ -163,7 +163,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if one of the two vertices doesn't exist.
 	 */
 	void GRAaddLink(unsigned int uiVertexIndex1, unsigned int uiVertexIndex2);
-
+	
 	/**************************************************************
 	 * Invert the graph (every arc is inverted).
 	 **************************************************************
@@ -174,7 +174,7 @@ public:
 	 * PostCond:
 	 */
 	void GRAinvert();
-
+	
 	/**************************************************************
 	 * Resets the graph.
 	 **************************************************************
@@ -185,7 +185,7 @@ public:
 	 * PostCond:
 	 */
 	void GRAclear();
-
+	
 	/**************************************************************
 	 * Display the graph in the standard output.
 	 **************************************************************
@@ -202,7 +202,7 @@ public:
 	 * PostCond:
 	 */
 	void GRAdisplay(unsigned int uiLevel = 4) const;
-
+	
 	/**************************************************************
 	 * Define the + operator adding a vertex to the graph.
 	 **************************************************************
@@ -216,7 +216,7 @@ public:
 	 *      Throws a CException with the ID `DUPLICATE_VERTEX_EXCEPTION` if the vertex already exists.
 	 */
 	CGraph &operator+(unsigned int uiVertexIndex);
-
+	
 	/**************************************************************
 	 * Define the - operator removing a vertex from the graph.
 	 **************************************************************
@@ -228,7 +228,7 @@ public:
 	 * PostCond:
 	 */
 	CGraph &operator-(unsigned int uiVertexIndex);
-
+	
 	/**************************************************************
 	 * Defines the operator =.
 	 **************************************************************
@@ -241,7 +241,7 @@ public:
 	 * PostCond:
 	 */
 	CGraph &operator=(CGraph const &oGRAgraphParam);
-
+	
 	/**************************************************************
 	 * Add a property to a vertex.
 	 **************************************************************
@@ -257,7 +257,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
 	 */
 	void GRAaddVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Modify a property of the vertex.
 	 **************************************************************
@@ -273,7 +273,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
 	 */
 	void GRAmodifyVertexProperty(unsigned int uiVertexIndex, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Get the value of a property of the vertex.
 	 **************************************************************
@@ -289,7 +289,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
 	 */
 	double GRAgetVertexProperty(unsigned int uiVertexIndex, char * pcKey) const;
-
+	
 	/**************************************************************
 	 * Delete a property from the vertex.
 	 **************************************************************
@@ -303,7 +303,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
 	 */
 	void GRAdeleteVertexProperty(unsigned int uiVertexIndex, char * pcKey);
-
+	
 	/**************************************************************
 	 * Add a property to an arc of the graph.
 	 **************************************************************
@@ -320,7 +320,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void GRAaddArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Modify a property of an arc of the graph.
 	 **************************************************************
@@ -337,7 +337,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void GRAmodifyArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Get the value of a property of an arc of the graph.
 	 **************************************************************
@@ -354,7 +354,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	double GRAgetArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey) const;
-
+	
 	/**************************************************************
 	 * Delete a property from an arc of the graph.
 	 **************************************************************
@@ -369,7 +369,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void GRAdeleteArcProperty(unsigned int uiArcSource, unsigned int uiArcDestination, char * pcKey);
-
+	
 	/**************************************************************
      * Get the number of vertices in the graph.
      **************************************************************
@@ -381,7 +381,7 @@ public:
      * PostCond:
 	 */
 	unsigned int GRAgetVertexCount();
-
+	
 	/**************************************************************
 	 * Get the list of the vertex indices.
 	 **************************************************************
@@ -393,20 +393,20 @@ public:
 	 * PostCond:
 	 */
 	unsigned int * GRAgetVertexIndices();
-
-    /**************************************************************
-     * Get the list of the vertex indices reached by a given vertex.
-     **************************************************************
-     *
-     * Input:
-     *      uiVertexIndex: The ID of the vertex.
-     * Output:
-     *      unsigned int *: The list of the reachable vertex indices.
-     * PreCond:
-     * PostCond:
-     *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
-     */
-	 unsigned int * GRAgetReachableIndices(unsigned int uiVertexIndex);
+	
+	/**************************************************************
+	 * Get the list of the vertex indices reached by a given vertex.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiVertexIndex:  The ID of the vertex.
+	 * Output:
+	 *      unsigned int *: The list of the reachable vertex indices.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
+	 */
+	unsigned int * GRAgetReachableIndices(unsigned int uiVertexIndex);
 };
 
 #endif

@@ -24,7 +24,10 @@ set(SOURCE_FILES
         ProjetGraph/CHashMap.cpp ProjetGraph/CHashMap.h
         ProjetGraph/tests/CHashMapUnit.cpp ProjetGraph/tests/CHashMapUnit.h
 
+        ProjetGraph/CGraphToolbox.cpp ProjetGraph/CGraphToolbox.h
+        ProjetGraph/tests/CGraphToolboxUnit.cpp ProjetGraph/tests/CGraphToolboxUnit.h
+
         ProjetGraph/utils.h
         ProjetGraph/tests/CUnit.cpp ProjetGraph/tests/CUnit.h
-        ProjetGraph/CGraphToolbox.cpp ProjetGraph/CGraphToolbox.h)
+        )
 add_executable(ProjetGraph ${SOURCE_FILES})

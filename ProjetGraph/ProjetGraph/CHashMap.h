@@ -23,6 +23,7 @@ private:
 	 * PostCond:
 	 */
 	int CHMPgetKeyIndex(char * pcKeyParam) const;
+
 public:
 	/**************************************************************
 	 * Default constructor.
@@ -45,7 +46,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CHashMap(CHashMap const& oHMPmap);
+	CHashMap(CHashMap const &oHMPmap);
 	
 	/**************************************************************
 	 * Destructor.
@@ -133,7 +134,7 @@ public:
 	 * PreCond:
 	 * PostCond:
 	 */
-	CHashMap & operator=(CHashMap const& oHMPmap);
+	CHashMap &operator=(CHashMap const &oHMPmap);
 };
 
 #endif

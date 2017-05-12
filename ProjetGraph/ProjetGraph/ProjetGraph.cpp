@@ -2,6 +2,7 @@
 #include "tests/CUnit.h"
 
 #include "CGraph.h"
+#include "CGraphToolbox.h"
 
 int main(int argc, char * argv[])
 {
@@ -12,15 +13,12 @@ int main(int argc, char * argv[])
 	else if(argc == 2)
 	{
 		CGraph * poGRAgraph1 = new CGraph(argv[1]);
+		CGraphToolbox oGRTtoolbox = CGraphToolbox(*poGRAgraph1);
+		delete poGRAgraph1;
 		
-		poGRAgraph1->GRAdisplay();
+		oGRTtoolbox.GRTgetGraph().GRAdisplay();
 		
-		CGraph oGRAgraph2;
-		oGRAgraph2 = *poGRAgraph1;
-		
-		oGRAgraph2.GRAinvert();
-		
-		oGRAgraph2.GRAdisplay();
+		printf("Is this graph connex? %d\n", oGRTtoolbox.GRTisConnex());
 	}
 	else
 	{
