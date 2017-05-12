@@ -12,9 +12,8 @@ int main(int argc, char * argv[])
 	}
 	else if(argc == 2)
 	{
-		CGraph * poGRAgraph1 = new CGraph(argv[1]);
-		CGraphToolbox oGRTtoolbox = CGraphToolbox(*poGRAgraph1);
-		delete poGRAgraph1;
+		CGraph oGRAgraph = CGraph(argv[1]);
+		CGraphToolbox oGRTtoolbox = CGraphToolbox(oGRAgraph);
 		
 		oGRTtoolbox.GRTgetGraph().GRAdisplay();
 		
