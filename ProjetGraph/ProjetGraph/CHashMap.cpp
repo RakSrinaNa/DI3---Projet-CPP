@@ -69,7 +69,6 @@ CHashMap::~CHashMap()
  */
 void CHashMap::CHMPaddValue(char * pcKeyParam, double dValue)
 {
-	
 	if(CHMPgetKeyIndex(pcKeyParam) < 0)
 	{
 		uiCount++;

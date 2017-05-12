@@ -26,5 +26,5 @@ set(SOURCE_FILES
 
         ProjetGraph/utils.h
         ProjetGraph/tests/CUnit.cpp ProjetGraph/tests/CUnit.h
-        )
+        ProjetGraph/CGraphToolbox.cpp ProjetGraph/CGraphToolbox.h)
 add_executable(ProjetGraph ${SOURCE_FILES})
