@@ -83,6 +83,7 @@ void CGraphToolbox::GRTtransformNonOriented()
 				}
 				catch(CException const &oEXexception)
 				{
+					printf("CException: %s\n", oEXexception.EXgetExceptionMessage());
 				}
 			}
 	free(puiVertexIndices);
