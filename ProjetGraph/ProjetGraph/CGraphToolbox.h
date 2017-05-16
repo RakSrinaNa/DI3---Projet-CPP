@@ -22,7 +22,7 @@ public:
 	 *      Throws a CException with the ID `NO_GRAPH_EXCEPTION`.
 	 */
 	CGraphToolbox();
-	
+
 	/**************************************************************
 	 * Confort constructor taking a graph.
 	 **************************************************************
@@ -34,7 +34,7 @@ public:
 	 * PostCond:
 	 */
 	explicit CGraphToolbox(CGraph const &graph);
-	
+
 	/**************************************************************
 	 * Destructor.
 	 **************************************************************
@@ -45,7 +45,7 @@ public:
 	 * PostCond:
 	 */
 	~CGraphToolbox();
-	
+
 	/**************************************************************
 	 * Get the current graph.
 	 **************************************************************
@@ -57,7 +57,7 @@ public:
 	 * PostCond:
 	 */
 	CGraph const &GRTgetGraph() const;
-	
+
 	/**************************************************************
 	 * Transform the current graph into a non oriented one.
 	 **************************************************************
@@ -68,7 +68,7 @@ public:
 	 * PostCond:
 	 */
 	void GRTtransformNonOriented();
-	
+
 	/**************************************************************
 	 * Tell if the graph is connected.
 	 **************************************************************
@@ -80,7 +80,7 @@ public:
 	 * PostCond:
 	 */
 	bool GRTisConnex();
-	
+
 	/**************************************************************
 	 * Tell if a path between two vertices exists.
 	 **************************************************************
@@ -93,6 +93,7 @@ public:
 	 *      bool:                   True if a path exists between the two, false else.
 	 * PreCond:
 	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist.
 	 */
 	bool GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored);
 };
