@@ -94,7 +94,7 @@ public:
 	 * PostCond:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist.
 	 */
-	bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
+	bool GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex);
 
 	/**************************************************************
 	 * Tell if a path between two vertices exists.
