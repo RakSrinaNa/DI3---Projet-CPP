@@ -28,7 +28,7 @@ void CGraphToolboxUnit::GRTUnitTests()
 
 	try
 	{
-		oGRTtoolbox2.GRThasPath(10, 8)
+		oGRTtoolbox2.GRThasPath(10, 8);
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.1");
 	}
 	catch(CException const& oEXexception)
@@ -39,7 +39,7 @@ void CGraphToolboxUnit::GRTUnitTests()
 
 	try
 	{
-		oGRTtoolbox2.GRThasPath(1, 80)
+		oGRTtoolbox2.GRThasPath(1, 80);
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.1");
 	}
 	catch(CException const& oEXexception)
