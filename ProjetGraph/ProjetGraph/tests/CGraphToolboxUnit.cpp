@@ -1,6 +1,7 @@
 #include "CGraphToolboxUnit.h"
 #include "../CGraph.h"
 #include "../CGraphToolbox.h"
+#include "../CException.h"
 #include "CUnit.h"
 
 void CGraphToolboxUnit::GRTUnitTests()
