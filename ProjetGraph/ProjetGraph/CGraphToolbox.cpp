@@ -73,17 +73,18 @@ CGraph const &CGraphToolbox::GRTgetGraph() const
 void CGraphToolbox::GRTtransformNonOriented()
 {
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
-	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex1++)
-		for(unsigned int uiVertexIndex2 = uiVertexIndex1 + 1; uiVertexIndex2 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex2++)
-			if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
+	for(unsigned int uiVertexIndex1 = 0; uiVertexIndex1 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex1++)
+		for(unsigned int uiVertexIndex2 = 0; uiVertexIndex2 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex2++)
+			if(oGRAgraph.GRAhasArc(puiVertexIndices[uiVertexIndex1], puiVertexIndices[uiVertexIndex2]))
 			{
 				try
 				{
-					oGRAgraph.GRAaddArc(uiVertexIndex2, uiVertexIndex1);
+					oGRAgraph.GRAaddArc(puiVertexIndices[uiVertexIndex2], puiVertexIndices[uiVertexIndex1]);
 				}
 				catch(CException const &oEXexception)
 				{
-					printf("CException: %s\n", oEXexception.EXgetExceptionMessage());
+					if(oEXexception.EXgetExceptionID() != DUPLICATE_ARC_EXCEPTION)
+						printf("CException: %s\n", oEXexception.EXgetExceptionMessage());
 				}
 			}
 	free(puiVertexIndices);
@@ -138,16 +139,17 @@ bool CGraphToolbox::GRTisConnex()
  */
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored)
 {
-	unsigned int * puiReachableIndices = oGRAgraph.GRAgetReachableIndices(uiStartIndex);
+	unsigned int * puiReachableIndices;
+	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
 	
 	puiAlreadyExplored[0]++;
 	RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] + 1, "GRThasPath");
 	puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
 	
-	for(unsigned int uiIndex = 0; uiIndex < puiReachableIndices[0]; uiIndex++)
+	for(unsigned int uiIndex = 0; uiIndex < uiReachableSize; uiIndex++)
 	{
 		//If the end is directly reachable
-		if(puiReachableIndices[uiIndex + 1] == uiEndIndex)
+		if(puiReachableIndices[uiIndex] == uiEndIndex)
 		{
 			free(puiReachableIndices);
 			return true;
@@ -156,7 +158,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 		//Verify if the next vertex hasn't already been explored
 		bool bIsExplored = false;
 		for(unsigned int uiIndex2 = 0; uiIndex2 < puiAlreadyExplored[0]; uiIndex2++)
-			if(puiReachableIndices[uiIndex + 1] == puiAlreadyExplored[uiIndex2 + 1])
+			if(puiReachableIndices[uiIndex] == puiAlreadyExplored[uiIndex2 + 1])
 			{
 				bIsExplored = true;
 				break;
@@ -165,7 +167,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 			continue;
 		
 		//In any other case, explore the next vertex
-		bool bHasPath = GRThasPath(puiReachableIndices[uiIndex + 1], uiEndIndex, puiAlreadyExplored);
+		bool bHasPath = GRThasPath(puiReachableIndices[uiIndex], uiEndIndex, puiAlreadyExplored);
 		if(bHasPath)
 		{
 			free(puiReachableIndices);

@@ -745,16 +745,17 @@ unsigned int * CGraph::GRAgetVertexIndices()
  **************************************************************
  *
  * Input:
- *      uiVertexIndex:  The ID of the vertex.
+ *      uiVertexIndex:      The ID of the vertex.
+ *      ppuiListPointer:    The pointer were the list will be stored.
  * Output:
- *      unsigned int *: The list of the reachable vertex indices.
+ *      unsigned int:       The list size.
  * PreCond:
  * PostCond:
  *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
  */
-unsigned int * CGraph::GRAgetReachableIndices(unsigned int uiVertexIndex)
+unsigned int CGraph::GRAgetReachableIndices(unsigned int uiVertexIndex, unsigned int ** ppuiListPointer)
 {
 	if(GRAhasVertex(uiVertexIndex))
-		return poVERvertexList[uiVertexIndex - 1]->VERgetReachableIndices();
+		return poVERvertexList[uiVertexIndex - 1]->VERgetReachableIndices(ppuiListPointer);
 	throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *) "This vertex isn't in the graph.");
 }

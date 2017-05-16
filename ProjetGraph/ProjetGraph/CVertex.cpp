@@ -517,17 +517,18 @@ void CVertex::VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey)
  **************************************************************
  *
  * Input:
+ *      ppuiListPointer:    The pointer were the list will be stored.
  * Output:
- *      unsigned int *: The list of the reachable indices.
+ *      unsigned int:       The list size.
  * PreCond:
  * PostCond:
  */
-unsigned int * CVertex::VERgetReachableIndices()
+unsigned int CVertex::VERgetReachableIndices(unsigned int ** ppuiListPointer)
 {
 	unsigned int * puiReachableIndices;
-	MMALLOC(puiReachableIndices, unsigned int, uiArcOutCount + 1, "VERgetReachableIndices");
-	puiReachableIndices[0] = uiArcOutCount;
+	MMALLOC(puiReachableIndices, unsigned int, uiArcOutCount, "VERgetReachableIndices");
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
 		puiReachableIndices[uiIndex + 1] = poARCoutList[uiIndex]->ARCgetVertexIndex();
-	return puiReachableIndices;
+	*ppuiListPointer = puiReachableIndices;
+	return uiArcOutCount;
 }

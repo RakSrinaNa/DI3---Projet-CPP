@@ -383,12 +383,13 @@ public:
 	 **************************************************************
 	 *
 	 * Input:
+	 *      ppuiListPointer:    The pointer were the list will be stored.
 	 * Output:
-	 *      unsigned int *: The list of the reachable indices.
+	 *      unsigned int:       The list size.
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int * VERgetReachableIndices();
+	unsigned int VERgetReachableIndices(unsigned int ** ppuiListPointer);
 };
 
 #endif

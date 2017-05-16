@@ -399,14 +399,15 @@ public:
 	 **************************************************************
 	 *
 	 * Input:
-	 *      uiVertexIndex:  The ID of the vertex.
+	 *      uiVertexIndex:      The ID of the vertex.
+	 *      ppuiListPointer:    The pointer were the list will be stored.
 	 * Output:
-	 *      unsigned int *: The list of the reachable vertex indices.
+	 *      unsigned int *:     The list of the reachable vertex indices.
 	 * PreCond:
 	 * PostCond:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the vertex doesn't exists.
 	 */
-	unsigned int * GRAgetReachableIndices(unsigned int uiVertexIndex);
+	unsigned int GRAgetReachableIndices(unsigned int uiVertexIndex, unsigned int ** ppuiListPointer);
 };
 
 #endif
