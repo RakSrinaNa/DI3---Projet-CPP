@@ -25,4 +25,26 @@ void CGraphToolboxUnit::GRTUnitTests()
 	CGraphToolbox oGRTtoolbox3 = CGraphToolbox(oGRAgraph2);
 	if(!oGRTtoolbox2.GRThasPath(1, 8) || oGRTtoolbox2.GRThasPath(8, 1))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 3");
+
+	try
+	{
+		oGRTtoolbox2.GRThasPath(10, 8)
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
+			CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.2");
+	}
+
+	try
+	{
+		oGRTtoolbox2.GRThasPath(1, 80)
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.1");
+	}
+	catch(CException const& oEXexception)
+	{
+		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
+			CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.2");
+	}
 }
