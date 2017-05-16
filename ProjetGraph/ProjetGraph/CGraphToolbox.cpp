@@ -107,21 +107,47 @@ bool CGraphToolbox::GRTisConnex()
 	{
 		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
 		{
-			unsigned int * puiAlreadyExplored;
-			MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
-			puiAlreadyExplored[0] = 0;
-
-			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex], puiAlreadyExplored))
+			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
 			{
 				free(puiVertexIndices);
-				free(puiAlreadyExplored);
 				return false;
 			}
-			free(puiAlreadyExplored);
 		}
 	}
 	free(puiVertexIndices);
 	return true;
+}
+
+/**************************************************************
+ * Tell if a path between two vertices exists.
+ **************************************************************
+ *
+ * Input:
+ *      uiStartIndex:           The starting vertex.
+ *      uiEndIndex:             The ending vertex.
+ * Output:
+ *      bool:                   True if a path exists between the two, false else.
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist.
+ */
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
+{
+	unsigned int * puiAlreadyExplored;
+	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
+	puiAlreadyExplored[0] = 0;
+	bool result = false;
+	try
+	{
+		result = GRThasPath(uiStartIndex, uiEndIndex, puiAlreadyExplored);
+	}
+	catch(CException const& oEXexception)
+	{
+		free(puiAlreadyExplored);
+		throw oEXexception;
+	}
+	free(puiAlreadyExplored);
+	return result;
 }
 
 /**************************************************************

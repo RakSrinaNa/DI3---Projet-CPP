@@ -88,6 +88,21 @@ public:
 	 * Input:
 	 *      uiStartIndex:           The starting vertex.
 	 *      uiEndIndex:             The ending vertex.
+	 * Output:
+	 *      bool:                   True if a path exists between the two, false else.
+	 * PreCond:
+	 * PostCond:
+	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist.
+	 */
+	bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
+
+	/**************************************************************
+	 * Tell if a path between two vertices exists.
+	 **************************************************************
+	 *
+	 * Input:
+	 *      uiStartIndex:           The starting vertex.
+	 *      uiEndIndex:             The ending vertex.
      *      puiAlreadyExplored:    The table of the already explored vertices.
 	 * Output:
 	 *      bool:                   True if a path exists between the two, false else.
