@@ -136,10 +136,10 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	unsigned int * puiAlreadyExplored;
 	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
 	puiAlreadyExplored[0] = 0;
-	bool result = false;
+	bool result;
 	try
 	{
-		result = GRThasPath(uiStartIndex, uiEndIndex, puiAlreadyExplored);
+		result = GRThasPath(uiStartIndex, uiEndIndex, &puiAlreadyExplored);
 	}
 	catch(CException const& oEXexception)
 	{
@@ -164,14 +164,14 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
  * PostCond:
  *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist. //TODO Victor
  */
-bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored)
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int ** puiAlreadyExplored)
 {
 	unsigned int * puiReachableIndices;
 	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
 
-	puiAlreadyExplored[0]++;
-	RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] + 1, "GRThasPath");
-	puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
+	(*puiAlreadyExplored)[0]++;
+	RREALLOC(*puiAlreadyExplored, unsigned int, (*puiAlreadyExplored)[0] + 1, "GRThasPath");
+	(*puiAlreadyExplored)[(*puiAlreadyExplored)[0]] = uiStartIndex;
 
 	for(unsigned int uiIndex = 0; uiIndex < uiReachableSize; uiIndex++)
 	{
@@ -184,8 +184,8 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 
 		//Verify if the next vertex hasn't already been explored
 		bool bIsExplored = false;
-		for(unsigned int uiIndex2 = 0; uiIndex2 < puiAlreadyExplored[0]; uiIndex2++)
-			if(puiReachableIndices[uiIndex] == puiAlreadyExplored[uiIndex2 + 1])
+		for(unsigned int uiIndex2 = 0; uiIndex2 < (*puiAlreadyExplored)[0]; uiIndex2++)
+			if(puiReachableIndices[uiIndex] == (*puiAlreadyExplored)[uiIndex2 + 1])
 			{
 				bIsExplored = true;
 				break;

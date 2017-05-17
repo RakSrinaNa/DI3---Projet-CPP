@@ -528,7 +528,7 @@ unsigned int CVertex::VERgetReachableIndices(unsigned int ** ppuiListPointer)
 	unsigned int * puiReachableIndices;
 	MMALLOC(puiReachableIndices, unsigned int, uiArcOutCount, "VERgetReachableIndices");
 	for(unsigned int uiIndex = 0; uiIndex < uiArcOutCount; uiIndex++)
-		puiReachableIndices[uiIndex + 1] = poARCoutList[uiIndex]->ARCgetVertexIndex();
+		puiReachableIndices[uiIndex] = poARCoutList[uiIndex]->ARCgetVertexIndex();
 	*ppuiListPointer = puiReachableIndices;
 	return uiArcOutCount;
 }
