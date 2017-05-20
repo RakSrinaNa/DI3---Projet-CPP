@@ -20,12 +20,12 @@ void CGraphToolboxUnit::GRTUnitTests()
 	if(!oGRTtoolbox2.GRThasPath(7, 4))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 2");
 
-	if(!oGRTtoolbox2.GRThasPath(1, 8) || oGRTtoolbox2.GRThasPath(8, 1))
+	if(!oGRTtoolbox2.GRThasPath(1, 8) || !oGRTtoolbox2.GRThasPath(8, 1))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 3");
 
 	CGraphToolbox oGRTtoolbox3 = CGraphToolbox(oGRAgraph2);
 	if(!oGRTtoolbox2.GRThasPath(1, 8) || oGRTtoolbox2.GRThasPath(8, 1))
-		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 3");
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4");
 
 	try
 	{
