@@ -140,7 +140,6 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	try
 	{
 		result = GRThasPath(uiStartIndex, uiEndIndex, &puiAlreadyExplored);
-		std::printf("Le résultat est : %s\n", result? "true" : "false");
 	}
 	catch(CException const& oEXexception)
 	{
@@ -182,6 +181,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 		//If the end is directly reachable
 		if(puiReachableIndices[uiIndex] == uiEndIndex)
 		{
+			std::printf("Indice %d : directly reachable\n", puiReachableIndices[uiIndex]);
 			free(puiReachableIndices);
 			return true;
 		}
@@ -201,6 +201,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 		bool bHasPath = GRThasPath(puiReachableIndices[uiIndex], uiEndIndex, puiAlreadyExplored);
 		if(bHasPath)
 		{
+			std::printf("Indice %d : has path\n", puiReachableIndices[uiIndex]);
 			free(puiReachableIndices);
 			return true;
 		}
