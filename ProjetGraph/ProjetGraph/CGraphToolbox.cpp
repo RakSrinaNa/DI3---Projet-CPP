@@ -140,7 +140,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	try
 	{
 		result = GRThasPath(uiStartIndex, uiEndIndex, &puiAlreadyExplored);
-		std::printf("Le résultat est : %b\n", result);
+		std::printf("Le résultat est : %s\n", result? "true" : "false");
 	}
 	catch(CException const& oEXexception)
 	{
