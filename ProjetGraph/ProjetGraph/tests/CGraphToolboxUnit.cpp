@@ -27,7 +27,8 @@ void CGraphToolboxUnit::GRTUnitTests()
 /*	if(!oGRTtoolbox2.GRThasPath(1, 8))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.01");
 */	
-	if(oGRTtoolbox2.GRThasPath(8, 1))
+	
+	if(oGRTtoolbox3.GRThasPath(8, 1))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.02");
 
 	try
