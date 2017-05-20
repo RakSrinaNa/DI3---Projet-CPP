@@ -134,7 +134,7 @@ bool CGraphToolbox::GRTisConnex()
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
 {
 	unsigned int * puiAlreadyExplored;
-	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
+	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRThasPath");
 	puiAlreadyExplored[0] = 0;
 	bool result;
 	try
@@ -166,6 +166,9 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
  */
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int ** puiAlreadyExplored)
 {
+	if(!oGRAgraph.GRAhasVertex(uiStartIndex) || !oGRAgraph.GRAhasVertex(uiEndIndex))
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "One of those vertices doesn't exist");
+	
 	unsigned int * puiReachableIndices;
 	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
 
@@ -182,7 +185,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 			return true;
 		}
 
-		//Verify if the next vertex hasn't already been explored
+		//Verify if the next vertex has already been explored
 		bool bIsExplored = false;
 		for(unsigned int uiIndex2 = 0; uiIndex2 < (*puiAlreadyExplored)[0]; uiIndex2++)
 			if(puiReachableIndices[uiIndex] == (*puiAlreadyExplored)[uiIndex2 + 1])
