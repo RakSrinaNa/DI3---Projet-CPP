@@ -171,11 +171,6 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	
 	unsigned int * puiReachableIndices;
 	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
-
-	std::printf("Indice %d : ", uiStartIndex);
-	for(unsigned int i = 0; i < uiReachableSize; i++)
-		std::printf("%d ", puiReachableIndices[i]);
-	std::printf("\n");
 	
 	(*puiAlreadyExplored)[0]++;
 	RREALLOC(*puiAlreadyExplored, unsigned int, (*puiAlreadyExplored)[0] + 1, "GRThasPath");
