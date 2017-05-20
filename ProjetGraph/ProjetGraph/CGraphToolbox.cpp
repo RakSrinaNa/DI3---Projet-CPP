@@ -167,7 +167,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int ** puiAlreadyExplored)
 {
 	if(!oGRAgraph.GRAhasVertex(uiStartIndex) || !oGRAgraph.GRAhasVertex(uiEndIndex))
-		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, "One of those vertices doesn't exist");
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *)"One of those vertices doesn't exist");
 	
 	unsigned int * puiReachableIndices;
 	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
