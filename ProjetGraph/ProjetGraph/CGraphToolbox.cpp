@@ -176,12 +176,16 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	RREALLOC(*puiAlreadyExplored, unsigned int, (*puiAlreadyExplored)[0] + 1, "GRThasPath");
 	(*puiAlreadyExplored)[(*puiAlreadyExplored)[0]] = uiStartIndex;
 
+	std::printf("Indice %d : ", uiStartIndex);
+	for(int i = 0; i < uiReachableSize; i++)
+		std::printf("%d ", puiReachableIndices[i]);
+	std::printf("\n");
+	
 	for(unsigned int uiIndex = 0; uiIndex < uiReachableSize; uiIndex++)
 	{
 		//If the end is directly reachable
 		if(puiReachableIndices[uiIndex] == uiEndIndex)
 		{
-			std::printf("Indice %d : directly reachable\n", puiReachableIndices[uiIndex]);
 			free(puiReachableIndices);
 			return true;
 		}
@@ -201,7 +205,6 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 		bool bHasPath = GRThasPath(puiReachableIndices[uiIndex], uiEndIndex, puiAlreadyExplored);
 		if(bHasPath)
 		{
-			std::printf("Indice %d : has path\n", puiReachableIndices[uiIndex]);
 			free(puiReachableIndices);
 			return true;
 		}
