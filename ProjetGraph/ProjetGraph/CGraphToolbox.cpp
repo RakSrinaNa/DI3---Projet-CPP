@@ -177,7 +177,7 @@ bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndInde
 	(*puiAlreadyExplored)[(*puiAlreadyExplored)[0]] = uiStartIndex;
 
 	std::printf("Indice %d : ", uiStartIndex);
-	for(int i = 0; i < uiReachableSize; i++)
+	for(unsigned int i = 0; i < uiReachableSize; i++)
 		std::printf("%d ", puiReachableIndices[i]);
 	std::printf("\n");
 	
