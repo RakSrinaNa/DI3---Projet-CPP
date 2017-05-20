@@ -24,7 +24,6 @@ void CGraphToolboxUnit::GRTUnitTests()
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 3");
 
 	CGraphToolbox oGRTtoolbox3 = CGraphToolbox(oGRAgraph2);
-	oGRTtoolbox3.GRTgetGraph().GRAdisplay(4);
 	if(!oGRTtoolbox2.GRThasPath(1, 8))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.01");	
 	if(oGRTtoolbox2.GRThasPath(8, 1))
