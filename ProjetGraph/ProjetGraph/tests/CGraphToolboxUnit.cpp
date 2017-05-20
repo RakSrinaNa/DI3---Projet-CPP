@@ -24,16 +24,15 @@ void CGraphToolboxUnit::GRTUnitTests()
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 3");
 */
 	CGraphToolbox oGRTtoolbox3 = CGraphToolbox(oGRAgraph2);
-/*	if(!oGRTtoolbox2.GRThasPath(1, 8))
+/*	if(!oGRTtoolbox3.GRThasPath(1, 8))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.01");
-*/	
-	
+*/
 	if(oGRTtoolbox3.GRThasPath(8, 1))
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.02");
 
 	try
 	{
-		oGRTtoolbox2.GRThasPath(10, 8);
+		oGRTtoolbox3.GRThasPath(10, 8);
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 4.1");
 	}
 	catch(CException const& oEXexception)
@@ -44,7 +43,7 @@ void CGraphToolboxUnit::GRTUnitTests()
 
 	try
 	{
-		oGRTtoolbox2.GRThasPath(1, 80);
+		oGRTtoolbox3.GRThasPath(1, 80);
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.1");
 	}
 	catch(CException const& oEXexception)
