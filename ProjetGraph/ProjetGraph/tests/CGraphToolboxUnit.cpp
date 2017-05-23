@@ -48,4 +48,12 @@ void CGraphToolboxUnit::GRTUnitTests()
 		if(oEXexception.EXgetExceptionID() != MISSING_VERTEX_INDEX_EXCEPTION)
 			CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.2");
 	}
+	
+	if(!oGRTtoolbox.GRTisConnex() || !oGRTtoolbox2.GRTisConnex() || !oGRTtoolbox3.GRTisConnex())
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 6");
+	
+	CGraph oGRAgraph3 = CGraph((char *) "g5.txt");
+	CGraphToolbox oGRTtoolbox4 = CGraphToolbox(oGRAgraph3);
+	if(oGRTtoolbox4.GRTisConnex())
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 7");
 }
