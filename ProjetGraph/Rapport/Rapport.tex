@@ -9,18 +9,47 @@
 	\maketitle
 	\tableofcontents
 	\chapter{Présentation du sujet}
-		L'objectif de ce projet est de réaliser l'implémentation d'une fonction permettant de déterminer si un graphe est connexe tout en se basant sur la librairie que nous avons développé précédemment lors du projet \no 2.		
+		L'objectif de ce projet est de réaliser l'implémentation d'une fonction permettant de déterminer si un graphe est connexe tout en se basant sur la librairie que nous avons développée précédemment, lors du projet \no 2.		
 		
-		Nous nous intéressons plus particulièrement aux graphs non orientés mais il est a noter que la méthode implémentée est aussi capable de s'appliquer sur des graphs orientés.
+		Nous nous intéressons plus particulièrement aux graphs non-orientés mais il est à noter que la méthode implémentée peut aussi s'appliquer sur des graphs orientés.
 		
-		La connexité d'un graphe se détermine selon les chemins réalisables. En effet si pour toute paire de sommets du graphe il existe un chemin entre eux, alors le graphe est défini comme connexe. De manière plus visuelle, un graphe connexe est un graphe don't tout les sommets font partis du même "bloc" (il n'y a pas plusieurs regroupements de sommets, mais uniquement un).
+		La connexité d'un graphe se détermine selon les chemins réalisables. En effet, si pour toute paire de sommets du graphe il existe un chemin entre eux, alors le graphe est dit connexe. De manière plus visuelle, un graphe connexe est un graphe dont tous les sommets font partie du même "bloc" (il n'y a pas plusieurs regroupements de sommets, mais un unique).
 	
 	\chapter{Architecture}
-		%TODO Victor: CGraphToolbox
+		Afin de répondre à cette question, nous avons décidé de créer une nouvelle classe appelée CGraphToolbox. Celle-ci contient l'ensemble des méthodes permettant des actions avancées sur un objet de la classe CGraph. Grace à cela, nous pourrons, par la suite, ajouter d'autres méthodes utilisant les graphs sans modifier la classe CGraph elle-même.
 		
-		%TODO Victor: CGraph - GRAgetRechableIndices
+		Un objet de la classe CGraphToolbox s'instancie par un constructeur prenant un argument un objet CGraph. La ToolBox va alors dupliquer le graph pour ensuite effectuer ces actions sur cette copie. Ce choix sera expliqué par la suite.\\
 		
-		%TODO Victor: CVertex - VERgetRechableIndices
+		La classe CGraphToolbox ne contient pour l'instant que 3 méthodes principales : GRTtransformNonOriented, GRThasPath et GRTisConnex.\\
+		
+		La méthode GRTtransformNonOriented transforme le graph actuel de la ToolBox en un graph non-orienté. Cela signifie que pour tout point reliés par un unique arc (dans un seul sens), ils seront dorénavant reliés dans les deux sens. Cette action est irrévocable.\\
+		
+		La méthode GRThasPath prend en paramètres 2 indices de sommets (le départ et l'arrivée) et renvoie un booléen indiquant l'existance d'un chemin entre ces 2 points. Si l'un des ces 2 sommets d'existe pas dans le graph, une exception sera levée.
+		
+		Il est à noter que l'execution de cette méthode se fait par appels récursifs, mais que la première récursion se fait sur une surcharge de cette même méthode prenant en paramètre supplémentaire un tableau contenant les indices des sommets déjà visités par l'algorithme.
+		
+		Cet algorithme peut se décomposer de la manière suivante :
+		\begin{itemize}
+			\item Ajout du sommet courrant (celui dit de départ) au tableau des indices déjà explorés.
+			\item Pour chaque sommet atteignable depuis le sommet courrant on va vérifier/faire :
+			\begin{itemize}
+				\item S'il s'agit du sommet d'arrivée, on renvoie vrai. Ceci va fermer toutes les récursions et terminer la méthode.
+				\item S'il est dans la liste des sommets déjà explorés, on l'ignore et passe au suivant. Cela permet d'éviter les boucles infinies où l'on tournerait entre plusieurs sommets sans jamais voir les autres.
+				\item Si aucune des conditions précédentes n'est remplie, on lance une récursion avec pour nouveau sommet de départ le sommet atteignable.
+			\end{itemize}
+			\item Si aucune des récursions précédentes n'a renvoyé vrai, on renvoie alors faux. Cela termine la méthode.\\
+		\end{itemize}
+		Cet algorithme est assez efficace pour deux raisons : premièrement, il s'arrète dès qu'il trouve un chemin, et deuxièmement, s'il venait à devoir parcourir presque tout le graph, la liste des sommets déjà explorés permet de réduire considérablement les possibilités de chemin à chaque nouvelle itération.\\
+		
+		Enfin la méthode GRTisConnex ne faire que peu d'instructions elle-même. Elle va simplement appeler la méthode GRThasPath pour chaque couple de sommets. Il est à noter que les points d'arrivée sont choisis parmi les points qui n'ont pas encore été des sommets de départ. Ceci permet d'éviter des recherches inutiles car si le chemin entre les sommets X et Y existe, inutile de tester celui entre Y et X.
+		
+		Là encore, l'algorithme s'arrète dès qu'un des chemins n'existe pas car cela signifie que le graph n'est pas connexe.\\\\
+		
+		Afin de simplifier l'exécution des méthodes précédemment présentées, nous avons rajouté deux méthodes dans les classes CGraph et CVertex.\\
+		
+		GRAgetRechableIndices renvoie dans un tableau la liste des sommets atteignables à partir d'un indice passé en paramètre. Lève une exception si le sommet n'existe pas dans le graph de la ToolBox.
+		
+		VERgetRechableIndices renvoie dans un tableau la liste des sommets atteignables à partir du sommet en cours.
 		
 		\newpage
 		\img{../../classDiagram.png}{Diagramme de classes}{0.4}{90}
@@ -33,18 +62,18 @@
 		%TODO Victor: Choix de separer la methode pour transformer un graph oriente en un graph non oriente de la methode pour verifier la connexite
 		
 	\chapter{Tests effectués}
-		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé quelques tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX. Une grosse partie de ceux-ci proviennent des tests effectuée lors de la partie 2 du projet. Seulement la classe CGraphToolboxUnit a été ajoutée.
+		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé quelques tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX. Une grosse partie de ceux-ci proviennent des tests effectués lors de la partie 2 du projet. Seule la classe CGraphToolboxUnit a été ajoutée.
 		
 		Celle-ci contient les tests suivants
 		\begin{itemize}
-			\item Test de la transformation d'un graph orienté en un graph non orienté.
+			\item Test de la transformation d'un graph orienté en un graph non-orienté.
 			\item Test de la fonction indiquant si un chemin existe entre deux sommets.
 			\item Test de la fonction indiquant si un chemin existe entre deux sommets avec pour sommet de départ un sommet n'existant pas.
 			\item Test de la fonction indiquant si un chemin existe entre deux sommets avec pour sommet d'arrivée un sommet n'existant pas.
 			\item Test de la fonction indiquant la connexité d'un graph.
 		\end{itemize}
 		
-		De plus un test valgrind est réalisé sur la phase d'executions des tests.
+		De plus, un test valgrind est réalisé sur la phase d'execution des tests.
 			
 	\chapter{Conseils d'utilisation}
 	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments un fichier source de graph formaté comme défini dans le sujet.
@@ -56,7 +85,7 @@
 	\end{itemize}
 	Pour une utilisation en tant que librairie, tout se fait à partir d'un objet CGraphToolbox. Celle-ci dupliquera le graph passé en paramètre lors de sa création et offrira différentes fonctionnalités sur ce dernier. Cela comprend:
 	\begin{itemize}
-		\item Transformation du graph en un graph non orienté.
+		\item Transformation du graph en un graph non-orienté.
 		\item Savoir si un chemin existe entre deux sommets.
 		\item Savoir si le graph est connexe.\\
 	\end{itemize}
