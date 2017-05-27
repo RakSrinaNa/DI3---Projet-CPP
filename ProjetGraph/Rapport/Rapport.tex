@@ -16,22 +16,22 @@
 		La connexité d'un graphe se détermine selon les chemins réalisables. En effet, si pour toute paire de sommets du graphe il existe un chemin entre eux, alors le graphe est dit connexe. De manière plus visuelle, un graphe connexe est un graphe dont tous les sommets font partie du même "bloc" (il n'y a pas plusieurs regroupements de sommets, mais un unique).
 	
 	\chapter{Architecture}
-		Afin de répondre à cette question, nous avons décidé de créer une nouvelle classe appelée CGraphToolbox. Celle-ci contient l'ensemble des méthodes permettant des actions avancées sur un objet de la classe CGraph. Grace à cela, nous pourrons, par la suite, ajouter d'autres méthodes utilisant les graphs sans modifier la classe CGraph elle-même.
+		Afin de répondre à cette question, nous avons décidé de créer une nouvelle classe appelée CGraphToolbox. Celle-ci contient l'ensemble des méthodes permettant des actions avancées sur un objet de la classe CGraph. Grâce à cela, nous pourrons, par la suite, ajouter d'autres méthodes utilisant les graphs sans modifier la classe CGraph elle-même.
 		
-		Un objet de la classe CGraphToolbox s'instancie par un constructeur prenant un argument un objet CGraph. La ToolBox va alors dupliquer le graph pour ensuite effectuer ces actions sur cette copie. Ce choix sera expliqué par la suite.\\
+		Un objet de la classe CGraphToolbox s'instancie par un constructeur prenant en argument un objet CGraph. La ToolBox va alors dupliquer le graph pour ensuite effectuer ses actions sur cette copie. Ce choix sera expliqué par la suite.\\
 		
 		La classe CGraphToolbox ne contient pour l'instant que 3 méthodes principales : GRTtransformNonOriented, GRThasPath et GRTisConnex.\\
 		
-		La méthode GRTtransformNonOriented transforme le graph actuel de la ToolBox en un graph non-orienté. Cela signifie que pour tout point reliés par un unique arc (dans un seul sens), ils seront dorénavant reliés dans les deux sens. Cette action est irrévocable.\\
+		La méthode GRTtransformNonOriented transforme le graph actuel de la ToolBox en un graph non-orienté. Cela signifie que pour tous points reliés par un unique arc (dans un seul sens), ils seront dorénavant reliés dans les deux sens. Cette action est irréversible.\\
 		
-		La méthode GRThasPath prend en paramètres 2 indices de sommets (le départ et l'arrivée) et renvoie un booléen indiquant l'existance d'un chemin entre ces 2 points. Si l'un des ces 2 sommets d'existe pas dans le graph, une exception sera levée.
+		La méthode GRThasPath prend en paramètres 2 indices de sommets (le départ et l'arrivée) et renvoie un booléen indiquant l'existence d'un chemin entre ces 2 points. Si l'un des ces 2 sommets n'existe pas dans le graph, une exception sera levée.
 		
-		Il est à noter que l'execution de cette méthode se fait par appels récursifs, mais que la première récursion se fait sur une surcharge de cette même méthode prenant en paramètre supplémentaire un tableau contenant les indices des sommets déjà visités par l'algorithme.
+		Il est à noter que l'exécution de cette méthode se fait par appels récursifs, mais que la première récursion se fait sur une surcharge de cette même méthode prenant en paramètre supplémentaire un tableau contenant les indices des sommets déjà visités par l'algorithme.
 		
 		Cet algorithme peut se décomposer de la manière suivante :
 		\begin{itemize}
-			\item Ajout du sommet courrant (celui dit de départ) au tableau des indices déjà explorés.
-			\item Pour chaque sommet atteignable depuis le sommet courrant on va vérifier/faire :
+			\item Ajout du sommet courant (celui dit de départ) au tableau des indices déjà explorés.
+			\item Pour chaque sommet atteignable depuis le sommet courant on va vérifier/faire :
 			\begin{itemize}
 				\item S'il s'agit du sommet d'arrivée, on renvoie vrai. Ceci va fermer toutes les récursions et terminer la méthode.
 				\item S'il est dans la liste des sommets déjà explorés, on l'ignore et passe au suivant. Cela permet d'éviter les boucles infinies où l'on tournerait entre plusieurs sommets sans jamais voir les autres.
@@ -39,11 +39,11 @@
 			\end{itemize}
 			\item Si aucune des récursions précédentes n'a renvoyé vrai, on renvoie alors faux. Cela termine la méthode.\\
 		\end{itemize}
-		Cet algorithme est assez efficace pour deux raisons : premièrement, il s'arrète dès qu'il trouve un chemin, et deuxièmement, s'il venait à devoir parcourir presque tout le graph, la liste des sommets déjà explorés permet de réduire considérablement les possibilités de chemin à chaque nouvelle itération.\\
+		Cet algorithme est assez efficace pour deux raisons : premièrement, il s'arrête dès qu'il trouve un chemin, et deuxièmement, s'il venait à devoir parcourir presque tout le graph, la liste des sommets déjà explorés permet de réduire considérablement les possibilités de chemin à chaque nouvelle itération.\\
 		
-		Enfin la méthode GRTisConnex ne faire que peu d'instructions elle-même. Elle va simplement appeler la méthode GRThasPath pour chaque couple de sommets. Il est à noter que les points d'arrivée sont choisis parmi les points qui n'ont pas encore été des sommets de départ. Ceci permet d'éviter des recherches inutiles car si le chemin entre les sommets X et Y existe, inutile de tester celui entre Y et X.
+		Enfin la méthode GRTisConnex ne fait que peu d'instructions elle-même. Elle va simplement appeler la méthode GRThasPath pour chaque couple de sommets. Il est à noter que les points d'arrivée sont choisis parmi les points qui n'ont pas encore été des sommets de départ. Ceci permet d'éviter des recherches inutiles car si le chemin entre les sommets X et Y existe, inutile de tester celui entre Y et X.
 		
-		Là encore, l'algorithme s'arrète dès qu'un des chemins n'existe pas car cela signifie que le graph n'est pas connexe.\\\\
+		Là encore, l'algorithme s'arrête dès qu'un des chemins n'existe pas car cela signifie que le graph n'est pas connexe.\\\\
 		
 		Afin de simplifier l'exécution des méthodes précédemment présentées, nous avons rajouté deux méthodes dans les classes CGraph et CVertex.\\
 		
@@ -55,11 +55,19 @@
 		\img{../../classDiagram.png}{Diagramme de classes}{0.4}{90}
 		
 	\chapter{Choix de codage}
-		%TODO Victor: Choix de recopie de graph dans la toolbox
+		Le premier choix que nous avons du faire est celui de la recopie (ou non) du graph lors de la création de la ToolBox. L'autre solution aurait été de ne garder qu'une référence (un pointeur) sur l'objet graph en courant. Cela aurait économisé du temps de recopie et de la mémoire. Cependant, certaines méthodes de la ToolBox modifient de manière irréversible le graph. C'est à cause de cela que nous avons prit la décision de dupliquer le graph afin que l'original ne soit jamais modifié malgré les actions de la ToolBox.\\
 		
-		%TODO Victor: Choix du tableau avec a l'indice 0 le nombre d'elements
+		Un deuxième choix à expliquer est celui de la forme du tableau des indices déjà explorés. En effet, on remarque qu'aucun paramètre représentant la taille de ce tableau n'est passé à chaque appel de récursivité. Ceci s'explique par le fait que la taille est contenue dans la première case de ce tableau de 'unsigned int'.
 		
-		%TODO Victor: Choix de separer la methode pour transformer un graph oriente en un graph non oriente de la methode pour verifier la connexite
+		Cette méthode à deux avantages :
+		\begin{itemize}
+			\item On économise le passage d'un argument à chaque récursion, économisant de la mémoire. (avantage assez limité)
+			\item Mais surtout, le tableau contient ainsi toujours au moins une case, celle de la taille. En effet, même si aucune réelle valeur n'est contenue, la première case aura la valeur 0. Ceci permet de facilité l'utilisation des Malloc, Réalloc et Free car il est dorénavant utile de vérifier la taille à chaque modification du tableau (Realloc s'il contient déjà des valeurs, Malloc si c'est un nouveau tableau, Free s'il est vidé, etc..). On utilise un Malloc la toute première fois puis uniquement des Realloc car la taille de deviendra jamais nulle.\\
+		\end{itemize}
+		
+		Enfin, malgré les consignes du sujet, nous avons remarqué que notre méthode permettent de connaitre la connexité d'un graph ne demandait pas forcement un graph non-orienté et fonctionnait aussi sur un orienté.
+		
+		Nous avons donc choisi de séparer la méthode de connexité de celle transformant la graph en non-orienté. Cela augmente ainsi les possibilités de la librairie en distinguant bien deux actions différentes mais toujours compatibles.
 		
 	\chapter{Tests effectués}
 		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé quelques tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX. Une grosse partie de ceux-ci proviennent des tests effectués lors de la partie 2 du projet. Seule la classe CGraphToolboxUnit a été ajoutée.
