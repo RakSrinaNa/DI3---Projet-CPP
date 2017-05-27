@@ -62,7 +62,7 @@
 		Cette méthode à deux avantages :
 		\begin{itemize}
 			\item On économise le passage d'un argument à chaque récursion, économisant de la mémoire. (avantage assez limité)
-			\item Mais surtout, le tableau contient ainsi toujours au moins une case, celle de la taille. En effet, même si aucune réelle valeur n'est contenue, la première case aura la valeur 0. Ceci permet de facilité l'utilisation des Malloc, Réalloc et Free car il est dorénavant utile de vérifier la taille à chaque modification du tableau (Realloc s'il contient déjà des valeurs, Malloc si c'est un nouveau tableau, Free s'il est vidé, etc..). On utilise un Malloc la toute première fois puis uniquement des Realloc car la taille de deviendra jamais nulle.\\
+			\item Mais surtout, le tableau contient ainsi toujours au moins une case, celle de la taille. En effet, même si aucune réelle valeur n'est contenue, la première case aura la valeur 0. Ceci permet de facilité l'utilisation des Malloc, Réalloc et Free car il est dorénavant utile de vérifier la taille à chaque modification du tableau (Realloc s'il contient déjà des valeurs, Malloc si c'est un nouveau tableau, Free s'il est vidé, etc..). On utilise un Malloc la toute première fois puis uniquement des Realloc car la taille ne deviendra jamais nulle.\\
 		\end{itemize}
 		
 		Enfin, malgré les consignes du sujet, nous avons remarqué que notre méthode permettent de connaitre la connexité d'un graph ne demandait pas forcement un graph non-orienté et fonctionnait aussi sur un orienté.
