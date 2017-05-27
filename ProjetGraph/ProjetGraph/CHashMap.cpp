@@ -191,7 +191,7 @@ void CHashMap::HMPclear()
  * PreCond:
  * PostCond:
  */
-CHashMap & CHashMap::operator=(CHashMap const& oHMPmap)
+CHashMap &CHashMap::operator=(CHashMap const &oHMPmap)
 {
 	HMPclear();
 	uiCount = oHMPmap.uiCount;

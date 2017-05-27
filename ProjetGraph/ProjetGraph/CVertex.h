@@ -32,7 +32,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION`.
 	 */
 	CVertex();
-
+	
 	/**************************************************************
 	 * Copy constructor.
 	 **************************************************************
@@ -44,7 +44,7 @@ public:
 	 * PostCond:
 	 */
 	CVertex(CVertex const &oVERvertexParam);
-
+	
 	/**************************************************************
 	 * Parameterized constructor with the vertex ID.
 	 **************************************************************
@@ -56,7 +56,7 @@ public:
 	 * PostCond:
 	 */
 	explicit CVertex(unsigned int uiVertexIndexParam);
-
+	
 	/**************************************************************
 	 * Destructor.
 	 **************************************************************
@@ -67,7 +67,7 @@ public:
 	 * PostCond:
 	 */
 	~CVertex();
-
+	
 	/**************************************************************
 	 * Return the number of incoming arcs.
 	 **************************************************************
@@ -82,7 +82,7 @@ public:
 	{
 		return uiArcInCount;
 	}
-
+	
 	/**************************************************************
 	 * Return the number of outgoing arcs.
 	 **************************************************************
@@ -97,7 +97,7 @@ public:
 	{
 		return uiArcOutCount;
 	}
-
+	
 	/**************************************************************
 	 * Add an incoming arc to the vertex.
 	 **************************************************************
@@ -110,7 +110,7 @@ public:
 	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
 	 */
 	void VERaddArcIn(unsigned int uiFromVertexIndex);
-
+	
 	/**************************************************************
 	 * Remove an incoming arc to the node.
 	 **************************************************************
@@ -122,7 +122,7 @@ public:
 	 * PostCond:
 	 */
 	void VERremoveArcIn(unsigned int uiFromVertexIndex);
-
+	
 	/**************************************************************
 	 * Add an outgoing arc to the vertex.
 	 **************************************************************
@@ -135,7 +135,7 @@ public:
 	 *      Throws a CException with the ID `DUPLICATE_ARC_EXCEPTION` if the arc already exists.
 	 */
 	void VERaddArcOut(unsigned int uiToVertexIndex);
-
+	
 	/**************************************************************
 	 * Remove an outgoing arc to the node.
 	 **************************************************************
@@ -147,7 +147,7 @@ public:
 	 * PostCond:
 	 */
 	void VERremoveArcOut(unsigned int uiToVertexIndex);
-
+	
 	/**************************************************************
 	 * Modify an incoming arc to the vertex.
 	 **************************************************************
@@ -161,7 +161,7 @@ public:
 	 *      If uiLastFromVertexIndex doesn't exists, nothing is changed.
 	 */
 	void VERmodifyArcIn(unsigned int uiLastFromVertexIndex, unsigned int uiNewFromVertexIndex);
-
+	
 	/**************************************************************
 	 * Modify an outgoing arc to the vertex.
 	 **************************************************************
@@ -175,7 +175,7 @@ public:
 	 *      If uiLastToVertexIndex doesn't exists, nothing is changed.
 	 */
 	void VERmodifyArcOut(unsigned int uiLastToVertexIndex, unsigned int uiNewToVertexIndex);
-
+	
 	/**************************************************************
 	 * Return the ID of the current vertex.
 	 **************************************************************
@@ -190,7 +190,7 @@ public:
 	{
 		return uiVertexIndex;
 	};
-
+	
 	/**************************************************************
 	 * Verify if the node has an incoming arc from a specific arc.
 	 **************************************************************
@@ -203,7 +203,7 @@ public:
 	 * PostCond:
 	 */
 	bool VERhasIndexIn(unsigned int uiFromVertexIndex) const;
-
+	
 	/**************************************************************
 	 * Verify if the node has an outgoing arc from a specific arc.
 	 **************************************************************
@@ -216,7 +216,7 @@ public:
 	 * PostCond:
 	 */
 	bool VERhasIndexOut(unsigned int uiToVertexIndex) const;
-
+	
 	/**************************************************************
 	 * Display the list of the incoming arcs.
 	 **************************************************************
@@ -227,7 +227,7 @@ public:
 	 * PostCond:
 	 */
 	void VERdisplayArcIn() const;
-
+	
 	/**************************************************************
 	 * Display the list of the outgoing arcs.
 	 **************************************************************
@@ -238,7 +238,7 @@ public:
 	 * PostCond:
 	 */
 	void VERdisplayArcOut() const;
-
+	
 	/**************************************************************
 	 * Invert the orientation of every arcs.
 	 **************************************************************
@@ -249,7 +249,7 @@ public:
 	 * PostCond:
 	 */
 	void VERinvert();
-
+	
 	/**************************************************************
 	 * Define the operator =.
 	 **************************************************************
@@ -261,7 +261,7 @@ public:
 	 * PostCond:
 	 */
 	CVertex &operator=(CVertex const &oVERvertexParam);
-
+	
 	/**************************************************************
 	 * Add a property to the vertex.
 	 **************************************************************
@@ -275,7 +275,7 @@ public:
 	 *      Throws a CException with the ID `KEY_ALREADY_DEFINED_EXCEPTION` if the key already exists.
 	 */
 	void VERaddProperty(char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Modify a property of the vertex.
 	 **************************************************************
@@ -289,7 +289,7 @@ public:
 	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
 	 */
 	void VERmodifyProperty(char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Get the value of a property of the vertex.
 	 **************************************************************
@@ -303,7 +303,7 @@ public:
 	 *      Throws a CException with the ID `KEY_NOT_FOUND_EXCEPTION` if the key doesn't exist.
 	 */
 	double VERgetProperty(char * pcKey) const;
-
+	
 	/**************************************************************
 	 * Delete a property from the vertex.
 	 **************************************************************
@@ -315,7 +315,7 @@ public:
 	 * PostCond:
 	 */
 	void VERdeleteProperty(char * pcKey);
-
+	
 	/**************************************************************
 	 * Add a property to an arc of the vertex.
 	 **************************************************************
@@ -331,7 +331,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void VERaddArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Modify a property of an arc of the vertex.
 	 **************************************************************
@@ -347,7 +347,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void VERmodifyArcProperty(unsigned int uiArcDestination, char * pcKey, double dValue);
-
+	
 	/**************************************************************
 	 * Get the value of a property of an arc of the vertex.
 	 **************************************************************
@@ -363,7 +363,7 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	double VERgetArcProperty(unsigned int uiArcDestination, char * pcKey) const;
-
+	
 	/**************************************************************
 	 * Delete a property from an arc of the vertex.
 	 **************************************************************
@@ -377,18 +377,19 @@ public:
 	 *      Throws a CException with the ID `MISSING_ARC_INDEX_EXCEPTION` if the arc doesn't exists.
 	 */
 	void VERdeleteArcProperty(unsigned int uiArcDestination, char * pcKey);
-
+	
 	/**************************************************************
 	 * Get the list of the reachable vertex indices.
 	 **************************************************************
 	 *
 	 * Input:
+	 *      ppuiListPointer:    The pointer were the list will be stored.
 	 * Output:
-	 *      unsigned int *: The list of the reachable indices.
+	 *      unsigned int:       The list size.
 	 * PreCond:
 	 * PostCond:
 	 */
-	unsigned int * VERgetReachableIndices();
+	unsigned int VERgetReachableIndices(unsigned int ** ppuiListPointer);
 };
 
 #endif

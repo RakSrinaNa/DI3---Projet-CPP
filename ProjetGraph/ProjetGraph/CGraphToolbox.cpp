@@ -73,19 +73,21 @@ CGraph const &CGraphToolbox::GRTgetGraph() const
 void CGraphToolbox::GRTtransformNonOriented()
 {
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
-	for(unsigned int uiVertexIndex1 = 1; uiVertexIndex1 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex1++)
-        for(unsigned int uiVertexIndex2 = uiVertexIndex1 +1; uiVertexIndex2 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex2++)
-            if(oGRAgraph.GRAhasArc(uiVertexIndex1, uiVertexIndex2))
-            {
-                try
-                {
-                    oGRAgraph.GRAaddArc(uiVertexIndex2, uiVertexIndex1);
-                }
-                catch(CException const &oEXexception)
-                {
-                }
-            }
-    free(puiVertexIndices);
+	for(unsigned int uiVertexIndex1 = 0; uiVertexIndex1 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex1++)
+		for(unsigned int uiVertexIndex2 = 0; uiVertexIndex2 < oGRAgraph.GRAgetVertexCount(); uiVertexIndex2++)
+			if(oGRAgraph.GRAhasArc(puiVertexIndices[uiVertexIndex1], puiVertexIndices[uiVertexIndex2]))
+			{
+				try
+				{
+					oGRAgraph.GRAaddArc(puiVertexIndices[uiVertexIndex2], puiVertexIndices[uiVertexIndex1]);
+				}
+				catch(CException const &oEXexception)
+				{
+					if(oEXexception.EXgetExceptionID() != DUPLICATE_ARC_EXCEPTION)
+						printf("CException: %s\n", oEXexception.EXgetExceptionMessage());
+				}
+			}
+	free(puiVertexIndices);
 }
 
 /**************************************************************
@@ -100,23 +102,16 @@ void CGraphToolbox::GRTtransformNonOriented()
  */
 bool CGraphToolbox::GRTisConnex()
 {
-	GRTtransformNonOriented();
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
 	for(unsigned int uiVertexStartIndex = 0; uiVertexStartIndex < oGRAgraph.GRAgetVertexCount(); uiVertexStartIndex++)
 	{
 		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
 		{
-		    unsigned int * puiAlreadyExplored;
-		    MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRTisConnex");
-		    puiAlreadyExplored[0] = 0;
-
-			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex], puiAlreadyExplored))
+			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
 			{
 				free(puiVertexIndices);
-				free(puiAlreadyExplored);
 				return false;
 			}
-            free(puiAlreadyExplored);
 		}
 	}
 	free(puiVertexIndices);
@@ -130,48 +125,85 @@ bool CGraphToolbox::GRTisConnex()
  * Input:
  *      uiStartIndex:           The starting vertex.
  *      uiEndIndex:             The ending vertex.
- *      puiAlreadyExplored :    The table of the already explored vertices.
  * Output:
- *      bool:           True if a path exists between the two, false else.
+ *      bool:                   True if a path exists between the two, false else.
  * PreCond:
  * PostCond:
+ *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist.
  */
-bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int * puiAlreadyExplored)
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
 {
-    unsigned int * puiReachableIndices = oGRAgraph.GRAgetReachableIndices(uiStartIndex);
+	unsigned int * puiAlreadyExplored;
+	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRThasPath");
+	puiAlreadyExplored[0] = 0;
+	bool result;
+	try
+	{
+		result = GRThasPath(uiStartIndex, uiEndIndex, &puiAlreadyExplored);
+	}
+	catch(CException const& oEXexception)
+	{
+		free(puiAlreadyExplored);
+		throw oEXexception;
+	}
+	free(puiAlreadyExplored);
+	return result;
+}
 
-    puiAlreadyExplored[0]++;
-    RREALLOC(puiAlreadyExplored, unsigned int, puiAlreadyExplored[0] + 1, "GRThasPath");
-    puiAlreadyExplored[puiAlreadyExplored[0]] = uiStartIndex;
+/**************************************************************
+ * Tell if a path between two vertices exists.
+ **************************************************************
+ *
+ * Input:
+ *      uiStartIndex:           The starting vertex.
+ *      uiEndIndex:             The ending vertex.
+ *      puiAlreadyExplored:     The table of the already explored vertices.
+ * Output:
+ *      bool:                   True if a path exists between the two, false else.
+ * PreCond:
+ * PostCond:
+ *      Throws a CException with the ID `MISSING_VERTEX_INDEX_EXCEPTION` if the source or destination doesn't exist. //TODO Victor
+ */
+bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex, unsigned int ** puiAlreadyExplored)
+{
+	if(!oGRAgraph.GRAhasVertex(uiStartIndex) || !oGRAgraph.GRAhasVertex(uiEndIndex))
+		throw CException(MISSING_VERTEX_INDEX_EXCEPTION, (char *)"One of those vertices doesn't exist");
+	
+	unsigned int * puiReachableIndices;
+	unsigned int uiReachableSize = oGRAgraph.GRAgetReachableIndices(uiStartIndex, &puiReachableIndices);
+	
+	(*puiAlreadyExplored)[0]++;
+	RREALLOC(*puiAlreadyExplored, unsigned int, (*puiAlreadyExplored)[0] + 1, "GRThasPath");
+	(*puiAlreadyExplored)[(*puiAlreadyExplored)[0]] = uiStartIndex;
 
-	for(unsigned int uiIndex = 0; uiIndex < puiReachableIndices[0]; uiIndex++)
-    {
-        //If the end is directly reachable
-        if(puiReachableIndices[uiIndex +1] == uiEndIndex)
-        {
-            free(puiReachableIndices);
-            return true;
-        }
+	for(unsigned int uiIndex = 0; uiIndex < uiReachableSize; uiIndex++)
+	{
+		//If the end is directly reachable
+		if(puiReachableIndices[uiIndex] == uiEndIndex)
+		{
+			free(puiReachableIndices);
+			return true;
+		}
 
-        //Verify if the next vertex hasn't already been explored
-        bool bIsExplored = false;
-        for(unsigned int uiIndex2 = 0; uiIndex2 < puiAlreadyExplored[0]; uiIndex2++)
-            if(puiReachableIndices[uiIndex +1] == puiAlreadyExplored[uiIndex2 +1])
-            {
-                bIsExplored = true;
-                break;
-            }
-        if(bIsExplored)
-            continue;
+		//Verify if the next vertex has already been explored
+		bool bIsExplored = false;
+		for(unsigned int uiIndex2 = 0; uiIndex2 < (*puiAlreadyExplored)[0]; uiIndex2++)
+			if(puiReachableIndices[uiIndex] == (*puiAlreadyExplored)[uiIndex2 + 1])
+			{
+				bIsExplored = true;
+				break;
+			}
+		if(bIsExplored)
+			continue;
 
-        //In any other case, explore the next vertex
-        bool bHasPath = GRThasPath(puiReachableIndices[uiIndex +1], uiEndIndex, puiAlreadyExplored);
-        if(bHasPath)
-        {
-            free(puiReachableIndices);
-            return true;
-        }
-    }
-    free(puiReachableIndices);
-	return false; //TODO
+		//In any other case, explore the next vertex
+		bool bHasPath = GRThasPath(puiReachableIndices[uiIndex], uiEndIndex, puiAlreadyExplored);
+		if(bHasPath)
+		{
+			free(puiReachableIndices);
+			return true;
+		}
+	}
+	free(puiReachableIndices);
+	return false;
 }

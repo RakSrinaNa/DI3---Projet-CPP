@@ -1,5 +1,5 @@
 \input{header.tex}
-\title{Rapport - Projet Graph}
+\title{Rapport - Projet Individuel \no 20\\\Large Test de la connexité d'un graphe}
 \fancyhf{}
 \lhead{\leftmark}
 \lfoot{COLEAU Victor \& COUCHOUD Thomas}
@@ -9,229 +9,94 @@
 	\maketitle
 	\tableofcontents
 	\chapter{Présentation du sujet}
-		L'objectif de ce projet est de réaliser une librairie de classes et de fonctions permettant de manipuler des graphs. Celle-ci devra nous permettre de stocker en mémoire des graphs ainsi que leurs composants, à savoir des sommets et des arcs. De plus, il devra être possible d'effectuer des actions basiques telles qu'ajouter ou supprimer des éléments.
+		L'objectif de ce projet est de réaliser l'implémentation d'une fonction permettant de déterminer si un graphe est connexe tout en se basant sur la librairie que nous avons développée précédemment, lors du projet \no 2.		
 		
-		Enfin, il devra être possible de générer des graphs en important leur structure depuis des fichiers texte externes formatés comme indiqué dans le sujet.
+		Nous nous intéressons plus particulièrement aux graphs non-orientés mais il est à noter que la méthode implémentée peut aussi s'appliquer sur des graphs orientés.
+		
+		La connexité d'un graphe se détermine selon les chemins réalisables. En effet, si pour toute paire de sommets du graphe il existe un chemin entre eux, alors le graphe est dit connexe. De manière plus visuelle, un graphe connexe est un graphe dont tous les sommets font partie du même "bloc" (il n'y a pas plusieurs regroupements de sommets, mais un unique).
 	
 	\chapter{Architecture}
-		Avant toute chose, il est à noter la présence d'une classe CHashMap. Celle-ci fonctionne sur le principe d'une liste clé-valeur et nous permet principalement de stocker des informations pouvant avoir des noms différents d'un graph à l'autre.
+		Afin de répondre à cette question, nous avons décidé de créer une nouvelle classe appelée CGraphToolbox. Celle-ci contient l'ensemble des méthodes permettant des actions avancées sur un objet de la classe CGraph. Grâce à cela, nous pourrons, par la suite, ajouter d'autres méthodes utilisant les graphs sans modifier la classe CGraph elle-même.
 		
-		\begin{itemize}
-			\item Le nombre de propriétés stockées.
-			\item La liste des clés (chaines de caractères).
-			\item La liste des valeurs (double).
-		\end{itemize}
+		Un objet de la classe CGraphToolbox s'instancie par un constructeur prenant en argument un objet CGraph. La ToolBox va alors dupliquer le graph pour ensuite effectuer ses actions sur cette copie. Ce choix sera expliqué par la suite.\\
 		
-		Elle contient les méthodes suivantes :
-		\begin{itemize}
-			\item L'ajout d'une clé et de sa valeur.
-			\item Modifier la valeur d'une clé donnée.
-			\item Supprimer une clé.
-			\item Nettoyage de toutes les clé et valeur.
-			\item L'opérateur d'affectation duplicant l'ensemble des clé-valeur dans un autre HashMap.\\
-		\end{itemize}
-	
-		La classe centrale de notre projet est CGraph. Celle-ci représente un graph. Y sont stockées les informations suivantes:
-		\begin{itemize}
-			\item Le nombre de sommets contenus dans le graph.
-			\item L'indice du plus grand sommet du graph (choix expliqué par la suite).
-			\item Un tableau 1D contenant des pointeurs sur les objets sommets.\\
-		\end{itemize}
-		De plus, cette classe contient l'ensemble des méthodes demandées telles que :
-		\begin{itemize}
-			\item L'ajout d'un sommet au graph.
-			\item La suppression d'un sommet du graph.
-			\item La vérification de l'existance d'un sommet dans le graph.
-			\item L'ajout d'un arc (orienté) entre deux sommets existants.
-			\item La suppression d'un arc entre deux sommets.
-			\item La modification d'un arc par redirection de son sommet d'arrivé.
-			\item La vérification de l'existance d'un arc dans le graph.
-			\item L'ajout d'un lien (arc dans les deux sens) entre deux sommets.
-			\item L'ajout d'une propriété (et sa valeur) pour un sommet donné.
-			\item La modification de la valeur d'une propriété pour un sommet donné.
-			\item La lecture de la valeur d'une propriété donnée pour un sommet donné.
-			\item La suppression d'une propriété pour un sommet donné.
-			\item L'ajout d'une propriété (et de sa valeur) d'un arc entre deux sommets donnés.
-			\item La modification de la valeur d'une propriété d'un arc entre deux sommets donnés.
-			\item La lecture de la valeur d'une propriété d'un arc entre deux sommets donnés.
-			\item La suppression d'une propriété d'un arc entre deux sommets donnés.
-			\item L'inversion du graph (invertion de tous les arcs).
-			\item Le nettoyage du graph.
-			\item L'affichage du graph.
-			\item L'opérateur d'addition ajoutant un sommet.
-			\item L'opérateur de soustraction supprimant un sommet.
-			\item L'opérateur d'affectation duplicant un graph dans un autre.\\
-		\end{itemize}
+		La classe CGraphToolbox ne contient pour l'instant que 3 méthodes principales : GRTtransformNonOriented, GRThasPath et GRTisConnex.\\
 		
-		Deux autres classes se distinguent par leur importance : CVertex (un sommet) et CArc (un arc).\\
+		La méthode GRTtransformNonOriented transforme le graph actuel de la ToolBox en un graph non-orienté. Cela signifie que pour tous points reliés par un unique arc (dans un seul sens), ils seront dorénavant reliés dans les deux sens. Cette action est irréversible.\\
 		
-		La classe CVertex contient les informations suivantes.
+		La méthode GRThasPath prend en paramètres 2 indices de sommets (le départ et l'arrivée) et renvoie un booléen indiquant l'existence d'un chemin entre ces 2 points. Si l'un des ces 2 sommets n'existe pas dans le graph, une exception sera levée.
+		
+		Il est à noter que l'exécution de cette méthode se fait par appels récursifs, mais que la première récursion se fait sur une surcharge de cette même méthode prenant en paramètre supplémentaire un tableau contenant les indices des sommets déjà visités par l'algorithme.
+		
+		Cet algorithme peut se décomposer de la manière suivante :
 		\begin{itemize}
-			\item L'indice du sommet.
-			\item Le nombre d'arcs entrants.
-			\item Un tableau 1D de pointeurs sur les arcs entrants.
-			\item Le nombre d'arcs sortants.
-			\item Un tableau 1D de pointeurs sur les arcs sortants.
-			\item Un CHashMap de ces propriétés.\\
+			\item Ajout du sommet courant (celui dit de départ) au tableau des indices déjà explorés.
+			\item Pour chaque sommet atteignable depuis le sommet courant on va vérifier/faire :
+			\begin{itemize}
+				\item S'il s'agit du sommet d'arrivée, on renvoie vrai. Ceci va fermer toutes les récursions et terminer la méthode.
+				\item S'il est dans la liste des sommets déjà explorés, on l'ignore et passe au suivant. Cela permet d'éviter les boucles infinies où l'on tournerait entre plusieurs sommets sans jamais voir les autres.
+				\item Si aucune des conditions précédentes n'est remplie, on lance une récursion avec pour nouveau sommet de départ le sommet atteignable.
+			\end{itemize}
+			\item Si aucune des récursions précédentes n'a renvoyé vrai, on renvoie alors faux. Cela termine la méthode.\\
 		\end{itemize}
-		Cette classe contient des méthodes servants principalement à modifier les arcs contenus.
-		\begin{itemize}
-			\item L'accesseur à l'indice du sommet.
-			\item L'accesseur au nombre d'arcs entrants.
-			\item L'accesseur au nombre d'arcs sortants.
-			\item L'ajout (par la création) d'un arc entrant.
-			\item La suppression d'un arc entrant.
-			\item La modification d'un arc entrant.
-			\item L'ajout (par la création) d'un arc sortant.
-			\item La suppression d'un arc sortant.
-			\item La modification d'un arc sortant.
-			\item La vérification de l'existance d'un arc entrant.
-			\item La vérification de l'existance d'un arc sortant.
-			\item L'ajout d'une propriété (et de sa valeur).
-			\item La modification de la valeur d'une propriété.
-			\item La lecture de la valeur d'une propriété.
-			\item La suppression d'une propriété.
-			\item L'ajout d'une propriété (et de sa valeur) d'un un arc sortant vers un sommet donné.
-			\item La modification de la valeur d'une propriété d'un arc sortant vers un sommet donné.
-			\item La lecture de la valeur d'une propriété d'un arc sortant vers un sommet donné.
-			\item La suppression d'une propriété d'un arc sortant vers un sommet donné.
-			\item L'affichage des arcs entrants.
-			\item L'affichage des arcs sortants.
-			\item L'invertion des arcs.
-			\item L'opérateur d'affectation duplicant le contenu d'un sommet dans un autre.\\
-		\end{itemize}
+		Cet algorithme est assez efficace pour deux raisons : premièrement, il s'arrête dès qu'il trouve un chemin, et deuxièmement, s'il venait à devoir parcourir presque tout le graph, la liste des sommets déjà explorés permet de réduire considérablement les possibilités de chemin à chaque nouvelle itération.\\
 		
-		La classe CArc ne contient que peu d'informations.
-		\begin{itemize}
-			\item L'indice du sommet pointé par l'arc.
-			\item Un HashMap de ces prorpiétés.\\
-		\end{itemize}
-		Elle contient les méthodes suivantes :
-		\begin{itemize}
-			\item L'accesseur à l'indice de l'arc.
-			\item Le mutateur de l'indice de l'arc.
-			\item L'ajout d'une propriété (et de sa valeur).
-			\item La modification de la valeur d'une propriété.
-			\item La lecture de la valeur d'une propriété.
-			\item La suppression d'une propriété.
-			\item L'opérateur d'affectation duplicant un arc.\\
-		\end{itemize}
+		Enfin la méthode GRTisConnex ne fait que peu d'instructions elle-même. Elle va simplement appeler la méthode GRThasPath pour chaque couple de sommets. Il est à noter que les points d'arrivée sont choisis parmi les points qui n'ont pas encore été des sommets de départ. Ceci permet d'éviter des recherches inutiles car si le chemin entre les sommets X et Y existe, inutile de tester celui entre Y et X.
 		
-		Afin de pouvoir lire des graphs externes au programme, nous avons implémenté une classe statique CGraphParser. Cette dernière propose différentes fonction permettant la lecture d'un fichier. Nous avons par exemple la possibilité de lire une ligne, la découper selon un caractère etc. Grâce à celle-ci, le constructeur prenant en paramètre un nom de fichier va pouvoir lire de manière plus aisée le ficher graph. Si des prorpiétés sont attendues, celles-ci devront se situer après les ID correspondants (ID du sommet pour une propriété d'une sommet ou après les ID des deux sommets pour une propriété d'un arc).
+		Là encore, l'algorithme s'arrête dès qu'un des chemins n'existe pas car cela signifie que le graph n'est pas connexe.\\\\
 		
+		Afin de simplifier l'exécution des méthodes précédemment présentées, nous avons rajouté deux méthodes dans les classes CGraph et CVertex.\\
 		
-		\img{../../classDiagram.png}{Diagramme de classes}{0.34}{0}
+		GRAgetRechableIndices renvoie dans un tableau la liste des sommets atteignables à partir d'un indice passé en paramètre. Lève une exception si le sommet n'existe pas dans le graph de la ToolBox.
+		
+		VERgetRechableIndices renvoie dans un tableau la liste des sommets atteignables à partir du sommet en cours.
+		
+		\newpage
+		\img{../../classDiagram.png}{Diagramme de classes}{0.4}{90}
 		
 	\chapter{Choix de codage}
-		Avant toute chose, nous avons prit la décision de créer un fichier nommé "utils.h". Celui-ci contient des macros permettant de compiler sous Visual Studio et un système Unix (utilisation des méthodes propres à chaque compilateur). De plus, il contient un certain nombre de macros utilitaires, notamment MMALLOC et RREALLOC allouant l'espace mémoire demandé tout en vérifiant le bon déroulement.\\
-	
-		Un point important est l'absence d'accesseurs des objets CVertex et CArc depuis un graph. De cette façon, l'utilisateur ne peut pas modifier un sommet ou un arc appartenant à un graph en appelant les méthodes de CVertex ou de CArc directement sur l'objet en question. Il est obligé de passer par les méthodes de CGraph qui appeleront elles-mêmes les sous-méthodes nécessaires.
+		Le premier choix que nous avons du faire est celui de la recopie (ou non) du graph lors de la création de la ToolBox. L'autre solution aurait été de ne garder qu'une référence (un pointeur) sur l'objet graph en courant. Cela aurait économisé du temps de recopie et de la mémoire. Cependant, certaines méthodes de la ToolBox modifient de manière irréversible le graph. C'est à cause de cela que nous avons prit la décision de dupliquer le graph afin que l'original ne soit jamais modifié malgré les actions de la ToolBox.\\
 		
-		Cela évite qu'un sommet (ou un arc) soit ajouté, modifié ou supprimé sans que l'objet graph n'en soit informé ce qui évite un état incohérent du graph..\\
+		Un deuxième choix à expliquer est celui de la forme du tableau des indices déjà explorés. En effet, on remarque qu'aucun paramètre représentant la taille de ce tableau n'est passé à chaque appel de récursivité. Ceci s'explique par le fait que la taille est contenue dans la première case de ce tableau de 'unsigned int'.
 		
-		Un deuxième choix important est le stockage des sommets dans le graph. Plutôt que d'ajouter à la suite tous les sommets dans un tableau (stockage par ordre d'arrivé), nous posons chaque sommet à la position du tableau égale à l'indice du sommet moins 1. Ainsi le sommet 1 est à la position 0, le 10 à la position 9, etc..\\
+		Cette méthode à deux avantages :
+		\begin{itemize}
+			\item On économise le passage d'un argument à chaque récursion, économisant de la mémoire. (avantage assez limité)
+			\item Mais surtout, le tableau contient ainsi toujours au moins une case, celle de la taille. En effet, même si aucune réelle valeur n'est contenue, la première case aura la valeur 0. Ceci permet de facilité l'utilisation des Malloc, Réalloc et Free car il est dorénavant utile de vérifier la taille à chaque modification du tableau (Realloc s'il contient déjà des valeurs, Malloc si c'est un nouveau tableau, Free s'il est vidé, etc..). On utilise un Malloc la toute première fois puis uniquement des Realloc car la taille ne deviendra jamais nulle.\\
+		\end{itemize}
 		
-	
-		Concernant le parser, nous avons fait le choix de séparer les méthodes "utilitaires" dans une classe CGraphParser. En effet de cette manière cette classe pourra être réutilisée par la suite pour lire des fichiers similaire. La partie propre à l'interprétation d'un fichier graph se fait dans le constructeur CGraph.\\
+		Enfin, malgré les consignes du sujet, nous avons remarqué que notre méthode permettent de connaitre la connexité d'un graph ne demandait pas forcement un graph non-orienté et fonctionnait aussi sur un orienté.
 		
-		Une classe CHashMap est disponible afin de pouvoir stocker les différentes propriétés que peuvent avoir les sommets ou arcs. Par manque de temps, celle-ci ne gère que des doubles.\\
+		Nous avons donc choisi de séparer la méthode de connexité de celle transformant la graph en non-orienté. Cela augmente ainsi les possibilités de la librairie en distinguant bien deux actions différentes mais toujours compatibles.
 		
-		Nous avons choisi de stocker les propriétés des chemins uniquement dans les arcs sortants de chaque sommet. En effet, dupliquer cette information dans les arcs entrants entraine un redondance des données et est plus contraignant à garder cohérent.
 	\chapter{Tests effectués}
-		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé de nombreux tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX.
+		Afin de pouvoir valider le fonctionnement de notre code, nous avons réalisé quelques tests. Certains ont été réalisés manuellement mais un bon nombre d'entre eux ont été écrits sous forme de "test unitaires". Ceux-ci sont présents dans les fichiers CXXXTest.cpp qui vont respectivement tester leur classe XXX. Une grosse partie de ceux-ci proviennent des tests effectués lors de la partie 2 du projet. Seule la classe CGraphToolboxUnit a été ajoutée.
 		
-		Nous sommes conscients que les tests sont très minimalistes et ne couvrent pas tout, cependant cela est déjà un bon départ pour vérifier un fonctionnement "normal". De plus chaque test n'est effectué qu'une seule fois ce qui peut mettre en doute l'efficacité de ceux-ci.
-		
-		Commençons par CExceptionUnit:
+		Celle-ci contient les tests suivants
 		\begin{itemize}
-			\item Tests des différents constructeur impliquant l'ID de l'exception ainsi que des getters et setters de celui-ci.
-			\item Tests des différents constructeur impliquant le message de l'exception ainsi que des getters et setters de celui-ci.\\
-		\end{itemize}
-		Ceux-ci sont très généralistes mais couvrent relativement bien les différentes utilisations d'un objet de cette classe.
-		
-		Les tests de CHashMap sont les suivants:
-		\begin{itemize}
-			\item Test de récupération d'une valeur non existante.
-			\item Test de modification d'une valeur non existante.
-			\item Test de l'ajout et récupération d'une valeur.
-			\item Test d'ajout une valeur dupliquée.
-			\item Test de la suppression d'une valeur.
+			\item Test de la transformation d'un graph orienté en un graph non-orienté.
+			\item Test de la fonction indiquant si un chemin existe entre deux sommets.
+			\item Test de la fonction indiquant si un chemin existe entre deux sommets avec pour sommet de départ un sommet n'existant pas.
+			\item Test de la fonction indiquant si un chemin existe entre deux sommets avec pour sommet d'arrivée un sommet n'existant pas.
+			\item Test de la fonction indiquant la connexité d'un graph.
 		\end{itemize}
 		
-		Intéressons-nous maintenant à CArc:
-		\begin{itemize}
-			\item Test de la création d'un arc sans paramètres.
-			\item Test de la création d'un arc avec une destination et vérification de l'accesseur associé.
-			\item Test de la modification de la destination d'un arc.
-		\end{itemize}
-		
-		Passons ensuite aux tests contenus dans CVertex:
-		\begin{itemize}
-			\item Test de la création d'un sommet sans paramètres.
-			\item Test de la création d'un sommet avec un ID et vérification de l'accesseur associé.
-			\item Test de l'ajout d'un arc entrant.
-			\item Test de la fonction indiquant si un arc entrant existe.
-			\item Test de l'ajout d'un arc entrant dupliqué.
-			\item Test de la suppression d'un arc entrant.
-			\item Test de la suppression d'un arc entrant n'existant pas.
-			\item Test de la modification d'un arc entrant.
-			\item Test de la modification d'un arc entrant n'existant pas.
-			\item Test de l'ajout d'un arc sortant.
-			\item Test de la fonction indiquant si un arc sortant existe.
-			\item Test de l'ajout d'un arc sortant dupliqué.
-			\item Test de la suppression d'un arc sortant.
-			\item Test de la suppression d'un arc sortant n'existant pas.
-			\item Test de la modification d'un arc sortant.
-			\item Test de la modification d'un arc sortant n'existant pas.
-			\item Test de l'opérateur =.
-			\item Test du constructeur de recopie.
-		\end{itemize}
-		
-		Etudions dès à présent CGraph:
-		\begin{itemize}
-			\item Test de l'ajout d'un sommet.
-			\item Test de la fonction indiquant si un sommet existe.
-			\item Test de la suppression d'un sommet.
-			\item Test de la suppression d'un sommet n'existant pas.
-			\item Test de l'opérateur +.
-			\item Test de l'opérateur -.
-			\item Test de la fonction renvoyant le nombre de sommets du graph.
-			\item Test de la fonction renvoyant la liste des ID de tous les sommets.
-			\item Test de l'ajout d'un arc.
-			\item Test de la suppression d'un arc.
-			\item Test de l'ajout d'un arc avec une destination inexistante.
-			\item Test de la suppression d'un arc avec une destination inexistante.
-			\item Test de l'ajout d'un arc avec un départ inexistant.
-			\item Test de la suppression d'un arc avec un départ inexistant.
-			\item Test de la modification d'un arc.
-			\item Test de la modification d'un arc avec des sommets inexistants.
-			\item Test de l'ajout d'un lien.
-			\item Test de la suppression d'un sommet contenant des arcs entrants/sortants.
-			\item Test de l'opérateur =.
-			\item Test du constructeur prenant un fichier en paramètre.
-		\end{itemize}
-		
-		Enfin les derniers tests sont effectués dans CGraphParser:
-		\begin{itemize}
-			\item Test de la fonction pour obtenir la partie valeur.
-			\item Test de la fonction pour obtenir la partie clef.
-			\item Test de la fonction permettant de couper un string selon des délimiteurs.
-			\item Test de la fonction permettant de renvoyer un tableau après une découpe par délimiteur.
-			\item Test de la fonction permettant de raccourcir un string en retirant les caractères non utiles en début et fin de string.
-		\end{itemize}
-	
+		De plus, un test valgrind est réalisé sur la phase d'execution des tests.
+			
 	\chapter{Conseils d'utilisation}
 	Le programme a été conçu et compilé de sorte que l'exécutable puisse prendre en arguments un fichier source de graph formaté comme défini dans le sujet.
 	
 	Suite à cela, il va exécuter les instructions suivantes :
 	\begin{itemize}
-		\item Affichage du graph.
-		\item Création d'un nouveau graph étant l'inverse du premier.
-		\item Affichage de ce dernier. \\
+		\item Affichage de la connexité du graph.
+		\item Affichage de la connexité du graph après transformation en un graph non orienté. \\
 	\end{itemize}
-	Pour une utilisation en tant que librairie, tout se fait à partir d'un objet CGraph. Bien que des sommets et arcs peuvent être instanciés hors d'un graph, ceux-ci ne pourront être inclus dans le graph. Tout objet interne au graph devra et sera construit (et modifié) par les méthodes appropriées du graph.
+	Pour une utilisation en tant que librairie, tout se fait à partir d'un objet CGraphToolbox. Celle-ci dupliquera le graph passé en paramètre lors de sa création et offrira différentes fonctionnalités sur ce dernier. Cela comprend:
+	\begin{itemize}
+		\item Transformation du graph en un graph non-orienté.
+		\item Savoir si un chemin existe entre deux sommets.
+		\item Savoir si le graph est connexe.\\
+	\end{itemize}
 	
-	Il est de plus possible d'ajouter des propriétés sur un arc ou un sommet afin de pouvoir étendre les capacités de notre librairie au delà de la simple visualisation de graph.
-
 	Pour toute information supplémentaire sur les méthodes, se référer aux cartouches d'entête présents dans les fichiers .h.
 \end{document}

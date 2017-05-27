@@ -2,6 +2,7 @@
 #include "tests/CUnit.h"
 
 #include "CGraph.h"
+#include "CGraphToolbox.h"
 
 int main(int argc, char * argv[])
 {
@@ -11,20 +12,19 @@ int main(int argc, char * argv[])
 	}
 	else if(argc == 2)
 	{
-		CGraph * poGRAgraph1 = new CGraph(argv[1]);
+		CGraph oGRAgraph = CGraph(argv[1]);
+		CGraphToolbox oGRTtoolbox = CGraphToolbox(oGRAgraph);
 		
-		poGRAgraph1->GRAdisplay();
+		oGRTtoolbox.GRTgetGraph().GRAdisplay();
 		
-		CGraph oGRAgraph2;
-		oGRAgraph2 = *poGRAgraph1;
+		printf("Is this graph connex? %d\n", oGRTtoolbox.GRTisConnex());
 		
-		oGRAgraph2.GRAinvert();
-		
-		oGRAgraph2.GRAdisplay();
+		oGRTtoolbox.GRTtransformNonOriented();
+		printf("Is this non oriented graph connex? %d\n", oGRTtoolbox.GRTisConnex());
 	}
 	else
 	{
-		std::cout << "Plusieurs parametres sont presents. Seulement UN nom de fichier est attendu." << std::endl;
+		std::cout << "Several arguments are present. Only one file name is expected." << std::endl;
 	}
 #ifdef _MSC_VER
 	std::cout << "Appuyez sur une touche pour continuer...";
