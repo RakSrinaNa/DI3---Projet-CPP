@@ -105,7 +105,7 @@ bool CGraphToolbox::GRTisConnex()
 	unsigned int * puiVertexIndices = oGRAgraph.GRAgetVertexIndices();
 	for(unsigned int uiVertexStartIndex = 0; uiVertexStartIndex < oGRAgraph.GRAgetVertexCount(); uiVertexStartIndex++)
 	{
-		for(unsigned int uiVertexEndIndex = uiVertexStartIndex + 1; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
+		for(unsigned int uiVertexEndIndex = 0; uiVertexEndIndex < oGRAgraph.GRAgetVertexCount(); uiVertexEndIndex++)
 		{
 			if(!GRThasPath(puiVertexIndices[uiVertexStartIndex], puiVertexIndices[uiVertexEndIndex]))
 			{
@@ -133,6 +133,8 @@ bool CGraphToolbox::GRTisConnex()
  */
 bool CGraphToolbox::GRThasPath(unsigned int uiStartIndex, unsigned int uiEndIndex)
 {
+	if(uiStartIndex == uiEndIndex)
+		return true;
 	unsigned int * puiAlreadyExplored;
 	MMALLOC(puiAlreadyExplored, unsigned int, 1, "GRThasPath");
 	puiAlreadyExplored[0] = 0;
