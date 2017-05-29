@@ -49,18 +49,19 @@ void CGraphToolboxUnit::GRTUnitTests()
 			CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 5.2");
 	}
 	
-	if(!oGRTtoolbox.GRTisConnex() || !oGRTtoolbox2.GRTisConnex() || !oGRTtoolbox3.GRTisConnex())
-		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 6");
+	if(!oGRTtoolbox.GRTisConnex())
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 6.1");
+	if(!oGRTtoolbox2.GRTisConnex())
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 6.2");
+	if(oGRTtoolbox3.GRTisConnex())
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 6.3");
 	
 	CGraph oGRAgraph3 = CGraph((char *) "g5.txt");
 	CGraphToolbox oGRTtoolbox4 = CGraphToolbox(oGRAgraph3);
 	if(oGRTtoolbox4.GRTisConnex())
 		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 7");
 	
-	if(oGRTtoolbox3.GRTisConnex())
-		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 8");
-	
 	oGRTtoolbox3.GRTtransformNonOriented();
 	if(!oGRTtoolbox3.GRTisConnex())
-		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 9");
+		CUnit::UNITassertError("ASSERT CGRAPHTOOLBOX 8");
 }
